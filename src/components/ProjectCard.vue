@@ -2,8 +2,10 @@
 import { ref } from 'vue';
 import type { Project } from '../data/projects';
 
-import { useI18n } from 'vue-i18n';
-const { t, locale } = useI18n();
+
+import { useTranslations } from "../composables/useTranslations";
+
+const { t, currentLocale } = useTranslations();
 
 const props = defineProps<{
     project: Project;
@@ -41,12 +43,12 @@ const handleMouseLeave = () => {
                 class="absolute -top-2 left-2 w-12 h-1 bg-gradient-to-r from-[#43cb9c] via-[#36a880] to-[#43cb9c] rounded-full animate-pulse">
             </div>
 
-            <img v-if="project.image" :src="project.image" :alt="project[locale].title"
+            <img v-if="project.image" :src="project.image"
                 class="w-full h-48 object-cover rounded-md mb-4 border border-[#43cb9c]/20" />
 
             <div class="flex flex-col flex-grow pt-2">
-                <h3 class="text-xl font-bold mb-2 text-white">{{ project[locale].title }}</h3>
-                <p class="text-gray-400 text-sm mb-6 flex-grow">{{ project[locale].shortDescription }}</p>
+                <h3 class="text-xl font-bold mb-2 text-white">{{ currentLocale ? project[currentLocale].title: '' }}</h3>
+                <p class="text-gray-400 text-sm mb-6 flex-grow">{{ currentLocale ? project[currentLocale].shortDescription: '' }}</p>
 
                 <div class="w-full h-px bg-white/10 mt-auto"></div>
 

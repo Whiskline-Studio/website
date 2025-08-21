@@ -2,11 +2,13 @@
 import { ref, onMounted, onUnmounted } from 'vue';
 import { useScroll } from '../composables/useScroll';
 import { navLinks } from '../data/config';
-import { useI18n } from 'vue-i18n';
+import { useTranslations } from "../composables/useTranslations";
 import LanguageSwitcher from '../components/LanguageSwitcher.vue';
 
 const routeList = navLinks;
-const { t } = useI18n();
+
+const { t } = useTranslations();
+
 const { scrollToSection } = useScroll();
 
 const footerRef = ref<HTMLElement | null>(null);
@@ -41,16 +43,14 @@ onUnmounted(() => {
     class="relative bg-black/70 backdrop-blur-md text-gray-400 py-16 px-6 mt-32 border-t border-white/10 transition-all duration-700 ease-out"
     :class="isFooterVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'">
     <div class="led-bar"></div>
-    <div class="absolute bottom-8 right-8">
-      <LanguageSwitcher />
-    </div>
+
     <div class="max-w-7xl mx-auto">
       <div class="grid grid-cols-1 md:grid-cols-3 gap-12 text-center md:text-left">
 
         <div class="flex flex-col items-center md:items-start">
           <img src="@/assets/whiskline.png" alt="Whiskline Logo" class="h-12 object-contain mb-4" />
           <p class="max-w-xs text-sm">
-          <p>{{ t('footer.description') }}</p>
+            <span>{{ t('footer.description') }}</span>
           </p>
         </div>
 
@@ -124,6 +124,9 @@ onUnmounted(() => {
         </div>
       </div>
     </div>
+    <div class="w-full flex justify-center md:justify-end pt-8 md:pt-0 md:absolute md:bottom-8 md:right-8">
+  <LanguageSwitcher />
+</div>
   </footer>
 </template>
 

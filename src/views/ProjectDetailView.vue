@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, computed, watch, onMounted } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
-import { useI18n } from 'vue-i18n';
+import { useTranslations } from "../composables/useTranslations";
 import { projects } from '../data/projects';
 import ContactSection from '../sections/ContactSection.vue';
 
@@ -9,8 +9,8 @@ import playstoreIcon from "@/assets/playstore.png";
 import steamIcon from "@/assets/steam.svg";
 import githubIcon from "@/assets/github2.svg";
 import behanceIcon from "@/assets/behance.svg";
+const { t, currentLocale, setLocale } = useTranslations();
 
-const { t, locale } = useI18n();
 const route = useRoute();
 const router = useRouter();
 const activeImage = ref<string | null>(null);
@@ -70,7 +70,7 @@ watch(() => route.path, () => {
             <img :src="project.bannerImage" :alt="project.pt.title"
                 class="absolute inset-0 w-full h-full object-cover animate-kenburns" />
             <div class="relative z-20 p-6">
-                <h1 class="text-4xl md:text-6xl font-extrabold mb-4">{{ project[locale].title }}</h1>
+                <h1 class="text-4xl md:text-6xl font-extrabold mb-4">{{ currentLocale ? project[currentLocale].title : '' }}</h1>
                 <div class="flex flex-wrap justify-center gap-2">
                     <span v-for="tag in project.tags" :key="tag"
                         class="bg-white/10 text-white px-3 py-1 rounded-full text-sm font-semibold">
@@ -83,9 +83,9 @@ watch(() => route.path, () => {
         <div class="max-w-6xl mx-auto px-6 py-16">
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-16">
                 <aside class="lg:col-span-1 space-y-6">
-                    <div v-if="project[locale].client">
+                    <div v-if=" currentLocale ? project[currentLocale].client : ''">
                         <h3 class="info-title">{{ t('projectPage.client') }}</h3>
-                        <p class="info-text">{{ project[locale].client }}</p>
+                        <p class="info-text">{{currentLocale ? project[currentLocale].client : ''}}</p>
                     </div>
                     <div>
                         <h3 class="info-title">{{ t('projectPage.platform') }}</h3>
@@ -102,7 +102,7 @@ watch(() => route.path, () => {
 
                 <div class="lg:col-span-2">
                     <h2 class="text-3xl font-bold text-white mb-4">{{ t('projectPage.aboutProject') }}</h2>
-                    <p class="text-gray-300 leading-relaxed whitespace-pre-line">{{ project[locale].fullDescription }}
+                    <p class="text-gray-300 leading-relaxed whitespace-pre-line">{{ currentLocale ? project[currentLocale].fullDescription : ''}}
                     </p>
 
                     <div v-if="project.testimonial" class="testimonial-card">
@@ -128,7 +128,7 @@ watch(() => route.path, () => {
                         <span class="arrow">&larr;</span>
                         <div>
                             <span class="nav-label">{{ t('projectPage.prevProject') }}</span>
-                            <span class="nav-title">{{ previousProject[locale].title }}</span>
+                            <span class="nav-title">{{ currentLocale? previousProject[currentLocale].title : ''}}</span>
                         </div>
                     </router-link>
                     <div v-else class="nav-block-placeholder"></div>
@@ -137,7 +137,7 @@ watch(() => route.path, () => {
                         class="nav-block group text-right">
                         <div class="flex-grow">
                             <span class="nav-label">{{ t('projectPage.nextProject') }}</span>
-                            <span class="nav-title">{{ nextProject[locale].title }}</span>
+                            <span class="nav-title">{{currentLocale? nextProject[currentLocale].title : ''}}</span>
                         </div>
                         <span class="arrow">&rarr;</span>
                     </router-link>

@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { useI18n } from 'vue-i18n';
-const { t } = useI18n();
+import { useTranslations } from "../composables/useTranslations";
+const { t } = useTranslations();
 </script>
 <template>
     <div class="not-found-container">

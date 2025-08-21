@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import { useI18n } from 'vue-i18n';
+import { useTranslations } from "../composables/useTranslations";
 import { useContactForm } from '../composables/useContactForm';
 import FullScreenLoader from '../components/FullScreenLoader.vue';
 
-const { t } = useI18n();
+const { t } = useTranslations();
+
 const { name, email, message, status, sending, handleSubmit } = useContactForm();
 
 type ContactReason = 'project' | 'bug';

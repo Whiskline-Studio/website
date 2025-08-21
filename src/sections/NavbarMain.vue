@@ -6,10 +6,10 @@ import { navLinks } from '../data/config';
 import { projects } from '../data/projects';
 import { useNavbarScroll } from '../composables/useNavbarScroll';
 import { useMobileMenu } from '../composables/useMobileMenu';
-import { useI18n } from 'vue-i18n';
+import { useTranslations } from "../composables/useTranslations";
 
 // --- Configuração ---
-const { t } = useI18n();
+const { t, currentLocale, setLocale } = useTranslations();
 const route = useRoute();
 const routeList = navLinks;
 const { scrollToSection } = useScroll();
@@ -61,10 +61,10 @@ const handleLinkClick = (id: string) => {
         </router-link>
 
         <div v-if="currentProject.icon" class="flex-grow flex items-center justify-center overflow-hidden h-full">
-          <img :src="currentProject.icon" :alt="currentProject.title" class="h-10 w-auto object-contain" />
+          <img :src="currentProject.icon" class="h-10 w-auto object-contain" />
         </div>
         <div v-else class="flex-grow flex items-center justify-center overflow-hidden h-full">
-          <span class="sm:inline">{{currentProject.title}}</span>
+          <span class="sm:inline">{{ currentLocale ? currentProject[currentLocale].title : ''}}</span>
         </div>
 
         <a href="/"

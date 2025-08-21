@@ -39,8 +39,10 @@
 </template>
 
 <script setup lang="ts">
-import { useI18n } from 'vue-i18n';
-const { t } = useI18n();
+import { useTranslations } from "../composables/useTranslations";
+
+const { t } = useTranslations();
+
 import LedBar from '../components/LedBar.vue';
 const scrollToSection = (id: string) => {
   const el = document.getElementById(id);

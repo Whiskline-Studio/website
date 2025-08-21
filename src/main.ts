@@ -1,19 +1,20 @@
-import { createApp } from 'vue';
-import App from './App.vue';
-import router from './router';
-import i18n, { loadLocale } from './i18n';
+// main.ts
+import { createApp } from "vue";
+import App from "./App.vue";
+import router from "./router";
+import { useTranslations } from "./composables/useTranslations";
 import './styles/main.css';
 
-async function bootstrap() {
-    const savedLanguage = localStorage.getItem('user-language') === 'en' ? 'en' : 'pt';
+const app = createApp(App);
+app.use(router);
 
-    // Espera o locale ser carregado antes de criar o app
-    await loadLocale(savedLanguage);
+const savedLocale = localStorage.getItem("user-language") as "en" | "pt" | null;
+const { setLocale, currentLocale } = useTranslations();
 
-    const app = createApp(App);
-    app.use(i18n);
-    app.use(router);
-    app.mount('#app');
+if (savedLocale) {
+  setLocale(savedLocale); // usa o salvo
+} else {
+  currentLocale.value = null; // usuário nunca escolheu
 }
 
-bootstrap();
+app.mount("#app");

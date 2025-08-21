@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { useI18n } from 'vue-i18n';
-const { t } = useI18n();
+
+import { useTranslations } from "../composables/useTranslations";
+const { t, currentLocale } = useTranslations();
 defineProps<{
     show: boolean;
 }>();
@@ -12,7 +13,7 @@ defineProps<{
             <div class="holo-effect"></div>
             <div class="loader-content">
                 <img src="@/assets/WHISKLINE_icon_main.png" alt="Carregando..." class="animate-spin-slow w-32 h-32" />
-                <p class="text-white/80 mt-6 text-lg">{{ t('loader.loading') }}</p>
+                <p class="text-white/80 mt-6 text-lg">{{ currentLocale? t('loader.loading') : 'Loading...'}}</p>
             </div>
         </div>
     </transition>

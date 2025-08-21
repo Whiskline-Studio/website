@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { useI18n } from 'vue-i18n';
+import { useTranslations } from "../composables/useTranslations";
 import BaseCard from '../components/BaseCard.vue';
 import LedBar from '../components/LedBar.vue';
-const { t } = useI18n();
+const { t } = useTranslations();
 </script>
 
 <template>
-    <section id="sobre" class="sobre-section relative w-full text-center">
+    <section id="sobre" class="sobre-section relative w-full h-screen flex flex-col justify-center items-center text-center p-6">
         <div class="absolute inset-0 bg-black/30"></div>
 
         <div class="relative z-10 max-w-5xl mx-auto px-6">

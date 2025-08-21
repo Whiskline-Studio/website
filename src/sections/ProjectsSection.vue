@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { ref } from "vue";
-import { useI18n } from 'vue-i18n';
+import { useTranslations } from "../composables/useTranslations";
 import { projects, type Project } from "../data/projects";
 import ProjectCard from '@/components/ProjectCard.vue';
 
-const { t } = useI18n();
+const { t } = useTranslations();
 const projectList = ref<Project[]>(projects);
 </script>
 
