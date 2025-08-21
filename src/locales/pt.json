@@ -1,0 +1,77 @@
+{
+    "loader": {
+        "loading": "Carregando..."
+    },
+    "nav": {
+        "home": "Início",
+        "back": "Votar",
+        "about": "Sobre",
+        "portfolio": "Portfólio",
+        "contact": "Contato"
+    },
+    "hero": {
+        "badge": "Tales of Bloomrise já disponível!",
+        "title": "Criamos {0} únicas",
+        "titleHighlight": "experiências digitais",
+        "description": "Desenvolvemos jogos, sites e aplicativos que conectam pessoas e ideias.",
+        "buttonStart": "Começar",
+        "buttonContact": "Contato"
+    },
+    "about": {
+        "title": "Sobre Nós",
+        "description": "Na {studioName}, transformamos ideias em experiências digitais únicas. Desenvolvemos jogos, sites e aplicativos com foco em design moderno, performance otimizada e interações que encantam e envolvem os usuários.",
+        "studioName": "Whiskline Studio",
+        "card1Title": "Jogos Inovadores",
+        "card1Text": "Experiências imersivas que cativam jogadores e exploram criatividade e narrativa de forma única.",
+        "card2Title": "Sites Modernos",
+        "card2Text": "Websites com design sofisticado, alta performance e foco na melhor experiência do usuário.",
+        "card3Title": "Apps Eficientes",
+        "card3Text": "Aplicativos intuitivos e funcionais, combinando tecnologia e design para soluções práticas e envolventes."
+    },
+    "portfolio": {
+        "title": "Portfólio",
+        "seeDetails": "Ver mais detalhes"
+    },
+    "contact": {
+        "titleProject": "Vamos Construir Algo Incrível",
+        "subtitleProject": "Tem uma ideia para um jogo, site ou aplicativo? Adoraríamos ouvir sobre ela.",
+        "titleBug": "Encontrou um Problema?",
+        "subtitleBug": "Agradecemos sua ajuda para melhorar nossos produtos. Por favor, descreva o bug em detalhes.",
+        "buttonProject": "Novo Projeto",
+        "buttonBug": "Reportar Bug",
+        "formName": "Seu nome",
+        "formEmail": "Seu email",
+        "formMessageProject": "Descreva sua ideia...",
+        "formMessageBug": "Descreva o problema em detalhes...",
+        "buttonSend": "Enviar Mensagem",
+        "buttonSending": "Enviando..."
+    },
+    "footer": {
+        "description": "Criando experiências digitais únicas que conectam pessoas e ideias através de jogos, sites e aplicativos.",
+        "navigation": "Navegação",
+        "followUs": "Siga-nos",
+        "rights": "© 2025 Whiskline Studio. Todos os direitos reservados.",
+        "madeBy": "Feito por"
+    },
+    "notFound": {
+        "title": "Página Não Encontrada",
+        "description": "Oops! Parece que você se perdeu no espaço digital. A página que você está procurando foi movida, deletada ou nunca existiu.",
+        "buttonBack": "Voltar para o Início"
+    },
+    "languageModal": {
+        "title": "Selecione seu idioma",
+        "subtitle": "Choose your language"
+    },
+    "projectPage": {
+        "client": "Cliente",
+        "platform": "Plataforma",
+        "liveProject": "Ver na ",
+        "liveProject2": "Ver no ",
+        "aboutProject": "Sobre o Projeto",
+        "gallery": "Galeria",
+        "prevProject": "Anterior",
+        "nextProject": "Próximo",
+        "notFound": "Projeto não encontrado.",
+        "backHome": "Voltar para a home"
+    }
+}

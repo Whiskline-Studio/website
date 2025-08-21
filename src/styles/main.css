@@ -1,0 +1,38 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+/* ===== ESTILIZAÇÃO CUSTOMIZADA DA BARRA DE ROLAGEM ===== */
+
+/* Para navegadores baseados em WebKit (Chrome, Safari, Edge, etc.) */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Define o fundo da barra de rolagem (a "pista") */
+::-webkit-scrollbar-track {
+    /* MUDANÇA AQUI: Alterado de uma cor escura para totalmente transparente */
+    background: transparent;
+}
+
+/* Define o "polegar" da barra de rolagem (a parte que você arrasta) */
+::-webkit-scrollbar-thumb {
+    background-color: #43cb9c;
+    /* A cor verde da sua marca */
+    border-radius: 10px;
+    border: 2px solid rgba(0, 0, 0, 0.5);
+    /* Borda escura para dar contraste com a página */
+    transition: background-color 0.3s ease;
+}
+
+/* Efeito de hover no "polegar" da barra de rolagem */
+::-webkit-scrollbar-thumb:hover {
+    background-color: #55ddaf;
+    /* Um tom de verde um pouco mais claro */
+}
+
+/* Para o Firefox */
+html {
+    scrollbar-width: thin;
+    /* MUDANÇA AQUI: A segunda cor (da pista) foi alterada para transparente */
+    scrollbar-color: #43cb9c black;
+}

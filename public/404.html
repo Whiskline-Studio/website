@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-g" />
+    <title>Whiskline Studio - Redirecionando...</title>
+    <script type="text/javascript">
+      var path = window.location.pathname;
+
+      sessionStorage.setItem("redirectPath", path);
+      window.location.replace(
+        "/" + (path.split("/")[1] || "") 
+      );
+    </script>
+  </head>
+  <body></body>
+</html>
