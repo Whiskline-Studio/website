@@ -5,15 +5,15 @@ import i18n, { loadLocale } from './i18n';
 import './styles/main.css';
 
 async function bootstrap() {
-    const app = createApp(App);
+    const savedLanguage = localStorage.getItem('user-language') === 'en' ? 'en' : 'pt';
 
+    // Espera o locale ser carregado antes de criar o app
+    await loadLocale(savedLanguage);
+
+    const app = createApp(App);
     app.use(i18n);
     app.use(router);
-
-    const savedLanguage = localStorage.getItem('user-language');
-    await loadLocale(savedLanguage === 'en' ? 'en' : 'pt');
-
     app.mount('#app');
 }
 
-bootstrap(); // chama a função async
+bootstrap();
