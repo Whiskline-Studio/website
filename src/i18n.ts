@@ -1,30 +1,23 @@
-// src/i18n.js
+// src/i18n.ts
 import { createI18n } from 'vue-i18n';
-import ptMessages from './locales/pt.json';
-import enMessages from './locales/en.json';
 
-// Fallback inicial
-const defaultLocale = 'pt';
-
-// Cria o i18n
 const i18n = createI18n({
     legacy: false,
-    globalInjection: true,
-    locale: defaultLocale,
+    globalInjection: true, // permite $t() no template
+    locale: 'pt',           // fallback inicial
     fallbackLocale: 'en',
-    messages: { pt: ptMessages, en: enMessages },
+    messages: {},           // vazio inicialmente
 });
 
-
-// Função para carregar o idioma salvo depois do mount
-export function initLocale() {
-    if (typeof localStorage !== 'undefined') {
-        const savedLanguage = localStorage.getItem('user-language');
-        if (savedLanguage === 'pt' || savedLanguage === 'en') {
-            i18n.global.locale.value = savedLanguage;
-        }
+export async function loadLocale(locale: 'pt' | 'en') {
+    try {
+        const messages = await import(`./locales/${locale}.json`);
+        i18n.global.setLocaleMessage(locale, messages.default);
+        i18n.global.locale.value = locale;
+        localStorage.setItem('user-language', locale);
+    } catch (e) {
+        console.error('Erro ao carregar locale', locale, e);
     }
 }
-
 
 export default i18n;
