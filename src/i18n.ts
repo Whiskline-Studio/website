@@ -9,13 +9,12 @@ const defaultLocale = 'pt';
 // Cria o i18n
 const i18n = createI18n({
     legacy: false,
+    globalInjection: true,
     locale: defaultLocale,
     fallbackLocale: 'en',
-    messages: {
-        pt: ptMessages,
-        en: enMessages,
-    },
+    messages: { pt: ptMessages, en: enMessages },
 });
+
 
 // Função para carregar o idioma salvo depois do mount
 export function initLocale() {
