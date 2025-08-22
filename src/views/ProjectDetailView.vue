@@ -3,7 +3,7 @@ import { ref, computed, watch, onMounted, onUnmounted } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { useTranslations } from "../composables/useTranslations";
 import { projects } from '../data/projects';
-import ContactSection from '../sections/ContactSection.vue';
+import ParticleFogBackground from '../components/ParticleFogBackground.vue'; 
 
 // Importa os ícones para o botão dinâmico
 import playstoreIcon from "@/assets/playstore.png";
@@ -101,10 +101,14 @@ watch(() => route.path, () => {
 
 <template>
     <div v-if="project" class="project-detail-page page-enter">
+        <ParticleFogBackground />
         <header class="relative h-[60vh] flex items-center justify-center text-center text-white overflow-hidden">
             <div class="absolute inset-0 bg-black/60 z-10"></div>
             <img :src="project.bannerImage" :alt="currentLocale ? project[currentLocale].title : ''" loading="lazy"
                 class="absolute inset-0 w-full h-full object-cover animate-kenburns" />
+
+            <div class="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-black to-transparent z-20"></div>
+
             <div class="relative z-20 p-6">
                 <h1 class="text-4xl md:text-6xl font-extrabold mb-4">{{ currentLocale ? project[currentLocale].title :
                     '' }}</h1>
@@ -185,13 +189,12 @@ watch(() => route.path, () => {
             </div>
         </div>
 
-        <ContactSection />
     </div>
 
     <div v-else class="text-center py-40 min-h-screen">
         <h1 class="text-3xl text-white">{{ t('projectPage.notFound') }}</h1>
         <router-link to="/" class="text-[#43cb9c] hover:underline mt-4 inline-block">{{ t('projectPage.backHome')
-            }}</router-link>
+        }}</router-link>
     </div>
     <Teleport to="body">
         <transition name="fade">
