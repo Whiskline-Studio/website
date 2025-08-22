@@ -28,6 +28,9 @@ const currentProject = computed(() => {
 });
 
 const accentColor = computed(() => {
+  if (route.name === 'about') {
+    return '#aaaaaa';
+  }
   return currentProject.value ? currentProject.value.accentColor : '#43cb9c';
 });
 
@@ -48,8 +51,7 @@ const handleLinkClick = (id: string) => {
     }" :style="{ boxShadow: `inset 0 0 10px ${accentColor}` }">
     <transition name="nav-content-swap" mode="out-in">
 
-      <div v-if="currentProject" :key="currentProject.id"
-        class="w-full h-full flex items-center justify-between gap-4">
+      <div v-if="currentProject" :key="currentProject.id" class="w-full h-full flex items-center justify-between gap-4">
         <router-link to="/"
           class="flex-shrink-0 flex items-center gap-2 text-white font-semibold px-4 py-2 bg-white/10 rounded-full backdrop-blur-sm hover:bg-white/20 transition-all">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
@@ -64,7 +66,7 @@ const handleLinkClick = (id: string) => {
           <img :src="currentProject.icon" loading="lazy" class="h-10 w-auto object-contain" />
         </div>
         <div v-else class="flex-grow flex items-center justify-center overflow-hidden h-full">
-          <span class="sm:inline">{{ currentLocale ? currentProject[currentLocale].title : ''}}</span>
+          <span class="sm:inline">{{ currentLocale ? currentProject[currentLocale].title : '' }}</span>
         </div>
 
         <a href="/"
@@ -73,8 +75,28 @@ const handleLinkClick = (id: string) => {
         </a>
       </div>
 
+      <div v-else-if="route.name === 'about'" key="about-nav"
+        class="w-full h-full flex items-center justify-center relative">
+
+        <router-link to="/"
+          class="absolute left-4 top-1/2 -translate-y-1/2 flex-shrink-0 flex items-center gap-2 text-white font-semibold px-4 py-2 bg-white/10 rounded-full backdrop-blur-sm hover:bg-white/20 transition-all">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd"
+              d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z"
+              clip-rule="evenodd" />
+          </svg>
+          <span class="hidden sm:inline">{{ t('nav.back') }}</span>
+        </router-link>
+
+        <router-link to="/" class="flex items-center" aria-label="Voltar para a página inicial">
+          <img src="@/assets/WHISKLINE_icon.png" alt="Logo Icon" class="w-9 h-9 mr-3 object-contain" />
+          <img src="@/assets/whiskline.png" alt="Whiskline" class="h-10 md:h-12 object-contain" />
+        </router-link>
+
+      </div>
+
       <div v-else :key="'home-nav'" class="w-full h-full flex items-center justify-between">
-        <router-link :to="{ name: 'home'}" class="flex items-center">
+        <router-link :to="{ name: 'home' }" class="flex items-center">
           <img src="@/assets/WHISKLINE_icon.png" loading="lazy" alt="Logo Icon" class="w-9 h-9 mr-3 object-contain" />
           <img src="@/assets/whiskline.png" loading="lazy" alt="Whiskline" class="h-10 md:h-12 object-contain" />
         </router-link>
