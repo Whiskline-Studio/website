@@ -9,7 +9,7 @@ const projectList = ref<Project[]>(projects);
 </script>
 
 <template>
-  <section id="portfolio" class="relative py-20 bg-black/80 backdrop-blur-md text-center">
+  <section id="portfolio" class="relative py-20 backdrop-blur-md text-center">
     <div class="max-w-6xl mx-auto px-6">
       <h2 class="text-4xl md:text-5xl font-extrabold mb-12 text-white">
         {{ t('portfolio.title') }}

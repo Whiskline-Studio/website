@@ -2,6 +2,7 @@
 import { useTranslations } from "../composables/useTranslations";
 import { ref } from 'vue';
 import { useAnimateOnScroll } from '../composables/useAnimateOnScroll';
+import AbstractBackground from '../components/AbstractBackground.vue';
 const sectionRef = ref(null);
 const { isVisible } = useAnimateOnScroll(sectionRef);
 
@@ -16,6 +17,7 @@ const scrollToSection = (id: string) => {
 <template>
 <section id="home" class="relative w-full h-screen snap-start flex flex-col justify-center items-center text-center p-6 overflow-hidden">
 
+    <AbstractBackground />
     <div class="absolute inset-0 z-0 opacity-50">
       <div v-for="n in 30" :key="n" class="particle" :style="{
         top: `${Math.random() * 100}%`,

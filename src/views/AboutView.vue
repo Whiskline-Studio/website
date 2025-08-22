@@ -97,7 +97,7 @@ const { isVisible: isCtaVisible } = useAnimateOnScroll(ctaRef);
                 :class="isCtaVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'">
                 <h2 class="text-4xl font-bold mb-4">{{ t('aboutPage.ctaTitle') }}</h2>
                 <p class="text-gray-400 text-lg mb-8">{{ t('aboutPage.ctaSubtitle') }}</p>
-                <router-link to="/#portfolio"
+                <router-link to="/projeto/tales-of-bloomrise"
                     class="inline-block px-8 py-3 rounded-full bg-gradient-to-r from-[#43cb9c] via-[#36a880] to-[#43cb9c] text-black font-bold shadow-lg hover:shadow-xl hover:scale-105 transform transition-all duration-300">
                     {{ t('aboutPage.ctaButton') }}
                 </router-link>

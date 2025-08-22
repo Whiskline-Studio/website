@@ -71,6 +71,7 @@ const handleMouseLeave = () => {
 .card-container {
     position: relative;
     perspective: 1000px;
+    z-index: 10;
     --glow-opacity: 0;
 }
 

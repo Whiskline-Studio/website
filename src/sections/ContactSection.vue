@@ -3,6 +3,7 @@ import { ref } from 'vue';
 import { useTranslations } from "../composables/useTranslations";
 import { useContactForm } from '../composables/useContactForm';
 import FullScreenLoader from '../components/FullScreenLoader.vue';
+import GridScanBackground from '../components/GridScanBackground.vue';
 
 const { t } = useTranslations();
 
@@ -20,16 +21,19 @@ const setContactReason = (reason: ContactReason) => {
 <template>
     <FullScreenLoader :show="sending" />
 
-    <section id="contato" class="relative py-20 bg-black/80 backdrop-blur-md">
+    <section id="contato" class="relative py-20">
+    <GridScanBackground />
         <div class="max-w-3xl mx-auto px-6 text-center">
 
             <transition name="status-fade" mode="out-in">
                 <div :key="contactReason">
                     <h2 v-if="contactReason === 'project'" class="text-4xl md:text-5xl font-extrabold mb-4 text-white">
                         {{ t('contact.titleProject') }}</h2>
-                    <h2 v-else class="text-4xl md:text-5xl font-extrabold mb-4 text-white">{{ t('contact.titleBug') }}</h2>
+                    <h2 v-else class="text-4xl md:text-5xl font-extrabold mb-4 text-white">{{ t('contact.titleBug') }}
+                    </h2>
 
-                    <p v-if="contactReason === 'project'" class="text-gray-400 mb-12 max-w-xl mx-auto">{{ t('contact.subtitleProject') }}</p>
+                    <p v-if="contactReason === 'project'" class="text-gray-400 mb-12 max-w-xl mx-auto">{{
+                        t('contact.subtitleProject') }}</p>
                     <p v-else class="text-gray-400 mb-12 max-w-xl mx-auto">{{ t('contact.subtitleBug') }}</p>
                 </div>
             </transition>
@@ -101,7 +105,6 @@ const setContactReason = (reason: ContactReason) => {
 </template>
 
 <style scoped>
-
 .status-fade-enter-active,
 .status-fade-leave-active {
     transition: opacity 0.3s ease, transform 0.3s ease;
