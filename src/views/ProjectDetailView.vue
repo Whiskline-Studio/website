@@ -67,7 +67,7 @@ watch(() => route.path, () => {
     <div v-if="project" class="project-detail-page page-enter">
         <header class="relative h-[60vh] flex items-center justify-center text-center text-white overflow-hidden">
             <div class="absolute inset-0 bg-black/60 z-10"></div>
-            <img :src="project.bannerImage" :alt="project.pt.title"
+            <img :src="project.bannerImage" :alt="project.pt.title" loading="lazy"
                 class="absolute inset-0 w-full h-full object-cover animate-kenburns" />
             <div class="relative z-20 p-6">
                 <h1 class="text-4xl md:text-6xl font-extrabold mb-4">{{ currentLocale ? project[currentLocale].title : '' }}</h1>
@@ -94,7 +94,7 @@ watch(() => route.path, () => {
                     <div v-if="project.link && platformStyles">
                         <a :href="project.link" target="_blank"
                             :class="['button-cta', 'bg-gradient-to-br', platformStyles.color]">
-                            <img :src="platformStyles.icon" alt="" class="w-5 h-5" />
+                            <img :src="platformStyles.icon" alt="" class="w-5 h-5" loading="lazy"/>
                             <span>{{ platformStyles.text }} {{project.platform}}</span>
                         </a>
                     </div>
@@ -115,7 +115,7 @@ watch(() => route.path, () => {
                     <h2 v-if="project.gallery.length > 0" class="text-3xl font-bold text-white mt-12 mb-6">{{
                         t('projectPage.gallery') }}</h2>
                     <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
-                        <img v-for="img in project.gallery" :key="img" :src="img" class="gallery-image"
+                        <img v-for="img in project.gallery" loading="lazy" :key="img" :src="img" class="gallery-image"
                             @click="openImage(img)" />
                     </div>
                 </div>
@@ -149,7 +149,7 @@ watch(() => route.path, () => {
         <transition name="fade">
             <div v-if="activeImage" @click="closeImage"
                 class="fixed inset-0 bg-black/90 backdrop-blur-md z-50 flex items-center justify-center p-4">
-                <img :src="activeImage" alt="Visualização da galeria"
+                <img :src="activeImage" alt="Visualização da galeria" loading="lazy"
                     class="max-w-full max-h-full rounded-lg shadow-2xl" @click.stop />
             </div>
         </transition>

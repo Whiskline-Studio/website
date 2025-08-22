@@ -1,20 +1,45 @@
-<template>
-  <section id="home" class="relative w-full h-screen flex flex-col justify-center items-center text-center p-6">
+<script setup lang="ts">
+import { useTranslations } from "../composables/useTranslations";
+import { ref } from 'vue';
+import { useAnimateOnScroll } from '../composables/useAnimateOnScroll';
+const sectionRef = ref(null);
+const { isVisible } = useAnimateOnScroll(sectionRef);
 
-    <div class="inline-block mb-6 px-3 py-1 border border-[#43cb9c] text-[#43cb9c] font-semibold rounded-full text-sm">
+const { t } = useTranslations();
+
+import LedBar from '../components/LedBar.vue';
+const scrollToSection = (id: string) => {
+  const el = document.getElementById(id);
+  if (el) el.scrollIntoView({ behavior: "smooth" });
+};
+</script>
+<template>
+<section id="home" class="relative w-full h-screen snap-start flex flex-col justify-center items-center text-center p-6 overflow-hidden">
+
+    <div class="absolute inset-0 z-0 opacity-50">
+      <div v-for="n in 30" :key="n" class="particle" :style="{
+        top: `${Math.random() * 100}%`,
+        left: `${Math.random() * 100}%`,
+        animationDelay: `${Math.random() * 10}s`,
+        animationDuration: `${Math.random() * 10 + 10}s`
+      }">
+      </div>
+    </div>
+
+    <div data-animate="badge" class="inline-block mb-6 px-3 py-1 border border-[#43cb9c] text-[#43cb9c] font-semibold rounded-full text-sm">
       {{ t('hero.badge') }}
     </div>
 
-    <h1 class="text-5xl md:text-6xl font-extrabold text-white mb-6">
+    <h1 data-animate="title" class="text-5xl md:text-6xl font-extrabold text-white mb-6">
       {{ t('hero.title', { 0: '' }) }} <span class="...">{{ t('hero.titleHighlight') }}</span> {{
         t('hero.title').split('{0}')[1] }}
     </h1>
 
-    <p class="max-w-screen-sm mx-auto text-xl text-gray-300 mb-12">
+    <p data-animate="description" class="max-w-screen-sm mx-auto text-xl text-gray-300 mb-12">
       {{ t('hero.description') }}
     </p>
 
-    <div class="flex flex-col md:flex-row justify-center gap-4 mb-20">
+    <div data-animate="buttons" class="flex flex-col md:flex-row justify-center gap-4 mb-20">
       <a href="#portfolio" @click.prevent="scrollToSection('portfolio')"
         class="px-8 py-3 rounded-full bg-[#43cb9c] text-white font-bold shadow-lg hover:shadow-xl transition-all duration-300">
         {{ t('hero.buttonStart') }}
@@ -38,20 +63,72 @@
   <LedBar></LedBar>
 </template>
 
-<script setup lang="ts">
-import { useTranslations } from "../composables/useTranslations";
-
-const { t } = useTranslations();
-
-import LedBar from '../components/LedBar.vue';
-const scrollToSection = (id: string) => {
-  const el = document.getElementById(id);
-  if (el) el.scrollIntoView({ behavior: "smooth" });
-};
-</script>
 
 
 <style scoped>
+@keyframes enter-animation {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Aplica a animação com um 'delay' diferente para cada elemento */
+[data-animate="badge"] {
+  animation: enter-animation 0.7s 0.2s ease-out forwards;
+  opacity: 0;
+}
+
+[data-animate="title"] {
+  animation: enter-animation 0.7s 0.4s ease-out forwards;
+  opacity: 0;
+}
+
+[data-animate="description"] {
+  animation: enter-animation 0.7s 0.6s ease-out forwards;
+  opacity: 0;
+}
+
+[data-animate="buttons"] {
+  animation: enter-animation 0.7s 0.8s ease-out forwards;
+  opacity: 0;
+}
+
+/* --- ANIMAÇÃO DAS PARTÍCULAS DE FUNDO --- */
+.particle {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  background-color: rgba(67, 203, 156, 0.5);
+  /* Cor #43cb9c com opacidade */
+  border-radius: 50%;
+  animation-name: float;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0) scale(1);
+    opacity: 0.5;
+  }
+
+  50% {
+    transform: translateY(-25px) scale(1.3);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateY(0) scale(1);
+    opacity: 0.5;
+  }
+}
+
 .hero-section {
   display: flex;
   flex-direction: column;

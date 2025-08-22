@@ -2,26 +2,34 @@
 import { useTranslations } from "../composables/useTranslations";
 import BaseCard from '../components/BaseCard.vue';
 import LedBar from '../components/LedBar.vue';
+import { ref } from 'vue';
+import { useAnimateOnScroll } from '../composables/useAnimateOnScroll';
+
+const sectionRef = ref(null);
+const { isVisible } = useAnimateOnScroll(sectionRef);
 const { t } = useTranslations();
 </script>
 
 <template>
-    <section id="sobre" class="sobre-section relative w-full h-screen flex flex-col justify-center items-center text-center p-6">
+    <section ref="sectionRef" id="sobre"
+        class="sobre-section relative w-full text-center transition-all duration-700 ease-out"
+        :class="isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'">
         <div class="absolute inset-0 bg-black/30"></div>
 
         <div class="relative z-10 max-w-5xl mx-auto px-6">
             <h2 class="text-4xl md:text-5xl font-extrabold mb-12 text-white">
                 {{ t('about.title') }}
             </h2>
-            <i18n-t keypath="about.description" tag="p"
-                class="text-gray-300 text-lg md:text-xl leading-relaxed max-w-3xl mx-auto mb-12">
-                <template #studioName>
-                    <span
-                        class="text-transparent bg-gradient-to-r from-[#43cb9c] via-[#36a880] to-[#43cb9c] bg-clip-text font-semibold">
-                        {{ t('about.studioName') }}
-                    </span>
-                </template>
-            </i18n-t>
+
+            <p class="text-gray-300 text-lg md:text-xl leading-relaxed max-w-3xl mx-auto mb-12">
+                {{ t('about.description').split('{studioName}')[0] }}
+                <span
+                    class="text-transparent bg-gradient-to-r from-[#43cb9c] via-[#36a880] to-[#43cb9c] bg-clip-text font-semibold">
+                    {{ t('about.studioName') }}
+                </span>
+                {{ t('about.description').split('{studioName}')[1] }}
+            </p>
+
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-left w-full">
                 <BaseCard>
                     <h3 class="text-xl font-semibold mb-2 text-white">{{ t('about.card1Title') }}</h3>
@@ -36,11 +44,17 @@ const { t } = useTranslations();
                     <p class="text-gray-300">{{ t('about.card3Text') }}</p>
                 </BaseCard>
             </div>
+
+            <div class="mt-16">
+                <router-link to="/sobre"
+                    class="inline-block px-8 py-3 rounded-full border border-[#43cb9c] text-[#43cb9c] font-bold hover:bg-[#43cb9c]/20 transition-all duration-300">
+                    {{ t('about.seeMore') }}
+                </router-link>
+            </div>
+
         </div>
-
     </section>
-    <LedBar></LedBar>
-
+    <LedBar />
 </template>
 
 <style scoped>

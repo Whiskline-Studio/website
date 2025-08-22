@@ -26,7 +26,8 @@
         "card2Title": "Sites Modernos",
         "card2Text": "Websites com design sofisticado, alta performance e foco na melhor experiência do usuário.",
         "card3Title": "Apps Eficientes",
-        "card3Text": "Aplicativos intuitivos e funcionais, combinando tecnologia e design para soluções práticas e envolventes."
+        "card3Text": "Aplicativos intuitivos e funcionais, combinando tecnologia e design para soluções práticas e envolventes.",
+        "seeMore": "Saiba Mais Sobre Nós"
     },
     "portfolio": {
         "title": "Portfólio",
@@ -73,5 +74,21 @@
         "nextProject": "Próximo",
         "notFound": "Projeto não encontrado.",
         "backHome": "Voltar para a home"
+    },
+    "aboutPage": {
+        "title": "Transformando Ideias em Experiências Memoráveis",
+        "subtitle": "Conheça a filosofia e a paixão por trás de cada projeto da Whiskline Studio.",
+        "missionTitle": "Nossa Missão",
+        "missionText": "Nossa missão é criar produtos digitais que não apenas funcionem perfeitamente, mas que também contem histórias, provoquem emoções e criem conexões duradouras. Acreditamos que a melhor tecnologia é aquela que se torna invisível, deixando apenas a experiência brilhar.",
+        "pillarsTitle": "Nossos Pilares",
+        "pillar1Title": "Criatividade",
+        "pillar1Text": "Exploramos novas ideias para criar soluções que se destacam pela originalidade e inovação.",
+        "pillar2Title": "Qualidade",
+        "pillar2Text": "Compromisso com a excelência técnica e um acabamento polido em cada detalhe do projeto.",
+        "pillar3Title": "Parceria",
+        "pillar3Text": "Trabalhamos em colaboração com nossos clientes para garantir que a visão deles seja realizada.",
+        "ctaTitle": "Gostou do que viu?",
+        "ctaSubtitle": "Vamos transformar a sua ideia no próximo projeto incrível.",
+        "ctaButton": "Veja Nossos Projetos"
     }
 }

@@ -89,7 +89,7 @@ const setContactReason = (reason: ContactReason) => {
                         class="inline-flex items-center justify-center px-8 py-3 rounded-full bg-gradient-to-r from-[#43cb9c] via-[#36a880] to-[#43cb9c] text-white font-bold shadow-lg transition-all duration-300 min-w-[200px] h-[52px] hover:shadow-xl hover:shadow-[#43cb9c]/30 disabled:opacity-70 disabled:cursor-not-allowed">
                         <span v-if="!sending">{{ t('contact.buttonSend') }}</span>
                         <span v-else class="flex items-center justify-center">
-                            <img src="@/assets/WHISKLINE_icon_main.png" alt="Enviando..."
+                            <img loading="lazy" src="@/assets/WHISKLINE_icon_main.png" alt="Enviando..."
                                 class="w-6 h-6 mr-3 animate-spin-slow" />
                             {{ t('contact.buttonSending') }}
                         </span>

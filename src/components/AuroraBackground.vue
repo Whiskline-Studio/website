@@ -1,22 +1,33 @@
 <!-- AuroraBackground.vue -->
 <template>
-  <div class="absolute inset-0 overflow-hidden">
-    <div class="aurora w-full h-full"></div>
-  </div>
+  <div class="holo-effect"></div>
 </template>
 
 <style scoped>
-.aurora {
-  background: linear-gradient(120deg, #00f6ff, #8affc1, #ff00ff);
-  background-size: 600% 600%;
-  animation: aurora 20s ease infinite;
-  opacity: 0.5;
-  filter: blur(120px);
+.holo-effect {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background:
+    radial-gradient(circle at 15% 25%, hsla(158, 64%, 52%, 0.4), transparent 50%),
+    radial-gradient(circle at 85% 75%, hsla(260, 64%, 62%, 0.3), transparent 50%);
+  filter: blur(80px);
+  animation: aurora-animation 15s linear infinite;
 }
 
-@keyframes aurora {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+@keyframes aurora-animation {
+  0% {
+    transform: rotate(0deg) scale(1.2);
+  }
+
+  50% {
+    transform: rotate(180deg) scale(1.3);
+  }
+
+  100% {
+    transform: rotate(360deg) scale(1.2);
+  }
 }
 </style>

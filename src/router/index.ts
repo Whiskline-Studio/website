@@ -2,6 +2,7 @@ import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
 import NotFoundView from '../views/NotFoundView.vue';
 import HomeView from '../views/HomeView.vue';
 import ProjectDetailView from '../views/ProjectDetailView.vue';
+import AboutView from '../views/AboutView.vue';
 
 const routes: Array<RouteRecordRaw> = [
     {
@@ -9,6 +10,12 @@ const routes: Array<RouteRecordRaw> = [
         path: '/',
         name: 'home',
         component: HomeView,
+    },
+    {
+
+        path: '/sobre',
+        name: 'about',
+        component: AboutView
     },
     {
 

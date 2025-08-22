@@ -48,7 +48,7 @@ onUnmounted(() => {
       <div class="grid grid-cols-1 md:grid-cols-3 gap-12 text-center md:text-left">
 
         <div class="flex flex-col items-center md:items-start">
-          <img src="@/assets/whiskline.png" alt="Whiskline Logo" class="h-12 object-contain mb-4" />
+          <img src="@/assets/whiskline.png" loading="lazy" alt="Whiskline Logo" class="h-12 object-contain mb-4" />
           <p class="max-w-xs text-sm">
             <span>{{ t('footer.description') }}</span>
           </p>

@@ -61,7 +61,7 @@ const handleLinkClick = (id: string) => {
         </router-link>
 
         <div v-if="currentProject.icon" class="flex-grow flex items-center justify-center overflow-hidden h-full">
-          <img :src="currentProject.icon" class="h-10 w-auto object-contain" />
+          <img :src="currentProject.icon" loading="lazy" class="h-10 w-auto object-contain" />
         </div>
         <div v-else class="flex-grow flex items-center justify-center overflow-hidden h-full">
           <span class="sm:inline">{{ currentLocale ? currentProject[currentLocale].title : ''}}</span>
@@ -69,14 +69,14 @@ const handleLinkClick = (id: string) => {
 
         <a href="/"
           class="flex-shrink-0 flex items-center ml-auto pl-4 opacity-50 hover:opacity-100 transition-opacity">
-          <img src="@/assets/WHISKLINE_icon.png" alt="Logo Icon" class="w-8 h-8 object-contain" />
+          <img src="@/assets/WHISKLINE_icon.png" loading="lazy" alt="Logo Icon" class="w-8 h-8 object-contain" />
         </a>
       </div>
 
       <div v-else :key="'home-nav'" class="w-full h-full flex items-center justify-between">
         <router-link :to="{ name: 'home'}" class="flex items-center">
-          <img src="@/assets/WHISKLINE_icon.png" alt="Logo Icon" class="w-9 h-9 mr-3 object-contain" />
-          <img src="@/assets/whiskline.png" alt="Whiskline" class="h-10 md:h-12 object-contain" />
+          <img src="@/assets/WHISKLINE_icon.png" loading="lazy" alt="Logo Icon" class="w-9 h-9 mr-3 object-contain" />
+          <img src="@/assets/whiskline.png" loading="lazy" alt="Whiskline" class="h-10 md:h-12 object-contain" />
         </router-link>
         <div class="flex items-center">
           <div class="flex items-center lg:hidden">

@@ -26,7 +26,8 @@
         "card2Title": "Modern Websites",
         "card2Text": "Websites with sophisticated design, high performance, and a focus on the best user experience.",
         "card3Title": "Efficient Apps",
-        "card3Text": "Intuitive and functional applications, combining technology and design for practical and engaging solutions."
+        "card3Text": "Intuitive and functional applications, combining technology and design for practical and engaging solutions.",
+        "seeMore": "Learn More About Us"
     },
     "portfolio": {
         "title": "Portfolio",
@@ -73,5 +74,21 @@
         "nextProject": "Next",
         "notFound": "Project not found.",
         "backHome": "Back to Home"
+    },
+    "aboutPage": {
+        "title": "Turning Ideas into Memorable Experiences",
+        "subtitle": "Discover the philosophy and passion behind every Whiskline Studio project.",
+        "missionTitle": "Our Mission",
+        "missionText": "Our mission is to create digital products that not only work perfectly but also tell stories, evoke emotions, and create lasting connections. We believe the best technology is the one that becomes invisible, letting only the experience shine.",
+        "pillarsTitle": "Our Pillars",
+        "pillar1Title": "Creativity",
+        "pillar1Text": "We explore new ideas to create solutions that stand out for their originality and innovation.",
+        "pillar2Title": "Quality",
+        "pillar2Text": "A commitment to technical excellence and a polished finish in every detail of the project.",
+        "pillar3Title": "Partnership",
+        "pillar3Text": "We work in collaboration with our clients to ensure their vision is brought to life.",
+        "ctaTitle": "Like what you see?",
+        "ctaSubtitle": "Let's turn your idea into the next amazing project.",
+        "ctaButton": "See Our Projects"
     }
 }

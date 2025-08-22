@@ -43,7 +43,7 @@ const handleMouseLeave = () => {
                 class="absolute -top-2 left-2 w-12 h-1 bg-gradient-to-r from-[#43cb9c] via-[#36a880] to-[#43cb9c] rounded-full animate-pulse">
             </div>
 
-            <img v-if="project.image" :src="project.image"
+            <img v-if="project.image" :src="project.image" loading="lazy"
                 class="w-full h-48 object-cover rounded-md mb-4 border border-[#43cb9c]/20" />
 
             <div class="flex flex-col flex-grow pt-2">
