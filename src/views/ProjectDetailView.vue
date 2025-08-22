@@ -3,21 +3,22 @@ import { ref, computed, watch, onMounted } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { useTranslations } from "../composables/useTranslations";
 import { projects } from '../data/projects';
+import ContactSection from '../sections/ContactSection.vue';
 
-import AbstractBackground from '../components/AbstractBackground.vue';
-
+// Importa os ícones para o botão dinâmico
 import playstoreIcon from "@/assets/playstore.png";
 import steamIcon from "@/assets/steam.svg";
 import githubIcon from "@/assets/github2.svg";
 import behanceIcon from "@/assets/behance.svg";
-const { t, currentLocale, setLocale } = useTranslations();
 
+const { t, currentLocale } = useTranslations();
 const route = useRoute();
 const router = useRouter();
 const activeImage = ref<string | null>(null);
 
+// --- LÓGICA DO PROJETO E NAVEGAÇÃO ---
 const project = computed(() => {
-    const projectId = route.params.id;
+    const projectId = String(route.params.id);
     return projects.find(p => p.id === projectId);
 });
 
@@ -34,11 +35,12 @@ watch(() => route.params.id, () => {
     checkProjectExists();
 });
 
-const currentIndex = computed(() => projects.findIndex(p => p.id === project.value?.id));
+const currentIndex = computed(() => project.value ? projects.findIndex(p => p.id === project.value?.id) : -1);
 const previousProject = computed(() => currentIndex.value > 0 ? projects[currentIndex.value - 1] : null);
 const nextProject = computed(() => currentIndex.value < projects.length - 1 ? projects[currentIndex.value + 1] : null);
 
 
+// --- LÓGICA DO BOTÃO DE PLATAFORMA DINÂMICO ---
 const platformStyles = computed(() => {
     if (!project.value?.platform) return null;
     const styles: Record<string, { color: string; icon: string; text: string }> = {
@@ -50,15 +52,17 @@ const platformStyles = computed(() => {
     return styles[project.value.platform];
 });
 
+// --- LÓGICA DO LIGHTBOX ---
 const openImage = (img: string) => {
     activeImage.value = img;
-    document.body.style.overflow = 'hidden';
+    document.body.style.overflow = 'hidden'; // Trava o scroll do corpo
 };
 const closeImage = () => {
     activeImage.value = null;
-    document.body.style.overflow = 'auto';
+    document.body.style.overflow = 'auto'; // Libera o scroll
 };
 
+// Garante que o lightbox feche ao navegar para outro projeto
 watch(() => route.path, () => {
     closeImage();
 });
@@ -68,7 +72,7 @@ watch(() => route.path, () => {
     <div v-if="project" class="project-detail-page page-enter">
         <header class="relative h-[60vh] flex items-center justify-center text-center text-white overflow-hidden">
             <div class="absolute inset-0 bg-black/60 z-10"></div>
-            <img :src="project.bannerImage" :alt="project.pt.title" loading="lazy"
+            <img :src="project.bannerImage" :alt="currentLocale ? project[currentLocale].title : ''" loading="lazy"
                 class="absolute inset-0 w-full h-full object-cover animate-kenburns" />
             <div class="relative z-20 p-6">
                 <h1 class="text-4xl md:text-6xl font-extrabold mb-4">{{ currentLocale ? project[currentLocale].title :
@@ -82,13 +86,12 @@ watch(() => route.path, () => {
             </div>
         </header>
 
-        <AbstractBackground />
         <div class="max-w-6xl mx-auto px-6 py-16">
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-16">
                 <aside class="lg:col-span-1 space-y-6">
-                    <div v-if="currentLocale ? project[currentLocale].client : ''">
+                    <div v-if="currentLocale && project[currentLocale].client">
                         <h3 class="info-title">{{ t('projectPage.client') }}</h3>
-                        <p class="info-text">{{ currentLocale ? project[currentLocale].client : '' }}</p>
+                        <p class="info-text">{{ project[currentLocale].client }}</p>
                     </div>
                     <div>
                         <h3 class="info-title">{{ t('projectPage.platform') }}</h3>
@@ -98,7 +101,7 @@ watch(() => route.path, () => {
                         <a :href="project.link" target="_blank"
                             :class="['button-cta', 'bg-gradient-to-br', platformStyles.color]">
                             <img :src="platformStyles.icon" alt="" class="w-5 h-5" loading="lazy" />
-                            <span>{{ platformStyles.text }} {{ project.platform }}</span>
+                            <span>{{ platformStyles.text }}</span>
                         </a>
                     </div>
                 </aside>
@@ -106,14 +109,10 @@ watch(() => route.path, () => {
                 <div class="lg:col-span-2">
                     <h2 class="text-3xl font-bold text-white mb-4">{{ t('projectPage.aboutProject') }}</h2>
                     <p class="text-gray-300 leading-relaxed whitespace-pre-line">{{ currentLocale ?
-                        project[currentLocale].fullDescription : ''}}
+                        project[currentLocale].fullDescription : '' }}
                     </p>
 
                     <div v-if="project.testimonial" class="testimonial-card">
-                        <span class="testimonial-quote">“</span>
-                        <p class="text-lg italic text-white">{{ project.testimonial.text }}</p>
-                        <cite class="block text-right mt-4 not-italic text-[#43cb9c] font-semibold">- {{
-                            project.testimonial.author }}</cite>
                     </div>
 
                     <h2 v-if="project.gallery.length > 0" class="text-3xl font-bold text-white mt-12 mb-6">{{
@@ -127,21 +126,22 @@ watch(() => route.path, () => {
 
             <div class="mt-24 border-y border-white/10">
                 <div class="grid grid-cols-1 md:grid-cols-2">
-                    <router-link v-if="previousProject"
+                    <router-link v-if="previousProject && currentLocale"
                         :to="{ name: 'projectDetail', params: { id: previousProject.id } }" class="nav-block group">
                         <span class="arrow">&larr;</span>
                         <div>
                             <span class="nav-label">{{ t('projectPage.prevProject') }}</span>
-                            <span class="nav-title">{{ currentLocale ? previousProject[currentLocale].title : '' }}</span>
+                            <span class="nav-title">{{ previousProject[currentLocale].title }}</span>
                         </div>
                     </router-link>
                     <div v-else class="nav-block-placeholder"></div>
 
-                    <router-link v-if="nextProject" :to="{ name: 'projectDetail', params: { id: nextProject.id } }"
+                    <router-link v-if="nextProject && currentLocale"
+                        :to="{ name: 'projectDetail', params: { id: nextProject.id } }"
                         class="nav-block group text-right">
                         <div class="flex-grow">
                             <span class="nav-label">{{ t('projectPage.nextProject') }}</span>
-                            <span class="nav-title">{{ currentLocale ? nextProject[currentLocale].title : '' }}</span>
+                            <span class="nav-title">{{ nextProject[currentLocale].title }}</span>
                         </div>
                         <span class="arrow">&rarr;</span>
                     </router-link>
@@ -150,18 +150,18 @@ watch(() => route.path, () => {
             </div>
         </div>
 
-        <transition name="fade">
-            <div v-if="activeImage" @click="closeImage"
-                class="fixed inset-0 backdrop-blur-md z-50 flex items-center justify-center p-4">
-                <img :src="activeImage" alt="Visualização da galeria" loading="lazy"
-                    class="max-w-full max-h-full rounded-lg shadow-2xl" @click.stop />
-            </div>
-        </transition>
+        <ContactSection />
     </div>
+
+    <transition name="fade">
+        <div v-if="activeImage" @click="closeImage" class="lightbox-backdrop">
+            <img :src="activeImage" alt="Visualização da galeria" loading="lazy" class="lightbox-image" @click.stop />
+        </div>
+    </transition>
 </template>
 
-
 <style scoped>
+
 /* Animação de entrada da página */
 @keyframes page-enter-animation {
     from {
@@ -373,4 +373,52 @@ watch(() => route.path, () => {
     color: #43cb9c;
     transform: scale(1.25);
 }
+/* --- NOVO: ESTILOS PARA O LIGHTBOX --- */
+.lightbox-backdrop {
+position: fixed;
+inset: 0;
+/* Atalho para top, right, bottom, left = 0 */
+background-color: rgba(0, 0, 0, 0.9);
+backdrop-filter: blur(8px);
+z-index: 100;
+/* Z-index alto para ficar por cima de tudo */
+display: flex;
+align-items: center;
+justify-content: center;
+padding: 1rem;
+}
+
+.lightbox-image {
+max-width: 90vw;
+max-height: 90vh;
+border-radius: 0.5rem;
+box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
+}
+
+.fade-enter-active,
+.fade-leave-active {
+transition: opacity 0.4s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+opacity: 0;
+}
+
+.gallery-image {
+width: 100%;
+height: 100%;
+object-fit: cover;
+border-radius: 0.375rem;
+cursor: pointer;
+transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.gallery-image:hover {
+transform: scale(1.05);
+box-shadow: 0 0 20px rgba(67, 203, 156, 0.3);
+/* Adiciona um brilho no hover */
+}
+
+/* ... (resto do seu CSS) */
 </style>
