@@ -76,19 +76,19 @@
         "backHome": "Voltar para a home"
     },
     "aboutPage": {
-        "title": "Transformando Ideias em Experiências Memoráveis",
-        "subtitle": "Conheça a filosofia e a paixão por trás de cada projeto da Whiskline Studio.",
-        "missionTitle": "Nossa Missão",
-        "missionText": "Nossa missão é criar produtos digitais que não apenas funcionem perfeitamente, mas que também contem histórias, provoquem emoções e criem conexões duradouras. Acreditamos que a melhor tecnologia é aquela que se torna invisível, deixando apenas a experiência brilhar.",
+        "title": "Arte em Forma de Código",
+        "subtitle": "Descubra a filosofia que move cada projeto da Whiskline Studio.",
+        "missionTitle": "Nossa Filosofia",
+        "missionText": "Na Whiskline Studio, acreditamos que jogos e aplicações são mais do que apenas código; são formas de arte. A nossa filosofia é simples: criar experiências digitais justas e polidas, onde cada detalhe é pensado com cuidado para surpreender e respeitar o tempo de quem joga e usa os nossos produtos. Cada projeto é uma tela em branco, uma oportunidade de construir os mundos e ferramentas que nós mesmos, como entusiastas, adoraríamos usar.",
         "pillarsTitle": "Nossos Pilares",
         "pillar1Title": "Criatividade",
-        "pillar1Text": "Exploramos novas ideias para criar soluções que se destacam pela originalidade e inovação.",
-        "pillar2Title": "Qualidade",
-        "pillar2Text": "Compromisso com a excelência técnica e um acabamento polido em cada detalhe do projeto.",
-        "pillar3Title": "Parceria",
-        "pillar3Text": "Trabalhamos em colaboração com nossos clientes para garantir que a visão deles seja realizada.",
-        "ctaTitle": "Gostou do que viu?",
-        "ctaSubtitle": "Vamos transformar a sua ideia no próximo projeto incrível.",
+        "pillar1Text": "Exploramos conceitos únicos e mecânicas inovadoras para criar jogos e aplicativos que se destacam e divertem.",
+        "pillar2Title": "Foco no Utilizador",
+        "pillar2Text": "A melhor experiência é a nossa obsessão. Desde a interface até à jogabilidade, tudo é desenhado para ser intuitivo, agradável e justo.",
+        "pillar3Title": "Cuidado Artesanal",
+        "pillar3Text": "Dedicamo-nos pessoalmente a cada projeto, garantindo um nível de polimento e atenção aos detalhes que só a paixão pode oferecer.",
+        "ctaTitle": "Gostou da nossa filosofia?",
+        "ctaSubtitle": "Explore os mundos que criámos e veja a nossa paixão em ação.",
         "ctaButton": "Veja Nossos Projetos"
     }
 }

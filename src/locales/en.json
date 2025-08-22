@@ -76,19 +76,19 @@
         "backHome": "Back to Home"
     },
     "aboutPage": {
-        "title": "Turning Ideas into Memorable Experiences",
-        "subtitle": "Discover the philosophy and passion behind every Whiskline Studio project.",
-        "missionTitle": "Our Mission",
-        "missionText": "Our mission is to create digital products that not only work perfectly but also tell stories, evoke emotions, and create lasting connections. We believe the best technology is the one that becomes invisible, letting only the experience shine.",
+        "title": "Art in the Form of Code",
+        "subtitle": "Discover the philosophy and passion that drive every Whiskline Studio project.",
+        "missionTitle": "Our Philosophy",
+        "missionText": "At Whiskline Studio, we believe that games and applications are more than just code; they are forms of art. Our philosophy is simple: to create fair and polished digital experiences, where every detail is carefully designed to surprise and respect the time of those who play and use our products. Each project is a blank canvas, an opportunity to build the worlds and tools that we, as enthusiasts ourselves, would love to use.",
         "pillarsTitle": "Our Pillars",
         "pillar1Title": "Creativity",
-        "pillar1Text": "We explore new ideas to create solutions that stand out for their originality and innovation.",
-        "pillar2Title": "Quality",
-        "pillar2Text": "A commitment to technical excellence and a polished finish in every detail of the project.",
-        "pillar3Title": "Partnership",
-        "pillar3Text": "We work in collaboration with our clients to ensure their vision is brought to life.",
-        "ctaTitle": "Like what you see?",
-        "ctaSubtitle": "Let's turn your idea into the next amazing project.",
+        "pillar1Text": "We explore unique concepts and innovative mechanics to create games and apps that stand out and entertain.",
+        "pillar2Title": "User-Focused",
+        "pillar2Text": "The best experience is our obsession. From the interface to the gameplay, everything is designed to be intuitive, enjoyable, and fair.",
+        "pillar3Title": "Craftsmanship",
+        "pillar3Text": "We are personally dedicated to every project, ensuring a level of polish and attention to detail that only passion can provide.",
+        "ctaTitle": "Like our philosophy?",
+        "ctaSubtitle": "Explore the worlds we've created and see our passion in action.",
         "ctaButton": "See Our Projects"
     }
 }
