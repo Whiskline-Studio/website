@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed, watch, onMounted } from 'vue';
+import { ref, computed, watch, onMounted, onUnmounted } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { useTranslations } from "../composables/useTranslations";
 import { projects } from '../data/projects';
@@ -14,7 +14,6 @@ import behanceIcon from "@/assets/behance.svg";
 const { t, currentLocale } = useTranslations();
 const route = useRoute();
 const router = useRouter();
-const activeImage = ref<string | null>(null);
 
 // --- LÓGICA DO PROJETO E NAVEGAÇÃO ---
 const project = computed(() => {
@@ -45,24 +44,56 @@ const platformStyles = computed(() => {
     if (!project.value?.platform) return null;
     const styles: Record<string, { color: string; icon: string; text: string }> = {
         "Play Store": { color: "from-green-500 to-green-600", icon: playstoreIcon, text: t('projectPage.liveProject') },
-        Steam: { color: "from-gray-700 to-gray-800", icon: steamIcon, text: t('projectPage.liveProject') },
-        Github: { color: "from-gray-800 to-black", icon: githubIcon, text: t('projectPage.liveProject') },
-        Behance: { color: "from-blue-500 to-blue-600", icon: behanceIcon, text: t('projectPage.liveProject') },
+        "Steam": { color: "from-gray-700 to-gray-800", icon: steamIcon, text: t('projectPage.liveProject') },
+        "Github": { color: "from-gray-800 to-black", icon: githubIcon, text: t('projectPage.liveProject') },
+        "Behance": { color: "from-blue-500 to-blue-600", icon: behanceIcon, text: t('projectPage.liveProject') },
     };
     return styles[project.value.platform];
 });
 
-// --- LÓGICA DO LIGHTBOX ---
-const openImage = (img: string) => {
-    activeImage.value = img;
-    document.body.style.overflow = 'hidden'; // Trava o scroll do corpo
-};
-const closeImage = () => {
-    activeImage.value = null;
-    document.body.style.overflow = 'auto'; // Libera o scroll
+// --- LÓGICA DO LIGHTBOX (MELHORADA) ---
+const activeImageIndex = ref<number | null>(null);
+
+const activeImage = computed(() => {
+    if (activeImageIndex.value !== null && project.value) {
+        return project.value.gallery[activeImageIndex.value];
+    }
+    return null;
+});
+
+const openImage = (index: number) => {
+    activeImageIndex.value = index;
+    document.body.style.overflow = 'hidden';
 };
 
-// Garante que o lightbox feche ao navegar para outro projeto
+const closeImage = () => {
+    activeImageIndex.value = null;
+    document.body.style.overflow = 'auto';
+};
+
+const nextImage = () => {
+    if (project.value && activeImageIndex.value !== null) {
+        activeImageIndex.value = (activeImageIndex.value + 1) % project.value.gallery.length;
+    }
+};
+
+const prevImage = () => {
+    if (project.value && activeImageIndex.value !== null) {
+        const galleryLength = project.value.gallery.length;
+        activeImageIndex.value = (activeImageIndex.value - 1 + galleryLength) % galleryLength;
+    }
+};
+
+const handleKeydown = (e: KeyboardEvent) => {
+    if (activeImage.value) {
+        if (e.key === 'ArrowRight') nextImage();
+        if (e.key === 'ArrowLeft') prevImage();
+        if (e.key === 'Escape') closeImage();
+    }
+};
+onMounted(() => document.addEventListener('keydown', handleKeydown));
+onUnmounted(() => document.removeEventListener('keydown', handleKeydown));
+
 watch(() => route.path, () => {
     closeImage();
 });
@@ -113,13 +144,17 @@ watch(() => route.path, () => {
                     </p>
 
                     <div v-if="project.testimonial" class="testimonial-card">
+                        <span class="testimonial-quote">“</span>
+                        <p class="text-lg italic text-white">{{ project.testimonial.text }}</p>
+                        <cite class="block text-right mt-4 not-italic text-[#43cb9c] font-semibold">- {{
+                            project.testimonial.author }}</cite>
                     </div>
 
                     <h2 v-if="project.gallery.length > 0" class="text-3xl font-bold text-white mt-12 mb-6">{{
                         t('projectPage.gallery') }}</h2>
                     <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
-                        <img v-for="img in project.gallery" loading="lazy" :key="img" :src="img" class="gallery-image"
-                            @click="openImage(img)" />
+                        <img v-for="(img, index) in project.gallery" loading="lazy" :key="img" :src="img"
+                            class="gallery-image" @click="openImage(index)" />
                     </div>
                 </div>
             </div>
@@ -153,15 +188,48 @@ watch(() => route.path, () => {
         <ContactSection />
     </div>
 
-    <transition name="fade">
-        <div v-if="activeImage" @click="closeImage" class="lightbox-backdrop">
-            <img :src="activeImage" alt="Visualização da galeria" loading="lazy" class="lightbox-image" @click.stop />
-        </div>
-    </transition>
+    <div v-else class="text-center py-40 min-h-screen">
+        <h1 class="text-3xl text-white">{{ t('projectPage.notFound') }}</h1>
+        <router-link to="/" class="text-[#43cb9c] hover:underline mt-4 inline-block">{{ t('projectPage.backHome')
+            }}</router-link>
+    </div>
+    <Teleport to="body">
+        <transition name="fade">
+            <div v-if="activeImage" @click="closeImage" class="lightbox-backdrop">
+
+                <button @click="closeImage" class="lightbox-close-button" aria-label="Fechar galeria">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+
+                <button @click.stop="prevImage" class="lightbox-nav-button left-4" aria-label="Imagem anterior">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                    </svg>
+                </button>
+
+                <transition name="image-swap" mode="out-in">
+                    <img :key="activeImage" :src="activeImage" alt="Visualização da galeria" class="lightbox-image"
+                        @click.stop />
+                </transition>
+
+                <button @click.stop="nextImage" class="lightbox-nav-button right-4" aria-label="Próxima imagem">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                    </svg>
+                </button>
+
+            </div>
+        </transition>
+    </Teleport>
 </template>
 
 <style scoped>
-
 /* Animação de entrada da página */
 @keyframes page-enter-animation {
     from {
@@ -194,10 +262,101 @@ watch(() => route.path, () => {
     animation: kenburns 20s ease-in-out infinite alternate;
 }
 
-/* Animação de Fade para o Lightbox */
+/* --- ESTILOS DO LIGHTBOX MELHORADO --- */
+.lightbox-backdrop {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.9);
+    backdrop-filter: blur(8px);
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+}
+
+.lightbox-image {
+    max-width: 85vw;
+    max-height: 85vh;
+    border-radius: 0.5rem;
+    box-shadow: 0 0 60px rgba(0, 0, 0, 0.7);
+}
+
+/* NOVO ESTILO DOS BOTÕES */
+.lightbox-nav-button,
+.lightbox-close-button {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    /* Tamanho Fixo */
+    height: 44px;
+    /* Tamanho Fixo */
+
+    /* Efeito de vidro com borda */
+    background-color: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(5px);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+
+    color: rgba(255, 255, 255, 0.6);
+    border-radius: 50%;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    /* Transição mais suave */
+    cursor: pointer;
+}
+
+.lightbox-nav-button:hover,
+.lightbox-close-button:hover {
+    color: white;
+    background-color: rgba(67, 203, 156, 0.1);
+    /* Fundo verde subtil */
+    border-color: #43cb9c;
+    /* Borda acende em verde */
+    transform: scale(1.1);
+    /* Efeito de brilho "Glow" */
+    box-shadow: 0 0 20px rgba(67, 203, 156, 0.5);
+}
+
+.lightbox-close-button {
+    top: 1.5rem;
+    right: 1.5rem;
+    z-index: 101;
+}
+
+/* Posicionamento responsivo */
+.lightbox-nav-button.left-4 {
+    left: 1rem;
+}
+
+.lightbox-nav-button.right-4 {
+    right: 1rem;
+}
+
+@media (min-width: 768px) {
+    .lightbox-nav-button.left-4 {
+        left: 1.5rem;
+    }
+
+    .lightbox-nav-button.right-4 {
+        right: 1.5rem;
+    }
+}
+
+/* ... (O resto do seu CSS continua aqui) ... */
+.image-swap-enter-active,
+.image-swap-leave-active {
+    transition: opacity 0.2s ease-in-out;
+}
+
+.image-swap-enter-from,
+.image-swap-leave-to {
+    opacity: 0;
+}
+
 .fade-enter-active,
 .fade-leave-active {
-    transition: opacity 0.3s ease;
+    transition: opacity 0.4s ease;
 }
 
 .fade-enter-from,
@@ -205,7 +364,21 @@ watch(() => route.path, () => {
     opacity: 0;
 }
 
-/* Estilos da Sidebar e Componentes */
+.gallery-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 0.375rem;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.gallery-image:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px rgba(67, 203, 156, 0.3);
+}
+
+/* --- ESTILOS DO RESTO DA PÁGINA --- */
 .info-title {
     font-size: 0.875rem;
     font-weight: 600;
@@ -259,27 +432,11 @@ watch(() => route.path, () => {
     color: rgba(67, 203, 156, 0.5);
 }
 
-.gallery-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 0.375rem;
-    cursor: pointer;
-    transition: transform 0.3s ease;
-}
-
-.gallery-image:hover {
-    transform: scale(1.05);
-}
-
-/* --- MELHORIAS NA NAVEGAÇÃO ENTRE PROJETOS --- */
-
 .nav-block {
     display: flex;
     align-items: center;
     gap: 1rem;
     padding: 1.5rem 2rem;
-    /* Altura diminuída (padding vertical) */
     border-left: 1px solid rgba(255, 255, 255, 0.1);
     border-right: 1px solid rgba(255, 255, 255, 0.1);
     transition: background-color 0.3s ease;
@@ -287,39 +444,31 @@ watch(() => route.path, () => {
     overflow: hidden;
 }
 
-/* Efeito de "glow" que vem da borda no hover */
 .nav-block::before {
     content: '';
     position: absolute;
     top: 0;
     bottom: 0;
     width: 3px;
-    /* Espessura da "luz" */
     background-color: #43cb9c;
     box-shadow: 0 0 15px #43cb9c;
     transition: transform 0.4s cubic-bezier(0.7, 0, 0.3, 1);
 }
 
-/* Posiciona o glow na borda esquerda para o link "Anterior" */
 .nav-block:first-of-type::before {
     left: -3px;
-    /* Começa escondido */
 }
 
 .nav-block:first-of-type:hover::before {
     transform: translateX(3px);
-    /* Desliza para a vista */
 }
 
-/* Posiciona o glow na borda direita para o link "Próximo" */
 .nav-block:last-of-type::before {
     right: -3px;
-    /* Começa escondido */
 }
 
 .nav-block:last-of-type:hover::before {
     transform: translateX(-3px);
-    /* Desliza para a vista */
 }
 
 .nav-block-placeholder {
@@ -373,52 +522,4 @@ watch(() => route.path, () => {
     color: #43cb9c;
     transform: scale(1.25);
 }
-/* --- NOVO: ESTILOS PARA O LIGHTBOX --- */
-.lightbox-backdrop {
-position: fixed;
-inset: 0;
-/* Atalho para top, right, bottom, left = 0 */
-background-color: rgba(0, 0, 0, 0.9);
-backdrop-filter: blur(8px);
-z-index: 100;
-/* Z-index alto para ficar por cima de tudo */
-display: flex;
-align-items: center;
-justify-content: center;
-padding: 1rem;
-}
-
-.lightbox-image {
-max-width: 90vw;
-max-height: 90vh;
-border-radius: 0.5rem;
-box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
-}
-
-.fade-enter-active,
-.fade-leave-active {
-transition: opacity 0.4s ease;
-}
-
-.fade-enter-from,
-.fade-leave-to {
-opacity: 0;
-}
-
-.gallery-image {
-width: 100%;
-height: 100%;
-object-fit: cover;
-border-radius: 0.375rem;
-cursor: pointer;
-transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.gallery-image:hover {
-transform: scale(1.05);
-box-shadow: 0 0 20px rgba(67, 203, 156, 0.3);
-/* Adiciona um brilho no hover */
-}
-
-/* ... (resto do seu CSS) */
 </style>
