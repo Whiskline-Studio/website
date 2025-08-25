@@ -3,7 +3,7 @@ import { ref } from 'vue';
 import { useTranslations } from "../composables/useTranslations";
 import { useContactForm } from '../composables/useContactForm';
 import FullScreenLoader from '../components/FullScreenLoader.vue';
-import GridScanBackground from '../components/GridScanBackground.vue';
+import GridScanBackground from '../components/anims/GridScanBackground.vue';
 
 const { t } = useTranslations();
 

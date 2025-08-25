@@ -3,6 +3,7 @@ import NotFoundView from '../views/NotFoundView.vue';
 import HomeView from '../views/HomeView.vue';
 import ProjectDetailView from '../views/ProjectDetailView.vue';
 import AboutView from '../views/AboutView.vue';
+import LabsView from '../views/LabsView.vue';
 
 const routes: Array<RouteRecordRaw> = [
     {
@@ -28,6 +29,11 @@ const routes: Array<RouteRecordRaw> = [
         path: '/:pathMatch(.*)*',
         name: 'NotFound',
         component: NotFoundView
+    },
+    {
+        path: '/labs',
+        name: 'labs',
+        component: LabsView 
     }
 ];
 

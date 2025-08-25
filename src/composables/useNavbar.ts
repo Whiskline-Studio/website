@@ -44,6 +44,7 @@ export function useNavbar() {
 
     const accentColor = computed(() => {
         if (route.name === 'about') return '#aaaaaa';
+        if (route.name === 'labs') return '#d946ef';
         return currentProject.value ? currentProject.value.accentColor : '#43cb9c';
     });
 

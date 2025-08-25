@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useTranslations } from "../composables/useTranslations";
 const { t } = useTranslations();
-import AuroraBackground from '../components/AuroraBackground.vue';
+import AuroraBackground from '../components/anims/AuroraBackground.vue';
 </script>
 <template>
     <div class="not-found-container">

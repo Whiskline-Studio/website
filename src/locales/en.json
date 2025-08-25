@@ -7,6 +7,7 @@
         "back": "Return",
         "about": "About",
         "portfolio": "Portfolio",
+        "labs": "Labs",
         "contact": "Contact"
     },
     "hero": {
@@ -91,5 +92,14 @@
         "ctaSubtitle": "Explore the worlds we've created and see our passion in action.",
         "ctaButton": "See Our Projects",
         "metaDescription": "At Whiskline Studio, we believe that games and applications are more than just code; they are forms of art. Our philosophy is simple: to create fair and polished digital experiences, where every detail is carefully designed to surprise and respect the time of those who play and use our products."
+    },
+    "labs": {
+        "title": "Our Creative Lab",
+        "subtitle": "We explore new technologies and crazy ideas. See our latest experiments.",
+        "button": "Explore the Labs"
+    },
+    "labsPage": {
+        "title": "Whiskline Labs",
+        "subtitle": "A space for prototypes, demos, and creative experiments."
     }
 }

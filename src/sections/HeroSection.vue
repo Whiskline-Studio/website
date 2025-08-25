@@ -2,7 +2,7 @@
 import { useTranslations } from "../composables/useTranslations";
 import { ref } from 'vue';
 import { useAnimateOnScroll } from '../composables/useAnimateOnScroll';
-import AbstractBackground from '../components/AbstractBackground.vue';
+import AbstractBackground from '../components/anims/AbstractBackground.vue';
 const sectionRef = ref(null);
 const { isVisible } = useAnimateOnScroll(sectionRef);
 

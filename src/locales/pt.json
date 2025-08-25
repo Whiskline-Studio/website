@@ -7,6 +7,7 @@
         "back": "Votar",
         "about": "Sobre",
         "portfolio": "Portfólio",
+        "labs": "Labs",
         "contact": "Contato"
     },
     "hero": {
@@ -91,5 +92,14 @@
         "ctaSubtitle": "Explore os mundos que criámos e veja a nossa paixão em ação.",
         "ctaButton": "Veja Nossos Projetos",
         "metaDescription": "Na Whiskline Studio, transformamos ideias em experiências digitais únicas. Desenvolvemos jogos, sites e aplicativos com foco em design moderno, performance otimizada e interações que encantam e envolvem os usuários."
+    },
+    "labs": {
+        "title": "Nosso Laboratório Criativo",
+        "subtitle": "Exploramos novas tecnologias e ideias malucas. Veja os nossos experimentos mais recentes.",
+        "button": "Explorar o Labs"
+    },
+    "labsPage": {
+        "title": "Whiskline Labs",
+        "subtitle": "Um espaço para protótipos, demos e experimentos criativos."
     }
 }

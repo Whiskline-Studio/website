@@ -4,7 +4,7 @@ import { ref } from 'vue';
 import { computed } from 'vue';
 import { useHead } from '@vueuse/head';
 import { useAnimateOnScroll } from '../composables/useAnimateOnScroll';
-import AuroraBackground from '../components/AuroraBackground.vue';
+import AuroraBackground from '../components/anims/AuroraBackground.vue';
 
 const { t } = useTranslations();
 
