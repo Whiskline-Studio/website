@@ -1,15 +1,15 @@
 export interface Experiment {
     id: string;
-    media: string;
+    media?: string;
     pt: {
         title: string;
         description: string;
-        button?: string; 
+        button?: string;
     };
     en: {
         title: string;
         description: string;
-        button?: string; 
+        button?: string;
     };
     tags: string[];
     link?: string;
@@ -26,11 +26,11 @@ export const experiments: Experiment[] = [
         },
         en: {
             title: "Rayy Adventures",
-            description: "The first spiritual version of Tales of Bloomrise! A demo version was made in Unity.",
+            description: "The first spiritual version of Tales of Bloomrise! A playable demo was made in Unity.",
             button: "Download demo on Drive"
         },
         tags: ["Unity", "Prototype", "Game"],
-        link: "https://drive.google.com/file/d/1J6Uag9X3Ni4eKERESZu5d8RlgphS5IWa/view?usp=sharing", 
+        link: "https://drive.google.com/file/d/1J6Uag9X3Ni4eKERESZu5d8RlgphS5IWa/view?usp=sharing",
     },
     {
         id: "freseologista",
@@ -47,5 +47,68 @@ export const experiments: Experiment[] = [
         },
         tags: ["Flutter", "Prototype", "Mobile"],
         link: "https://play.google.com/store/apps/details?id=app.fraseologista",
+    },
+    {
+        id: "veterinario-ia",
+        media: "https://i.imgur.com/2ZgoCIw.png",
+        pt: {
+            title: "Veterinário IA (Assistente)",
+            description: "Uma IA experimental com Gemini para fornecer informações veterinárias. Este projeto é uma ferramenta de auxílio e não substitui uma consulta profissional.",
+            button: "Ver no GitHub"
+        },
+        en: {
+            title: "AI Veterinarian (Assistant)",
+            description: "An experimental AI using Gemini to provide veterinary information. This project is an aid tool and does not replace a professional consultation.",
+            button: "View on GitHub"
+        },
+        tags: ["JavaScript", "Gemini", "IA"],
+        link: "https://github.com/joseminelli/Veterinario-IA",
+    },
+    {
+        id: "lyrix",
+        media: "https://www.shutterstock.com/image-vector/image-photo-placeholder-no-thumbnail-260nw-2502908919.jpg",
+        pt: {
+            title: "Lyrix",
+            description: "Uma aplicação mobile para pesquisar e exibir letras de músicas, construída com Flutter e a API da Audd.",
+            button: "Ver no GitHub"
+        },
+        en: {
+            title: "Lyrix",
+            description: "A mobile application to search and display song lyrics, built with Flutter and the Audd API.",
+            button: "View on GitHub"
+        },
+        tags: ["Flutter", "Mobile App", "API"],
+    },
+    {
+        id: "notify-extension",
+        media: "https://i.imgur.com/Fsxjp4P.png",
+        pt: {
+            title: "Notify Extension",
+            description: "Uma extensão para Chrome que permite criar e gerir notas e lembretes diretamente no navegador.",
+            button: "Ver no Google Web Store"
+        },
+        en: {
+            title: "Notify Extension",
+            description: "A Chrome extension that allows creating and managing notes and reminders directly in the browser.",
+            button: "View on Google Web Store"
+        },
+        tags: ["JavaScript", "Chrome Extension", "HTML/CSS"],
+        link: "https://chromewebstore.google.com/detail/page-notify/jplpilahckigpcdeibdoppgghfemidaf",
+    },
+    {
+        id: "ollie-bot",
+        media: "https://i.imgur.com/moqNdV6.png", 
+        pt: {
+            title: "O.L.L.I.E BOT",
+            description: "Um bot multifuncional para Discord construído com Node.js, focado em moderação e entretenimento.",
+            button: "Ver no GitHub"
+        },
+        en: {
+            title: "O.L.L.I.E BOT",
+            description: "A multifunctional Discord bot built with Node.js, focused on moderation and entertainment.",
+            button: "View on GitHub"
+        },
+        tags: ["Node.js", "Discord.js", "Bot"],
+        link: "https://github.com/joseminelli/O.L.L.I.E-BOT"
     },
 ];

@@ -35,7 +35,7 @@ const handleMouseLeave = () => {
 <template>
     <div class="card-container h-full" @mousemove="handleMouseMove" @mouseleave="handleMouseLeave">
         <div ref="cardRef" class="card-content">
-            <img :src="experiment.media"
+            <img v-if="experiment.media" :src="experiment.media"
                 class="w-full h-48 object-cover rounded-md mb-4" loading="lazy" />
             <div class="flex flex-col flex-grow text-left">
                 <h3 class="text-xl font-bold text-white mb-2">{{ currentLocale ? experiment[currentLocale].title : "" }}</h3>
