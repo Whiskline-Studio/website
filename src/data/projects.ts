@@ -107,11 +107,11 @@ export const projects: Project[] = [
   },
   {
     id: "purr-cafe",
-    image: "https://play-lh.googleusercontent.com/iaLcLqeX15ULkqhU8y2-o5N_S5fRfVkoDY0qz7NnLgHba75asYSqfYwmtWrGRDqaTs0=w5120-h2880-rw",
+    image: "https://i.imgur.com/U6tJ87Z.png",
     link: "https://play.google.com/store/apps/details?id=com.minelli.com.unityPurrCafe",
     platform: "Play Store",
     icon: 'https://i.imgur.com/KC72PUv.png',
-    bannerImage: "https://play-lh.googleusercontent.com/iaLcLqeX15ULkqhU8y2-o5N_S5fRfVkoDY0qz7NnLgHba75asYSqfYwmtWrGRDqaTs0=w5120-h2880-rw",
+    bannerImage: "https://i.imgur.com/U6tJ87Z.png",
     tags: ["Unity", "C#", "Mobile Game", "Simulation"],
     accentColor: '#f6893bff',
     pt: {
@@ -134,7 +134,7 @@ export const projects: Project[] = [
   },
   {
     id: "comunicativa",
-    image: "https://lh3.googleusercontent.com/N0pvve5vc0qgOe1tHg5Ty6Tsjm4NHPw3HHCeKZNXH6onkUwkz-o_sFNUEo5dSNLYkLbe8KGqzpe9rlPq81pt=s1024",
+    image: "https://i.imgur.com/WZXvJsk.png",
     link: "https://www.behance.net/gallery/205064669/ComunicATIVA-app-design",
     platform: "Behance",
     icon: 'https://i.imgur.com/Ral8gZ6.png',

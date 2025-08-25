@@ -66,7 +66,7 @@
     "projectPage": {
         "client": "Cliente",
         "platform": "Plataforma",
-        "liveProject": "Ver na ",
+        "liveProject": "Ver em ",
         "liveProject2": "Ver no ",
         "aboutProject": "Sobre o Projeto",
         "gallery": "Galeria",
@@ -89,6 +89,7 @@
         "pillar3Text": "Dedicamo-nos pessoalmente a cada projeto, garantindo um nível de polimento e atenção aos detalhes que só a paixão pode oferecer.",
         "ctaTitle": "Gostou da nossa filosofia?",
         "ctaSubtitle": "Explore os mundos que criámos e veja a nossa paixão em ação.",
-        "ctaButton": "Veja Nossos Projetos"
+        "ctaButton": "Veja Nossos Projetos",
+        "metaDescription": "Na Whiskline Studio, transformamos ideias em experiências digitais únicas. Desenvolvemos jogos, sites e aplicativos com foco em design moderno, performance otimizada e interações que encantam e envolvem os usuários."
     }
 }

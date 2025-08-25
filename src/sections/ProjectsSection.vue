@@ -1,11 +1,12 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import { useTranslations } from "../composables/useTranslations";
-import { projects, type Project } from "../data/projects";
+import { useProjectStore } from '../stores/projectStore'; 
 import ProjectCard from '@/components/ProjectCard.vue';
 
+const projectStore = useProjectStore();
 const { t } = useTranslations();
-const projectList = ref<Project[]>(projects);
+const projectList = projectStore.projectList;
 </script>
 
 <template>

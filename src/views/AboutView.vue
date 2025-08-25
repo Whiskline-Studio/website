@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { useTranslations } from "../composables/useTranslations";
 import { ref } from 'vue';
+import { computed } from 'vue';
+import { useHead } from '@vueuse/head';
 import { useAnimateOnScroll } from '../composables/useAnimateOnScroll';
 import AuroraBackground from '../components/AuroraBackground.vue';
 
@@ -14,10 +16,20 @@ const ctaRef = ref(null);
 const { isVisible: isMissionVisible } = useAnimateOnScroll(missionRef);
 const { isVisible: arePillarsVisible } = useAnimateOnScroll(pillarsRef);
 const { isVisible: isCtaVisible } = useAnimateOnScroll(ctaRef);
+
+useHead({
+    title: computed(() => `Whiskline Studio | ${t('about.title')} `),
+    meta: [
+        {
+            name: 'description',
+            content: computed(() => t('aboutPage.metaDescription')),
+        },
+    ],
+})
 </script>
 
 <template>
-    <AuroraBackground/>
+    <AuroraBackground />
     <div class="page-enter py-24 px-6 text-white overflow-hidden pt-32">
         <div class="max-w-4xl mx-auto">
 

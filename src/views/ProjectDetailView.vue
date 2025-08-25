@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import { ref, computed, watch, onMounted, onUnmounted } from 'vue';
+import { useHead } from '@vueuse/head';
 import { useRoute, useRouter } from 'vue-router';
 import { useTranslations } from "../composables/useTranslations";
+import { useProjectStore } from '../stores/projectStore';
 import { projects } from '../data/projects';
 
 // Importa os ícones para o botão dinâmico
@@ -12,13 +14,11 @@ import behanceIcon from "@/assets/behance.svg";
 
 const { t, currentLocale } = useTranslations();
 const route = useRoute();
+const projectStore = useProjectStore();
 const router = useRouter();
 
 // --- LÓGICA DO PROJETO E NAVEGAÇÃO ---
-const project = computed(() => {
-    const projectId = String(route.params.id);
-    return projects.find(p => p.id === projectId);
-});
+const project = computed(() => projectStore.getProjectById(String(route.params.id)));
 
 const checkProjectExists = () => {
     if (!project.value) {
@@ -93,6 +93,16 @@ const handleKeydown = (e: KeyboardEvent) => {
 onMounted(() => document.addEventListener('keydown', handleKeydown));
 onUnmounted(() => document.removeEventListener('keydown', handleKeydown));
 
+useHead({
+    title: computed(() => `Whiskline Studio | ${project.value ? project.value.pt.title : 'Projeto'}`),
+    meta: [
+        {
+            name: 'description',
+            content: computed(() => project.value ? project.value.pt.shortDescription : 'Um projeto da Whiskline Studio')
+        },
+    ],
+})
+
 watch(() => route.path, () => {
     closeImage();
 });
@@ -134,7 +144,7 @@ watch(() => route.path, () => {
                         <a :href="project.link" target="_blank"
                             :class="['button-cta', 'bg-gradient-to-br', platformStyles.color]">
                             <img :src="platformStyles.icon" alt="" class="w-5 h-5" loading="lazy" />
-                            <span>{{ platformStyles.text }} {{ platform }}</span>
+                            <span>{{ platformStyles.text }} {{ project.platform }}</span>
                         </a>
                     </div>
                 </aside>
@@ -192,7 +202,7 @@ watch(() => route.path, () => {
     <div v-else class="text-center py-40 min-h-screen">
         <h1 class="text-3xl text-white">{{ t('projectPage.notFound') }}</h1>
         <router-link to="/" class="text-[#43cb9c] hover:underline mt-4 inline-block">{{ t('projectPage.backHome')
-        }}</router-link>
+            }}</router-link>
     </div>
     <Teleport to="body">
         <transition name="fade">
