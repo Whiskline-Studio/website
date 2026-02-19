@@ -6,34 +6,14 @@ import AboutView from '../views/AboutView.vue';
 import LabsView from '../views/LabsView.vue';
 
 const routes: Array<RouteRecordRaw> = [
-    {
-
-        path: '/',
-        name: 'home',
-        component: HomeView,
-    },
-    {
-
-        path: '/sobre',
-        name: 'about',
-        component: AboutView
-    },
-    {
-
-        path: '/projeto/:id',
-        name: 'projectDetail',
-        component: ProjectDetailView,
-        props: true 
-    },
+    { path: '/', name: 'home', component: HomeView },
+    { path: '/sobre', name: 'about', component: AboutView },
+    { path: '/projeto/:id', name: 'projectDetail', component: ProjectDetailView, props: true },
+    { path: '/labs', name: 'labs', component: LabsView },
     {
         path: '/:pathMatch(.*)*',
         name: 'NotFound',
         component: NotFoundView
-    },
-    {
-        path: '/labs',
-        name: 'labs',
-        component: LabsView 
     }
 ];
 
@@ -50,6 +30,14 @@ const router = createRouter({
     scrollBehavior(to, from, savedPosition) {
         return { top: 0 };
     },
+});
+
+router.isReady().then(() => {
+  const redirectPath = sessionStorage.getItem('redirectPath');
+  if (redirectPath) {
+    sessionStorage.removeItem('redirectPath');
+    router.replace(redirectPath);
+  }
 });
 
 export default router;
