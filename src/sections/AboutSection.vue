@@ -93,7 +93,7 @@ const { t } = useTranslations();
     content: "";
     position: absolute;
     inset: 0;
-    background-image: url('@/assets/whisklinebannertop.png');
+    background-image: url('https://i.imgur.com/cvlWzDm.jpeg');
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
