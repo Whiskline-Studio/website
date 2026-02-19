@@ -88,7 +88,7 @@ export const projects: Project[] = [
     link: "https://store.steampowered.com/app/2707960/Quantum_Drive/",
     platform: "Steam",
     icon: 'https://i.imgur.com/jU5sKtb.png',
-    bannerImage: "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2707960/header.jpg?t=1727981943",
+    bannerImage: "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2707960/ss_ca49bcece1144cfbdd77c5924342d8bc24cdc14f.jpg",
     tags: ["Unreal Engine", "C++", "PC Game"],
     accentColor: '#f63b3bff',
     pt: {
