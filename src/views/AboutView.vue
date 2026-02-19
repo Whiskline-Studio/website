@@ -33,8 +33,8 @@ useHead({
         <div class="max-w-4xl mx-auto">
 
             <section class="text-center mb-24 md:mb-32">
-                <h1 class="text-5xl md:text-7xl font-extrabold mb-6 leading-tight"
-                    v-html="t('aboutPage.title').replace('Ideias', '<span class=\'text-transparent bg-gradient-to-r from-[#43cb9c] via-[#36a880] to-[#43cb9c] bg-clip-text\'>Ideias</span>').replace('Experiences', '<span class=\'text-transparent bg-gradient-to-r from-[#43cb9c] via-[#36a880] to-[#43cb9c] bg-clip-text\'>Experiences</span>')">
+                <h1 class="text-5xl md:text-7xl font-extrabold mb-6 leading-tight tracking-tighter"
+                    v-html="t('aboutPage.title').replace('Ideias', '<span class=\'text-transparent bg-gradient-to-r from-[#43cb9c] via-[#36a880] to-[#43cb9c] bg-clip-text drop-shadow-[0_0_15px_rgba(67,203,156,0.3)]\'>Ideias</span>')">
                 </h1>
                 <p class="text-lg md:text-xl text-gray-400 max-w-2xl mx-auto">
                     {{ t('aboutPage.subtitle') }}
@@ -44,7 +44,13 @@ useHead({
             <section ref="missionRef"
                 class="flex flex-col md:flex-row items-center gap-12 mb-24 md:mb-32 transition-all duration-700 ease-out"
                 :class="isMissionVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'">
-                <img src="@/assets/WHISKLINE_icon_main.png" alt="Whiskline Icon" class="w-48 h-48 animate-float" />
+                <div class="relative group" style="width: 100%; display: contents;">
+                    <div
+                        class="absolute inset-0 bg-[#43cb9c]/10 blur-[50px] rounded-full group-hover:bg-[#43cb9c]/30 transition-colors duration-700">
+                    </div>
+                    <img src="@/assets/WHISKLINE_icon_main.png" alt="Whiskline Icon"
+                        class="relative z-10 w-48 h-48 animate-float" />
+                </div>
                 <div>
                     <h2 class="text-4xl font-bold mb-4 text-left">{{ t('aboutPage.missionTitle') }}</h2>
                     <p class="text-gray-300 text-lg text-left">
@@ -109,8 +115,14 @@ useHead({
                 <h2 class="text-4xl font-bold mb-4">{{ t('aboutPage.ctaTitle') }}</h2>
                 <p class="text-gray-400 text-lg mb-8">{{ t('aboutPage.ctaSubtitle') }}</p>
                 <router-link to="/projeto/tales-of-bloomrise"
-                    class="inline-block px-8 py-3 rounded-full bg-gradient-to-r from-[#43cb9c] via-[#36a880] to-[#43cb9c] text-black font-bold shadow-lg hover:shadow-xl hover:scale-105 transform transition-all duration-300">
-                    {{ t('aboutPage.ctaButton') }}
+                    class="group relative inline-flex items-center gap-3 px-10 py-4 rounded-full bg-white text-black font-black uppercase text-xs tracking-[0.2em] transition-all duration-300 hover:bg-[#43cb9c] hover:text-white">
+                    <span class="relative z-10">{{ t('aboutPage.ctaButton') }}</span>
+                    <svg class="w-5 h-5 relative z-10 group-hover:translate-x-1 transition-transform" fill="none"
+                        style="display: inline;" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M13 7l5 5m0 0l-5 5m5-5H6" />
+
+                    </svg>
                 </router-link>
             </section>
         </div>
@@ -274,19 +286,42 @@ useHead({
 }
 
 .timeline-content {
-    padding: 20px;
-    background-color: rgba(255, 255, 255, 0.05);
-    border-radius: 0.5rem;
-    border: 1px solid transparent;
-    transition: border-color 0.3s ease, transform 0.3s ease;
+    padding: 24px;
+    background-color: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(10px);
+    border-radius: 1.25rem;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.timeline-line-animated::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 30px;
+    background: linear-gradient(to bottom, transparent, #fff, transparent);
+    animation: scan-line 3s infinite linear;
+    opacity: 0.8;
+}
+
+@keyframes scan-line {
+    0% {
+        top: 0%;
+    }
+
+    100% {
+        top: 100%;
+    }
 }
 
 .timeline-item:hover .timeline-content {
-    border-color: rgba(67, 203, 156, 0.5);
-    transform: scale(1.02);
+    border-color: #43cb9c;
+    background-color: rgba(67, 203, 156, 0.05);
+    transform: translateY(-5px) scale(1.02);
 }
 
-/* Ajustes para Mobile */
 @media (max-width: 768px) {
 
     .timeline-line-bg,
