@@ -1,4 +1,3 @@
-// main.ts
 import { createApp } from "vue";
 import App from "./App.vue";
 import router from "./router";
@@ -16,9 +15,9 @@ const savedLocale = localStorage.getItem("user-language") as "en" | "pt" | null;
 const { setLocale, currentLocale } = useTranslations();
 
 if (savedLocale) {
-  setLocale(savedLocale); // usa o salvo
+  setLocale(savedLocale);
 } else {
-  currentLocale.value = null; // usuário nunca escolheu
+  currentLocale.value = null;
 }
 
 app.use(pinia)

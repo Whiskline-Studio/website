@@ -35,14 +35,12 @@
         "seeDetails": "See more details"
     },
     "contact": {
-        "titleProject": "Let's Build Something Amazing",
-        "subtitleProject": "Have an idea for a game, website, or app? We'd love to hear about it.",
-        "titleBug": "Found an Issue?",
-        "subtitleBug": "Thanks for helping us improve our products. Please describe the bug in detail.",
-        "buttonProject": "New Project",
-        "buttonBug": "Report a Bug",
+        
+        "title": "Contact Us",
+        "subtitle": "Do you have a suggestion or found a bug? We'd love to hear from you!",
         "formName": "Your name",
         "formEmail": "Your email",
+        "formPlaceholder": "Write your message here...",
         "formMessageProject": "Describe your idea...",
         "formMessageBug": "Describe the issue in detail...",
         "buttonSend": "Send Message",

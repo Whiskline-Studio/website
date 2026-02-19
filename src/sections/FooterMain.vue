@@ -40,7 +40,7 @@ onUnmounted(() => {
 
 <template>
   <footer ref="footerRef"
-    class="relative backdrop-blur-md text-gray-400 py-16 px-6 mt-32 border-t border-white/10 transition-all duration-700 ease-out"
+    class="relative backdrop-blur-md text-gray-400 py-16 px-6 border-t border-white/10 transition-all duration-700 ease-out"
     :class="isFooterVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'">
     <div class="led-bar"></div>
 

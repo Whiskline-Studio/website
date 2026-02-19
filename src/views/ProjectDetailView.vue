@@ -6,7 +6,6 @@ import { useTranslations } from "../composables/useTranslations";
 import { useProjectStore } from '../stores/projectStore';
 import { projects } from '../data/projects';
 
-// Importa os ícones para o botão dinâmico
 import playstoreIcon from "@/assets/playstore.png";
 import steamIcon from "@/assets/steam.svg";
 import githubIcon from "@/assets/github2.svg";
@@ -17,7 +16,6 @@ const route = useRoute();
 const projectStore = useProjectStore();
 const router = useRouter();
 
-// --- LÓGICA DO PROJETO E NAVEGAÇÃO ---
 const project = computed(() => projectStore.getProjectById(String(route.params.id)));
 
 const checkProjectExists = () => {
@@ -38,7 +36,6 @@ const previousProject = computed(() => currentIndex.value > 0 ? projects[current
 const nextProject = computed(() => currentIndex.value < projects.length - 1 ? projects[currentIndex.value + 1] : null);
 
 
-// --- LÓGICA DO BOTÃO DE PLATAFORMA DINÂMICO ---
 const platformStyles = computed(() => {
     if (!project.value?.platform) return null;
     const styles: Record<string, { color: string; icon: string; text: string }> = {
@@ -50,7 +47,6 @@ const platformStyles = computed(() => {
     return styles[project.value.platform];
 });
 
-// --- LÓGICA DO LIGHTBOX (MELHORADA) ---
 const activeImageIndex = ref<number | null>(null);
 
 const activeImage = computed(() => {
@@ -241,7 +237,6 @@ watch(() => route.path, () => {
 </template>
 
 <style scoped>
-/* Animação de entrada da página */
 @keyframes page-enter-animation {
     from {
         opacity: 0;
@@ -258,7 +253,6 @@ watch(() => route.path, () => {
     animation: page-enter-animation 0.7s ease-out forwards;
 }
 
-/* Animação Ken Burns para o banner */
 @keyframes kenburns {
     0% {
         transform: scale(1) translate(0, 0);
@@ -273,7 +267,6 @@ watch(() => route.path, () => {
     animation: kenburns 20s ease-in-out infinite alternate;
 }
 
-/* --- ESTILOS DO LIGHTBOX MELHORADO --- */
 .lightbox-backdrop {
     position: fixed;
     inset: 0;
@@ -293,7 +286,6 @@ watch(() => route.path, () => {
     box-shadow: 0 0 60px rgba(0, 0, 0, 0.7);
 }
 
-/* NOVO ESTILO DOS BOTÕES */
 .lightbox-nav-button,
 .lightbox-close-button {
     position: absolute;
@@ -301,11 +293,8 @@ watch(() => route.path, () => {
     align-items: center;
     justify-content: center;
     width: 44px;
-    /* Tamanho Fixo */
     height: 44px;
-    /* Tamanho Fixo */
 
-    /* Efeito de vidro com borda */
     background-color: rgba(255, 255, 255, 0.05);
     backdrop-filter: blur(5px);
     border: 2px solid rgba(255, 255, 255, 0.3);
@@ -313,7 +302,6 @@ watch(() => route.path, () => {
     color: rgba(255, 255, 255, 0.6);
     border-radius: 50%;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    /* Transição mais suave */
     cursor: pointer;
 }
 
@@ -321,11 +309,8 @@ watch(() => route.path, () => {
 .lightbox-close-button:hover {
     color: white;
     background-color: rgba(67, 203, 156, 0.1);
-    /* Fundo verde subtil */
     border-color: #43cb9c;
-    /* Borda acende em verde */
     transform: scale(1.1);
-    /* Efeito de brilho "Glow" */
     box-shadow: 0 0 20px rgba(67, 203, 156, 0.5);
 }
 
@@ -335,7 +320,6 @@ watch(() => route.path, () => {
     z-index: 101;
 }
 
-/* Posicionamento responsivo */
 .lightbox-nav-button.left-4 {
     left: 1rem;
 }
@@ -354,7 +338,6 @@ watch(() => route.path, () => {
     }
 }
 
-/* ... (O resto do seu CSS continua aqui) ... */
 .image-swap-enter-active,
 .image-swap-leave-active {
     transition: opacity 0.2s ease-in-out;
@@ -389,7 +372,6 @@ watch(() => route.path, () => {
     box-shadow: 0 0 20px rgba(67, 203, 156, 0.3);
 }
 
-/* --- ESTILOS DO RESTO DA PÁGINA --- */
 .info-title {
     font-size: 0.875rem;
     font-weight: 600;

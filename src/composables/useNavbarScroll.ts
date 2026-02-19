@@ -1,8 +1,7 @@
-// Use "import type" para importar apenas a definição do tipo
 import type { NavLink } from '../data/config';
 import { ref, onMounted, onUnmounted } from 'vue';
 
-export function useNavbarScroll(routeList: NavLink[]) { // Agora 'NavLink' é um tipo válido
+export function useNavbarScroll(routeList: NavLink[]) {
     const isScrolled = ref(false);
     const activeSection = ref(routeList.length > 0 ? routeList[0].href : '');
 

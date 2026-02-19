@@ -1,7 +1,6 @@
 import { ref } from 'vue';
 import emailjs from "emailjs-com";
 
-// Novo tipo para um status mais detalhado
 export type FormStatus = {
     type: 'success' | 'error' | null;
     message: string;
@@ -12,11 +11,10 @@ export function useContactForm() {
     const email = ref('');
     const message = ref('');
     const sending = ref(false);
-    // Agora o status é um objeto
     const status = ref<FormStatus>({ type: null, message: '' });
 
     const handleSubmit = async () => {
-        status.value = { type: null, message: '' }; // Limpa o status anterior
+        status.value = { type: null, message: '' }; 
         if (!name.value || !email.value || !message.value) {
             status.value = { type: 'error', message: 'Por favor, preencha todos os campos.' };
             return;

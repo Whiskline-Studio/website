@@ -3,12 +3,10 @@ import { ref, computed } from 'vue';
 import { useTranslations } from "../composables/useTranslations";
 import { onClickOutside } from '@vueuse/core';
 
-// composable de tradução próprio
 const { t, currentLocale } = useTranslations();
 const isOpen = ref(false);
 const switcherRef = ref<HTMLElement | null>(null);
 
-// array de idiomas tipado conforme Locale do seu composable
 type Locale = "pt" | "en";
 
 const languages: { code: Locale; name: string; flag: string }[] = [
@@ -26,7 +24,6 @@ const setLanguage = (langCode: Locale) => {
   isOpen.value = false;
 };
 
-// fecha o dropdown ao clicar fora
 onClickOutside(switcherRef, () => {
   isOpen.value = false;
 });

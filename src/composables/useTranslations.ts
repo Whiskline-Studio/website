@@ -3,7 +3,7 @@ import en from "../locales/en.json";
 import pt from "../locales/pt.json";
 
 type Locale = "en" | "pt";
-const currentLocale = ref<Locale | null>(null); // começa como null
+const currentLocale = ref<Locale | null>(null);
 
 const translations: Record<Locale, Record<string, any>> = {
   en,
@@ -20,7 +20,7 @@ function t(key: string, params: Record<string, string | number> = {}): string {
     if (text && typeof text === "object" && part in text) {
       text = text[part];
     } else {
-      return key; // fallback
+      return key;
     }
   }
 

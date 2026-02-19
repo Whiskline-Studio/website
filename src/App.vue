@@ -20,17 +20,14 @@ onMounted(() => {
     const saved = localStorage.getItem("user-language") as "pt" | "en" | null;
 
     if (saved) {
-      // idioma já salvo → aplica
       setLocale(saved);
     } else {
-      // sem idioma salvo → mostra modal
       showLanguageModal.value = true;
     }
   }, 1000);
 });
 
 
-// função que será chamada quando usuário escolher idioma no modal
 const handleLanguageSelect = (lang: "pt" | "en") => {
   setLocale(lang);
   showLanguageModal.value = false;

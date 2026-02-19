@@ -35,14 +35,11 @@
         "seeDetails": "Ver mais detalhes"
     },
     "contact": {
-        "titleProject": "Vamos Construir Algo Incrível",
-        "subtitleProject": "Tem uma ideia para um jogo, site ou aplicativo? Adoraríamos ouvir sobre ela.",
-        "titleBug": "Encontrou um Problema?",
-        "subtitleBug": "Agradecemos sua ajuda para melhorar nossos produtos. Por favor, descreva o bug em detalhes.",
-        "buttonProject": "Novo Projeto",
-        "buttonBug": "Reportar Bug",
+        "title": "Fale Conosco",
+        "subtitle": "Tem uma sugestão ou encontrou um bug? Adoraríamos ouvir de você!",
         "formName": "Seu nome",
         "formEmail": "Seu email",
+        "formPlaceholder": "Escreva sua mensagem aqui...",
         "formMessageProject": "Descreva sua ideia...",
         "formMessageBug": "Descreva o problema em detalhes...",
         "buttonSend": "Enviar Mensagem",

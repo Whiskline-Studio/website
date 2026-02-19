@@ -11,7 +11,6 @@ const props = defineProps<{
 
 const cardRef = ref<HTMLElement | null>(null);
 
-// Lógica do Efeito 3D
 const handleMouseMove = (event: MouseEvent) => {
     if (!cardRef.value) return;
     const rect = cardRef.value.getBoundingClientRect();

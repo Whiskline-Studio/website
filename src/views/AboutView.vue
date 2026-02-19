@@ -8,7 +8,6 @@ import AuroraBackground from '../components/anims/AuroraBackground.vue';
 
 const { t } = useTranslations();
 
-// Refs para as animações de entrada
 const missionRef = ref(null);
 const pillarsRef = ref(null);
 const ctaRef = ref(null);

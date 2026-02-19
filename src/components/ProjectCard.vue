@@ -1,66 +1,82 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import type { Project } from '../data/projects';
-
-
 import { useTranslations } from "../composables/useTranslations";
 
 const { t, currentLocale } = useTranslations();
+const props = defineProps<{ project: Project; }>();
 
-const props = defineProps<{
-    project: Project;
-}>();
-
-// --- Lógica para o efeito 3D  ---
 const cardRef = ref<HTMLElement | null>(null);
+const spotlightStyle = ref({ opacity: 0, left: '0px', top: '0px' });
 
 const handleMouseMove = (event: MouseEvent) => {
     if (!cardRef.value) return;
     const rect = cardRef.value.getBoundingClientRect();
-    const mouseX = event.clientX - rect.left;
-    const mouseY = event.clientY - rect.top;
+    const x = event.clientX - rect.left;
+    const y = event.clientY - rect.top;
+
+    spotlightStyle.value = {
+        opacity: 1,
+        left: `${x}px`,
+        top: `${y}px`
+    };
+
     const centerX = rect.width / 2;
     const centerY = rect.height / 2;
-    const rotateX = (mouseY - centerY) / centerY * -8;
-    const rotateY = (mouseX - centerX) / centerX * 8;
-    cardRef.value.style.transition = 'transform 0.1s ease-out';
-    cardRef.value.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.05, 1.05, 1.05)`;
+    const rotateX = (y - centerY) / centerY * -10;
+    const rotateY = (x - centerX) / centerX * 10;
+    
+    cardRef.value.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
 };
 
 const handleMouseLeave = () => {
     if (!cardRef.value) return;
-    cardRef.value.style.transition = 'transform 0.4s ease-out';
+    spotlightStyle.value.opacity = 0;
     cardRef.value.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
 };
 </script>
 
 <template>
-    <router-link :to="{ name: 'projectDetail', params: { id: project.id } }" class="card-container h-full block"
-        @mousemove="handleMouseMove" @mouseleave="handleMouseLeave">
-        <div ref="cardRef" class="card-content bg-black/70 border border-[#43cb9c]/30">
+    <router-link 
+        :to="{ name: 'projectDetail', params: { id: project.id } }" 
+        class="card-container group h-full block relative"
+        @mousemove="handleMouseMove" 
+        @mouseleave="handleMouseLeave"
+    >
+        <div ref="cardRef" class="card-content bg-[#0a0a0a] border border-white/10 overflow-hidden shadow-2xl transition-transform duration-200 ease-out">
+            
+            <div 
+                class="pointer-events-none absolute -inset-px z-30 transition-opacity duration-300"
+                :style="{
+                    background: `radial-gradient(600px circle at ${spotlightStyle.left} ${spotlightStyle.top}, rgba(67, 203, 156, 0.15), transparent 80%)`,
+                    opacity: spotlightStyle.opacity
+                }"
+            ></div>
 
-            <div
-                class="absolute -top-2 left-2 w-12 h-1 bg-gradient-to-r from-[#43cb9c] via-[#36a880] to-[#43cb9c] rounded-full animate-pulse">
+            <div class="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-[#43cb9c]/50 to-transparent"></div>
+
+            <div class="relative z-10 overflow-hidden rounded-lg mb-6 border border-white/5 bg-black" style="transform: translateZ(30px)">
+                <img 
+                    v-if="project.image" :src="project.image" loading="lazy"
+                    class="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110" 
+                />
             </div>
 
-            <img v-if="project.image" :src="project.image" loading="lazy"
-                class="w-full h-48 object-cover rounded-md mb-4 border border-[#43cb9c]/20" />
+            <div class="relative z-20 flex flex-col flex-grow" style="transform: translateZ(50px)">
+                <h3 class="text-xl font-bold mb-2 text-white group-hover:text-[#43cb9c] transition-colors">
+                    {{ currentLocale ? project[currentLocale].title : '' }}
+                </h3>
+                <p class="text-gray-400 text-sm mb-6 flex-grow leading-relaxed">
+                    {{ currentLocale ? project[currentLocale].shortDescription : '' }}
+                </p>
 
-            <div class="flex flex-col flex-grow pt-2">
-                <h3 class="text-xl font-bold mb-2 text-white">{{ currentLocale ? project[currentLocale].title: '' }}</h3>
-                <p class="text-gray-400 text-sm mb-6 flex-grow">{{ currentLocale ? project[currentLocale].shortDescription: '' }}</p>
-
-                <div class="w-full h-px bg-white/10 mt-auto"></div>
-
-                <div class="flex items-center justify-center gap-2 pt-4 text-[#43cb9c] font-semibold">
-                    <span>{{ t('portfolio.seeDetails') }}</span>
-                    <svg xmlns="http://www.w3.org/2000/svg"
-                        class="h-5 w-5 transition-transform duration-300 transform group-hover:translate-x-1"
-                        viewBox="0 0 20 20" fill="currentColor">
-                        <path fill-rule="evenodd"
-                            d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
-                            clip-rule="evenodd" />
-                    </svg>
+                <div class="flex items-center justify-between pt-4 border-t border-white/5">
+                    <div class="flex items-center gap-2 text-[#43cb9c] text-sm font-bold">
+                        <span>{{ t('portfolio.seeDetails') }}</span>
+                        <svg class="h-4 w-4 transform group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                        </svg>
+                    </div>
                 </div>
             </div>
         </div>
@@ -68,47 +84,28 @@ const handleMouseLeave = () => {
 </template>
 
 <style scoped>
-.card-container {
-    position: relative;
-    perspective: 1000px;
-    z-index: 10;
-    --glow-opacity: 0;
-}
-
-.card-container:hover {
-    --glow-opacity: 0.2;
-}
-
-.card-container::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(circle at center, #43cb9c, transparent 60%);
-    filter: blur(30px);
-    opacity: var(--glow-opacity);
-    transition: opacity 0.4s ease-out, transform 0.4s ease-out;
-    transform: scale(0.9);
-    z-index: -1;
-}
-
-.card-container:hover::before {
-    transform: scale(1);
-}
-
 .card-content {
-    position: relative;
     display: flex;
     flex-direction: column;
-    width: 100%;
-    height: 100%;
     padding: 1.5rem;
-    border-radius: 0.75rem;
+    border-radius: 1.25rem;
     transform-style: preserve-3d;
-    will-change: transform;
-    transition: transform 0.4s ease-out;
+    height: 100%;
 }
 
-.card-container {
-    text-decoration: none;
+.card-container::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: #43cb9c;
+    filter: blur(60px);
+    opacity: 0;
+    transition: opacity 0.5s;
+    z-index: -1;
+    border-radius: 1.25rem;
+}
+
+.card-container:hover::after {
+    opacity: 0.05;
 }
 </style>

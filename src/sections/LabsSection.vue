@@ -20,13 +20,25 @@ const { isVisible } = useAnimateOnScroll(sectionRef);
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
 
                 <div class="text-center lg:text-left">
-                    <h2 class="text-4xl md:text-5xl font-extrabold mb-4">{{ t('labs.title') }}</h2>
-                    <p class="text-gray-400 text-lg mb-8">
+                    <span
+                        class="inline-block px-3 py-1 rounded-full bg-[#43cb9c]/10 text-[#43cb9c] text-[10px] font-bold uppercase tracking-[0.2em] mb-6 border border-[#43cb9c]/20">
+                        {{ t('labs.experimental') }}
+                    </span>
+                    <h2 class="text-4xl md:text-6xl font-extrabold mb-6 text-white tracking-tight">
+                        {{ t('labs.title') }}
+                    </h2>
+                    <p class="text-gray-400 text-lg mb-10 leading-relaxed max-w-md">
                         {{ t('labs.subtitle') }}
                     </p>
                     <router-link to="/labs"
-                        class="inline-block px-8 py-3 rounded-full bg-gradient-to-r from-[#43cb9c] via-[#36a880] to-[#43cb9c] text-black font-bold shadow-lg hover:shadow-xl hover:scale-105 transform transition-all duration-300">
-                        {{ t('labs.button') }}
+                        class="relative overflow-hidden px-10 py-4 rounded-full bg-[#43cb9c] text-white font-bold shadow-[0_0_20px_rgba(67,203,156,0.4)] hover:shadow-[0_0_35px_rgba(67,203,156,0.6)] hover:-translate-y-1 transition-all duration-300">
+                        <span class="relative z-10">{{ t('labs.button') }}</span>
+                        <svg class="w-5 h-5 relative z-10 group-hover:translate-x-1 transition-transform" fill="none"
+                            style="display: inline;" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M13 7l5 5m0 0l-5 5m5-5H6" />
+
+                        </svg>
                     </router-link>
                 </div>
 
@@ -51,8 +63,9 @@ const { isVisible } = useAnimateOnScroll(sectionRef);
 
 .shape {
     position: absolute;
-    border: 1px solid rgba(67, 203, 156, 0.25);
-    background-color: rgba(67, 203, 156, 0.15);
+    background-color: rgba(67, 203, 156, 0.03);
+    border: 1px solid rgba(67, 203, 156, 0.2);
+    box-shadow: 0 0 20px rgba(67, 203, 156, 0.05);
     backdrop-filter: blur(10px);
     will-change: transform;
     animation-name: float-3d;
@@ -78,6 +91,12 @@ const { isVisible } = useAnimateOnScroll(sectionRef);
     left: 5%;
     border-radius: 30%;
     animation-duration: 18s;
+}
+
+.shape-1,
+.shape-3,
+.shape-6 {
+    backdrop-filter: blur(4px);
 }
 
 .shape-2 {
