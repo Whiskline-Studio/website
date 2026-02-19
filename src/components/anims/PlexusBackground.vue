@@ -77,7 +77,6 @@ onMounted(() => {
     width: 100%;
     height: 100%;
     z-index: -1;
-    /* Fica atrás de todo o conteúdo da página */
 }
 
 canvas {

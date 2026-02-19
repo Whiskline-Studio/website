@@ -32,9 +32,18 @@ watch(() => route.params.id, () => {
 });
 
 const currentIndex = computed(() => project.value ? projects.findIndex(p => p.id === project.value?.id) : -1);
-const previousProject = computed(() => currentIndex.value > 0 ? projects[currentIndex.value - 1] : null);
-const nextProject = computed(() => currentIndex.value < projects.length - 1 ? projects[currentIndex.value + 1] : null);
 
+const previousProject = computed(() => {
+    if (currentIndex.value === -1) return null;
+    const prevIdx = (currentIndex.value - 1 + projects.length) % projects.length;
+    return projects[prevIdx];
+});
+
+const nextProject = computed(() => {
+    if (currentIndex.value === -1) return null;
+    const nextIdx = (currentIndex.value + 1) % projects.length;
+    return projects[nextIdx];
+});
 
 const platformStyles = computed(() => {
     if (!project.value?.platform) return null;
@@ -48,13 +57,6 @@ const platformStyles = computed(() => {
 });
 
 const activeImageIndex = ref<number | null>(null);
-
-const activeImage = computed(() => {
-    if (activeImageIndex.value !== null && project.value) {
-        return project.value.gallery[activeImageIndex.value];
-    }
-    return null;
-});
 
 const openImage = (index: number) => {
     activeImageIndex.value = index;
@@ -80,7 +82,7 @@ const prevImage = () => {
 };
 
 const handleKeydown = (e: KeyboardEvent) => {
-    if (activeImage.value) {
+    if (activeImageIndex.value !== null) {
         if (e.key === 'ArrowRight') nextImage();
         if (e.key === 'ArrowLeft') prevImage();
         if (e.key === 'Escape') closeImage();
@@ -105,21 +107,26 @@ watch(() => route.path, () => {
 </script>
 
 <template>
-    <div v-if="project" class="project-detail-page page-enter">
-        <header class="relative h-[60vh] flex items-center justify-center text-center text-white overflow-hidden">
-            <div class="absolute inset-0 bg-black/60 z-10"></div>
-            <img :src="project.bannerImage" :alt="currentLocale ? project[currentLocale].title : ''" loading="lazy"
-                class="absolute inset-0 w-full h-full object-cover animate-kenburns" />
+    <div v-if="project" class="project-detail-page page-enter relative">
+        <div class="fixed top-0 left-0 w-full h-[2px] bg-[#43cb9c]/20 z-[60]">
+            <div class="h-full bg-[#43cb9c] shadow-[0_0_10px_#43cb9c] transition-all duration-300" style="width: 100%"></div>
+        </div>
 
-            <div class="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-black to-transparent z-20"></div>
+        <header class="relative h-[70vh] flex items-center justify-center text-center overflow-hidden">
+            <img :src="project.bannerImage" class="absolute inset-0 w-full h-full object-cover animate-kenburns" />
+            <div class="absolute inset-0 bg-gradient-to-b from-black/20 via-black/40 to-[#0a0a0a] z-10"></div>
 
-            <div class="relative z-20 p-6">
-                <h1 class="text-4xl md:text-6xl font-extrabold mb-4">{{ currentLocale ? project[currentLocale].title :
-                    '' }}</h1>
-                <div class="flex flex-wrap justify-center gap-2">
+            <div class="relative z-20 px-6 max-w-4xl">
+                <span class="inline-block px-4 py-1 rounded-full bg-[#43cb9c]/20 text-[#43cb9c] text-xs font-bold uppercase tracking-widest mb-6 border border-[#43cb9c]/30">
+                    {{ project.platform }}
+                </span>
+                <h1 class="text-5xl md:text-7xl font-black uppercase italic tracking-tighter animate-reveal text-white drop-shadow-[0_0_30px_rgba(67,203,156,0.3)]">
+                    {{ currentLocale ? project[currentLocale].title : '' }}
+                </h1>
+                <div class="flex flex-wrap justify-center gap-3 mt-8">
                     <span v-for="tag in project.tags" :key="tag"
-                        class="bg-white/10 text-white px-3 py-1 rounded-full text-sm font-semibold">
-                        {{ tag }}
+                        class="px-4 py-1.5 rounded-full bg-white/5 backdrop-blur-md border border-white/10 text-white/80 text-xs font-medium uppercase tracking-wider">
+                        #{{ tag }}
                     </span>
                 </div>
             </div>
@@ -127,392 +134,191 @@ watch(() => route.path, () => {
 
         <div class="max-w-6xl mx-auto px-6 py-16">
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-16">
-                <aside class="lg:col-span-1 space-y-6">
-                    <div v-if="currentLocale && project[currentLocale].client">
-                        <h3 class="info-title">{{ t('projectPage.client') }}</h3>
-                        <p class="info-text">{{ project[currentLocale].client }}</p>
-                    </div>
-                    <div>
-                        <h3 class="info-title">{{ t('projectPage.platform') }}</h3>
-                        <p class="info-text capitalize">{{ project.platform }}</p>
-                    </div>
-                    <div v-if="project.link && platformStyles">
-                        <a :href="project.link" target="_blank"
-                            :class="['button-cta', 'bg-gradient-to-br', platformStyles.color]">
-                            <img :src="platformStyles.icon" alt="" class="w-5 h-5" loading="lazy" />
-                            <span>{{ platformStyles.text }} {{ project.platform }}</span>
-                        </a>
+                <aside class="lg:col-span-1 space-y-8 sticky top-32 h-fit">
+                    <div class="p-8 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm shadow-xl relative overflow-hidden group">
+                        <div class="absolute top-0 left-0 w-6 h-6 border-t border-l border-[#43cb9c]/30"></div>
+                        
+                        <div class="space-y-8 relative z-10">
+                            <div v-if="currentLocale && project[currentLocale].client">
+                                <h3 class="text-[10px] uppercase tracking-[0.3em] text-[#43cb9c] font-bold mb-1">.Client</h3>
+                                <p class="text-xl font-black italic text-white uppercase">{{ project[currentLocale].client }}</p>
+                            </div>
+                            <div>
+                                <h3 class="text-[10px] uppercase tracking-[0.3em] text-[#43cb9c] font-bold mb-1">.Platform</h3>
+                                <p class="text-xl font-black italic text-white uppercase">{{ project.platform }}</p>
+                            </div>
+
+                            <div v-if="project.link && platformStyles" class="pt-4">
+                                <a :href="project.link" target="_blank"
+                                    :class="['group relative overflow-hidden rounded-xl py-4 flex items-center justify-center gap-3 font-black uppercase italic text-xs tracking-widest transition-all duration-300 hover:skew-x-[-6deg]', platformStyles.color]">
+                                    <img :src="platformStyles.icon" alt="" class="w-5 h-5 relative z-10" />
+                                    <span class="relative z-10">{{ platformStyles.text }}</span>
+                                </a>
+                            </div>
+                        </div>
                     </div>
                 </aside>
 
                 <div class="lg:col-span-2">
-                    <h2 class="text-3xl font-bold text-white mb-4">{{ t('projectPage.aboutProject') }}</h2>
-                    <p class="text-gray-300 leading-relaxed whitespace-pre-line">{{ currentLocale ?
-                        project[currentLocale].fullDescription : '' }}
+                    <div class="flex items-center gap-3 mb-4">
+                        <span class="font-mono text-xs text-[#43cb9c] opacity-50 tracking-tighter">PROJECT_FILE</span>
+                        <div class="h-[1px] w-12 bg-[#43cb9c]/30"></div>
+                    </div>
+                    <h2 class="text-3xl font-black uppercase italic tracking-tighter text-white mb-6 leading-none">
+                        {{ t('projectPage.aboutProject') }}<span class="text-[#43cb9c]">_</span>
+                    </h2>
+                    <p class="text-gray-400 leading-relaxed whitespace-pre-line font-light text-lg">
+                        {{ currentLocale ? project[currentLocale].fullDescription : '' }}
                     </p>
 
-                    <div v-if="project.testimonial" class="testimonial-card">
-                        <span class="testimonial-quote">“</span>
-                        <p class="text-lg italic text-white">{{ project.testimonial.text }}</p>
-                        <cite class="block text-right mt-4 not-italic text-[#43cb9c] font-semibold">- {{
-                            project.testimonial.author }}</cite>
+                    <div v-if="project.testimonial" class="mt-12 p-8 rounded-2xl bg-[#43cb9c]/5 border-l-4 border-[#43cb9c] relative">
+                        <span class="absolute top-4 right-8 text-6xl font-serif text-[#43cb9c]/20">“</span>
+                        <p class="text-xl italic text-white leading-relaxed relative z-10">{{ project.testimonial.text }}</p>
+                        <cite class="block text-right mt-6 not-italic font-black uppercase tracking-widest text-xs text-[#43cb9c]">
+                            // {{ project.testimonial.author }}
+                        </cite>
                     </div>
 
-                    <h2 v-if="project.gallery.length > 0" class="text-3xl font-bold text-white mt-12 mb-6">{{
-                        t('projectPage.gallery') }}</h2>
-                    <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                    <h2 v-if="project.gallery.length > 0" class="text-3xl font-black uppercase italic tracking-tighter text-white mt-16 mb-8 leading-none">
+                        {{ t('projectPage.gallery') }}<span class="text-[#43cb9c]">.</span>
+                    </h2>
+                    <div class="grid grid-cols-2 md:grid-cols-3 gap-6">
                         <img v-for="(img, index) in project.gallery" loading="lazy" :key="img" :src="img"
-                            class="gallery-image" @click="openImage(index)" />
+                            class="gallery-image shadow-2xl" @click="openImage(index)" />
                     </div>
                 </div>
             </div>
 
-            <div class="mt-24 border-y border-white/10">
-                <div class="grid grid-cols-1 md:grid-cols-2">
-                    <router-link v-if="previousProject && currentLocale"
-                        :to="{ name: 'projectDetail', params: { id: previousProject.id } }" class="nav-block group">
-                        <span class="arrow">&larr;</span>
-                        <div>
-                            <span class="nav-label">{{ t('projectPage.prevProject') }}</span>
-                            <span class="nav-title">{{ previousProject[currentLocale].title }}</span>
-                        </div>
-                    </router-link>
-                    <div v-else class="nav-block-placeholder"></div>
+            <div class="mt-32 -mx-6 md:-mx-12 lg:-mx-24 border-t border-white/5 flex flex-col md:flex-row h-auto md:h-64 overflow-hidden relative group/nav">
+                
+                <router-link v-if="previousProject && currentLocale" 
+                    :to="{ name: 'projectDetail', params: { id: previousProject.id } }"
+                    class="group relative flex-1 flex items-center p-12 overflow-hidden border-b md:border-b-0 md:border-r border-white/5">
+                    
+                    <img :src="previousProject.bannerImage" class="absolute inset-0 w-full h-full object-cover opacity-20 scale-105 group-hover:scale-110 group-hover:opacity-40 transition-all duration-700 blur-sm" />
+                    <div class="absolute inset-0 bg-gradient-to-r from-black via-black/60 to-transparent"></div>
 
-                    <router-link v-if="nextProject && currentLocale"
-                        :to="{ name: 'projectDetail', params: { id: nextProject.id } }"
-                        class="nav-block group text-right">
-                        <div class="flex-grow">
-                            <span class="nav-label">{{ t('projectPage.nextProject') }}</span>
-                            <span class="nav-title">{{ nextProject[currentLocale].title }}</span>
-                        </div>
-                        <span class="arrow">&rarr;</span>
-                    </router-link>
-                    <div v-else class="nav-block-placeholder"></div>
+                    <div class="relative z-10">
+                        <span class="text-[10px] uppercase tracking-[0.4em] text-[#43cb9c] font-bold mb-2 block opacity-70 group-hover:opacity-100 transition-opacity">
+                            &larr; {{ t('projectPage.prevProject') }}
+                        </span>
+                        <h4 class="text-3xl md:text-5xl font-black uppercase italic tracking-tighter text-white group-hover:translate-x-3 transition-transform duration-500">
+                            {{ previousProject[currentLocale]?.title }}
+                        </h4>
+                    </div>
+                </router-link>
+
+                <div class="hidden md:block absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-30 pointer-events-none">
+                    <div class="divider-line"></div>
                 </div>
+
+                <router-link v-if="nextProject && currentLocale" 
+                    :to="{ name: 'projectDetail', params: { id: nextProject.id } }"
+                    class="group relative flex-1 flex items-center justify-end p-12 text-right overflow-hidden">
+                    
+                    <img :src="nextProject.bannerImage" class="absolute inset-0 w-full h-full object-cover opacity-20 scale-105 group-hover:scale-110 group-hover:opacity-40 transition-all duration-700 blur-sm" />
+                    <div class="absolute inset-0 bg-gradient-to-l from-black via-black/60 to-transparent"></div>
+
+                    <div class="relative z-10">
+                        <span class="text-[10px] uppercase tracking-[0.4em] text-[#43cb9c] font-bold mb-2 block opacity-70 group-hover:opacity-100 transition-opacity">
+                            {{ t('projectPage.nextProject') }} &rarr;
+                        </span>
+                        <h4 class="text-3xl md:text-5xl font-black uppercase italic tracking-tighter text-white group-hover:-translate-x-3 transition-transform duration-500">
+                            {{ nextProject[currentLocale]?.title }}
+                        </h4>
+                    </div>
+                </router-link>
             </div>
         </div>
-
     </div>
 
-    <div v-else class="text-center py-40 min-h-screen">
-        <h1 class="text-3xl text-white">{{ t('projectPage.notFound') }}</h1>
-        <router-link to="/" class="text-[#43cb9c] hover:underline mt-4 inline-block">{{ t('projectPage.backHome')
-            }}</router-link>
-    </div>
     <Teleport to="body">
         <transition name="fade">
-            <div v-if="activeImage" @click="closeImage" class="lightbox-backdrop">
-
-                <button @click="closeImage" class="lightbox-close-button" aria-label="Fechar galeria">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
-                        stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M6 18L18 6M6 6l12 12" />
-                    </svg>
+            <div v-if="activeImageIndex !== null && project" @click="closeImage" class="lightbox-backdrop">
+                <button @click.stop="prevImage" class="lightbox-nav-button left-8">
+                    <svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>
                 </button>
-
-                <button @click.stop="prevImage" class="lightbox-nav-button left-4" aria-label="Imagem anterior">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24"
-                        stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-                    </svg>
-                </button>
-
                 <transition name="image-swap" mode="out-in">
-                    <img :key="activeImage" :src="activeImage" alt="Visualização da galeria" class="lightbox-image"
-                        @click.stop />
+                    <img :key="activeImageIndex" :src="project.gallery[activeImageIndex]" class="lightbox-image" @click.stop />
                 </transition>
-
-                <button @click.stop="nextImage" class="lightbox-nav-button right-4" aria-label="Próxima imagem">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24"
-                        stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                    </svg>
+                <button @click.stop="nextImage" class="lightbox-nav-button right-8">
+                    <svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
                 </button>
-
             </div>
         </transition>
     </Teleport>
 </template>
 
 <style scoped>
-@keyframes page-enter-animation {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
+@keyframes reveal {
+    0% { opacity: 0; filter: blur(20px); letter-spacing: 0.5em; transform: translateY(20px); }
+    100% { opacity: 1; filter: blur(0); letter-spacing: -0.02em; transform: translateY(0); }
+}
+.animate-reveal { animation: reveal 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
 
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+@keyframes divider-pulse {
+    0%, 100% { opacity: 0.6; transform: translate(-50%, -50%) scaleY(1); box-shadow: 0 0 15px #43cb9c; }
+    50% { opacity: 1; transform: translate(-50%, -50%) scaleY(1.2); box-shadow: 0 0 30px #43cb9c; }
+}
+.divider-line {
+    width: 2px;
+    height: 120px;
+    background: #43cb9c;
+    border-radius: 99px;
+    animation: divider-pulse 3s infinite ease-in-out;
 }
 
-.page-enter {
-    animation: page-enter-animation 0.7s ease-out forwards;
+.gallery-image {
+    width: 100%;
+    aspect-ratio: 16/10;
+    object-fit: cover;
+    border-radius: 1rem;
+    cursor: pointer;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
-
-@keyframes kenburns {
-    0% {
-        transform: scale(1) translate(0, 0);
-    }
-
-    100% {
-        transform: scale(1.1) translate(-2%, 2%);
-    }
-}
-
-.animate-kenburns {
-    animation: kenburns 20s ease-in-out infinite alternate;
+.gallery-image:hover {
+    transform: scale(1.03) translateY(-10px);
+    border-color: #43cb9c;
+    box-shadow: 0 30px 60px rgba(0,0,0,0.5), 0 0 20px rgba(67, 203, 156, 0.2);
 }
 
 .lightbox-backdrop {
     position: fixed;
     inset: 0;
-    background-color: rgba(0, 0, 0, 0.9);
-    backdrop-filter: blur(8px);
-    z-index: 100;
+    background: rgba(5,5,5,0.98);
+    backdrop-filter: blur(15px);
+    z-index: 1000;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 1rem;
+    cursor: zoom-out;
 }
-
 .lightbox-image {
-    max-width: 85vw;
+    max-width: 90vw;
     max-height: 85vh;
-    border-radius: 0.5rem;
-    box-shadow: 0 0 60px rgba(0, 0, 0, 0.7);
+    border-radius: 1rem;
+    box-shadow: 0 0 100px rgba(67, 203, 156, 0.1);
+    border: 1px solid rgba(255,255,255,0.1);
 }
-
-.lightbox-nav-button,
-.lightbox-close-button {
+.lightbox-nav-button {
     position: absolute;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 44px;
-    height: 44px;
-
-    background-color: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(5px);
-    border: 2px solid rgba(255, 255, 255, 0.3);
-
-    color: rgba(255, 255, 255, 0.6);
+    color: white;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    width: 60px;
+    height: 60px;
     border-radius: 50%;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    cursor: pointer;
-}
-
-.lightbox-nav-button:hover,
-.lightbox-close-button:hover {
-    color: white;
-    background-color: rgba(67, 203, 156, 0.1);
-    border-color: #43cb9c;
-    transform: scale(1.1);
-    box-shadow: 0 0 20px rgba(67, 203, 156, 0.5);
-}
-
-.lightbox-close-button {
-    top: 1.5rem;
-    right: 1.5rem;
-    z-index: 101;
-}
-
-.lightbox-nav-button.left-4 {
-    left: 1rem;
-}
-
-.lightbox-nav-button.right-4 {
-    right: 1rem;
-}
-
-@media (min-width: 768px) {
-    .lightbox-nav-button.left-4 {
-        left: 1.5rem;
-    }
-
-    .lightbox-nav-button.right-4 {
-        right: 1.5rem;
-    }
-}
-
-.image-swap-enter-active,
-.image-swap-leave-active {
-    transition: opacity 0.2s ease-in-out;
-}
-
-.image-swap-enter-from,
-.image-swap-leave-to {
-    opacity: 0;
-}
-
-.fade-enter-active,
-.fade-leave-active {
-    transition: opacity 0.4s ease;
-}
-
-.fade-enter-from,
-.fade-leave-to {
-    opacity: 0;
-}
-
-.gallery-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 0.375rem;
-    cursor: pointer;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.gallery-image:hover {
-    transform: scale(1.05);
-    box-shadow: 0 0 20px rgba(67, 203, 156, 0.3);
-}
-
-.info-title {
-    font-size: 0.875rem;
-    font-weight: 600;
-    color: #9ca3af;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    margin-bottom: 0.25rem;
-}
-
-.info-text {
-    font-size: 1.125rem;
-    color: white;
-    text-transform: capitalize;
-}
-
-.button-cta {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-    width: 100%;
-    padding: 0.75rem 1.5rem;
-    border-radius: 9999px;
-    font-weight: 700;
-    color: white;
-    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-    transition: all 0.3s ease;
-}
-
-.button-cta:hover {
-    box-shadow: 0 20px 25px -5px var(--tw-shadow-color), 0 8px 10px -6px var(--tw-shadow-color);
-    --tw-shadow-color: rgba(67, 203, 156, 0.3);
-}
-
-.testimonial-card {
-    margin-top: 3rem;
-    padding: 2rem;
-    border-left: 4px solid #43cb9c;
-    background-color: rgba(255, 255, 255, 0.05);
-    border-top-right-radius: 0.5rem;
-    border-bottom-right-radius: 0.5rem;
-    position: relative;
-}
-
-.testimonial-quote {
-    position: absolute;
-    top: -1.25rem;
-    left: -0.5rem;
-    font-size: 4.5rem;
-    font-family: serif;
-    color: rgba(67, 203, 156, 0.5);
-}
-
-.nav-block {
     display: flex;
     align-items: center;
-    gap: 1rem;
-    padding: 1.5rem 2rem;
-    border-left: 1px solid rgba(255, 255, 255, 0.1);
-    border-right: 1px solid rgba(255, 255, 255, 0.1);
-    transition: background-color 0.3s ease;
-    position: relative;
-    overflow: hidden;
+    justify-content: center;
+    transition: all 0.3s;
 }
+.lightbox-nav-button:hover { background: #43cb9c; color: black; border-color: #43cb9c; transform: scale(1.1); }
 
-.nav-block::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    width: 3px;
-    background-color: #43cb9c;
-    box-shadow: 0 0 15px #43cb9c;
-    transition: transform 0.4s cubic-bezier(0.7, 0, 0.3, 1);
+@keyframes kenburns {
+    0% { transform: scale(1); }
+    100% { transform: scale(1.15) translate(-1%, 1%); }
 }
-
-.nav-block:first-of-type::before {
-    left: -3px;
-}
-
-.nav-block:first-of-type:hover::before {
-    transform: translateX(3px);
-}
-
-.nav-block:last-of-type::before {
-    right: -3px;
-}
-
-.nav-block:last-of-type:hover::before {
-    transform: translateX(-3px);
-}
-
-.nav-block-placeholder {
-    display: none;
-}
-
-@media (min-width: 768px) {
-    .nav-block:first-of-type {
-        border-right-width: 0.5px;
-    }
-
-    .nav-block:last-of-type {
-        border-left-width: 0.5px;
-        justify-content: flex-end;
-    }
-
-    .nav-block-placeholder {
-        display: block;
-        border-left: 1px solid rgba(255, 255, 255, 0.1);
-        border-right: 1px solid rgba(255, 255, 255, 0.1);
-    }
-}
-
-.nav-label {
-    display: block;
-    font-size: 0.75rem;
-    color: #9ca3af;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-}
-
-.nav-title {
-    display: block;
-    font-size: 1.125rem;
-    color: white;
-    font-weight: 700;
-    transition: color 0.3s ease;
-}
-
-.nav-block:hover .nav-title {
-    color: #43cb9c;
-}
-
-.arrow {
-    font-size: 1.875rem;
-    color: #4b5563;
-    transition: all 0.3s ease;
-}
-
-.nav-block:hover .arrow {
-    color: #43cb9c;
-    transform: scale(1.25);
-}
+.animate-kenburns { animation: kenburns 25s infinite alternate ease-in-out; }
 </style>

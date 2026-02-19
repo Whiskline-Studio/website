@@ -20,34 +20,67 @@ const { isVisible } = useAnimateOnScroll(sectionRef);
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
 
                 <div class="text-center lg:text-left">
-                    <span
-                        class="inline-block px-3 py-1 rounded-full bg-[#43cb9c]/10 text-[#43cb9c] text-[10px] font-bold uppercase tracking-[0.2em] mb-6 border border-[#43cb9c]/20">
+                    <div
+                        class="inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-[#43cb9c]/10 border border-[#43cb9c]/20 mb-8 font-mono text-[10px] tracking-widest text-[#43cb9c]">
+                        <span class="relative flex h-2 w-2">
+                            <span
+                                class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#43cb9c] opacity-75"></span>
+                            <span class="relative inline-flex rounded-full h-2 w-2 bg-[#43cb9c]"></span>
+                        </span>
                         {{ t('labs.experimental') }}
-                    </span>
-                    <h2 class="text-4xl md:text-6xl font-extrabold mb-6 text-white tracking-tight">
-                        {{ t('labs.title') }}
-                    </h2>
-                    <p class="text-gray-400 text-lg mb-10 leading-relaxed max-w-md">
+                    </div>
+
+                    <div class="mb-10">
+                        <div class="flex items-center gap-3 mb-4">
+                            <span class="font-mono text-[10px] text-[#43cb9c] uppercase tracking-[0.5em] opacity-60">
+                                System_Experimental // SEC_04
+                            </span>
+                            <div class="h-[1px] w-24 bg-gradient-to-r from-[#43cb9c]/40 to-transparent"></div>
+                        </div>
+                        <h2
+                            class="text-5xl md:text-7xl font-black uppercase italic tracking-tighter text-white leading-none">
+                            {{ t('labs.title') }}<span class="text-[#43cb9c]">_</span>
+                        </h2>
+                    </div>
+
+                    <p class="text-gray-400 text-lg md:text-xl mb-12 leading-relaxed max-w-md font-light">
+                        <span class="text-[#43cb9c] font-mono mr-2">></span>
                         {{ t('labs.subtitle') }}
                     </p>
-                    <router-link to="/labs"
-                        class="relative overflow-hidden px-10 py-4 rounded-full bg-[#43cb9c] text-white font-bold shadow-[0_0_20px_rgba(67,203,156,0.4)] hover:shadow-[0_0_35px_rgba(67,203,156,0.6)] hover:-translate-y-1 transition-all duration-300">
-                        <span class="relative z-10">{{ t('labs.button') }}</span>
-                        <svg class="w-5 h-5 relative z-10 group-hover:translate-x-1 transition-transform" fill="none"
-                            style="display: inline;" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M13 7l5 5m0 0l-5 5m5-5H6" />
 
+                    <router-link to="/labs"
+                        class="group relative rounded-xl inline-flex items-center gap-4 px-12 py-4 bg-white text-black font-black uppercase italic tracking-widest text-xs transition-all duration-300 hover:bg-[#43cb9c] hover:text-white hover:skew-x-[-6deg] hover:shadow-[0_0_30px_rgba(67,203,156,0.3)]">
+                        <span>{{ t('labs.button') }}</span>
+                        <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none"
+                            viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="4"
+                                d="M13 7l5 5m0 0l-5 5m5-5H6" />
                         </svg>
                     </router-link>
                 </div>
 
-                <div class="preview-card">
-                    <div class="preview-content">
-                        <img src="https://i.imgur.com/NeZYLBI.png" alt="Pré-visualização de um experimento do Labs"
-                            class="w-full h-full object-cover rounded-lg" />
-                        <div class="preview-overlay"></div>
-                        <div class="preview-glow"></div>
+                <div class="preview-card group/card relative">
+                    <div class="absolute -top-4  w-12 h-12 border-t-2 border-l-2 border-[#43cb9c]/30 z-20"
+                        style="left: -1rem;"></div>
+                    <div class="absolute -bottom-4 -right-4 w-12 h-12 border-b-2 border-r-2 border-[#43cb9c]/30 z-20">
+                    </div>
+
+                    <div
+                        class="preview-content bg-[#0a0a0a] border border-white/5 p-4 rounded-xl overflow-hidden backdrop-blur-xl shadow-2xl transition-all duration-500 group-hover/card:border-[#43cb9c]/40 group-hover/card:-translate-y-2">
+                        <div class="relative rounded-lg overflow-hidden">
+                            <img src="https://i.imgur.com/NeZYLBI.png" alt="Labs Preview"
+                                class="w-full h-full object-cover grayscale-[0.5] group-hover/card:grayscale-0 transition-all duration-700" />
+
+                            <div
+                                class="absolute inset-0 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.1)_50%)] bg-[length:100%_4px] pointer-events-none">
+                            </div>
+                        </div>
+
+                        <div
+                            class="mt-4 flex justify-between items-center font-mono text-[8px] uppercase tracking-widest text-white/20">
+                            <span>Core.v2.6_Stable</span>
+                            <span class="text-[#43cb9c]/50">Process.Active</span>
+                        </div>
                     </div>
                 </div>
 
@@ -68,6 +101,7 @@ const { isVisible } = useAnimateOnScroll(sectionRef);
     box-shadow: 0 0 20px rgba(67, 203, 156, 0.05);
     backdrop-filter: blur(10px);
     will-change: transform;
+    clip-path: polygon(20% 0%, 100% 0%, 80% 100%, 0% 100%);
     animation-name: float-3d;
     animation-iteration-count: infinite;
     animation-direction: alternate;
@@ -162,7 +196,6 @@ const { isVisible } = useAnimateOnScroll(sectionRef);
     animation-duration: 19s;
 }
 
-/* --- CARD DE PRÉ-VISUALIZAÇÃO COM "DROP SHADOW" PARA A LOGO --- */
 .preview-card {
     position: relative;
     aspect-ratio: 16 / 7;
@@ -171,7 +204,6 @@ const { isVisible } = useAnimateOnScroll(sectionRef);
 }
 
 .preview-card:hover {
-    /* Mantém o zoom subtil no hover */
     transform: scale(1.05);
 }
 
@@ -181,30 +213,45 @@ const { isVisible } = useAnimateOnScroll(sectionRef);
     height: 100%;
     border-radius: 0.75rem;
     overflow: hidden;
-    /* A borda agora é transparente para não interferir */
     border: 1px solid transparent;
-    /* A transição agora é para o conteúdo, não para o card */
     transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
+
+.preview-card:hover::after {
+    content: "ANALYZING...";
+    position: absolute;
+    top: -25px;
+    right: 0;
+    font-family: monospace;
+    font-size: 10px;
+    color: #43cb9c;
+    letter-spacing: 2px;
+    animation: blink 1s infinite;
+}
+
+@keyframes blink {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0;
+    }
+}
+
 .preview-card:hover .preview-content {
-    /* Efeito de flutuação para a frente, sem inclinar */
     transform: translateZ(30px);
 }
 
-/* A IMAGEM EM SI GANHA O GLOW */
 .preview-content img {
     transition: filter 0.4s ease-in-out;
 }
 
-.preview-card:hover .preview-content img {
-    /* O "glow" agora segue perfeitamente os contornos da logo */
-    filter: drop-shadow(0 0 15px rgba(67, 203, 156, 0.7));
-}
-
 .preview-overlay,
 .preview-glow {
-    /* O overlay e o glow interno já não são necessários */
     display: none;
 }
 </style>

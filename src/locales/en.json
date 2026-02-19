@@ -35,7 +35,6 @@
         "seeDetails": "See more details"
     },
     "contact": {
-        
         "title": "Contact Us",
         "subtitle": "Do you have a suggestion or found a bug? We'd love to hear from you!",
         "formName": "Your name",
@@ -89,7 +88,11 @@
         "ctaTitle": "Like our philosophy?",
         "ctaSubtitle": "Explore the worlds we've created and see our passion in action.",
         "ctaButton": "See Our Projects",
-        "metaDescription": "At Whiskline Studio, we believe that games and applications are more than just code; they are forms of art. Our philosophy is simple: to create fair and polished digital experiences, where every detail is carefully designed to surprise and respect the time of those who play and use our products."
+        "metaDescription": "At Whiskline Studio, we believe that games and applications are more than just code; they are forms of art. Our philosophy is simple: to create fair and polished digital experiences, where every detail is carefully designed to surprise and respect the time of those who play and use our products.",
+        "originTitle": "Behind the Whiskers",
+        "originText": "The name Whiskline stems from the fusion of Whiskers and Line. A tribute to the precision of feline senses applied to software development.",
+        "cat1Note": "Unit_01 // Chief_Purr_Officer",
+        "cat2Note": "Unit_02 // Creative_Lead"
     },
     "labs": {
         "title": "Our Creative Lab",

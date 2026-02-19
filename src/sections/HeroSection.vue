@@ -30,49 +30,40 @@ const scrollToSection = (id: string) => {
     </div>
 
     <div data-animate="badge"
-      class="relative group mb-8 px-6 py-2 rounded-2xl border border-white/10 shadow-2xl overflow-hidden bg-white/5 transition-all duration-300 hover:border-[#43cb9c]/50">
+      class="relative group mb-10 px-4 py-2 rounded-lg border border-white/10 overflow-hidden bg-black/40 backdrop-blur-md transition-all duration-500 hover:border-[#43cb9c]/50">
 
-      <div
-        class="absolute inset-0 z-0 backdrop-blur-xl bg-gradient-to-r from-[#43cb9c]/10 via-transparent to-[#43cb9c]/5">
-      </div>
-
-      <div
-        class="absolute inset-0 z-10 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/20 to-transparent pointer-events-none">
-      </div>
-
-      <div class="relative z-20 flex items-center gap-3">
-        <span class="relative flex h-2 w-2">
-          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#43cb9c] opacity-75"></span>
-          <span class="relative inline-flex rounded-full h-2 w-2 bg-[#43cb9c] shadow-[0_0_10px_#43cb9c]"></span>
-        </span>
-
-        <span class="text-white font-medium tracking-wider uppercase text-xs md:text-sm">
-          <span class="text-[#43cb9c] font-black mr-1">//</span> {{ t('hero.badge') }}
-        </span>
+      <div class="relative z-20 flex items-center gap-4 font-mono text-[10px] tracking-[0.2em]">
+        <span class="text-[#43cb9c] animate-pulse">● READY</span>
+        <div class="w-[1px] h-3 bg-white/20"></div>
+        <span class="text-white/70 uppercase">{{ t('hero.badge') }}</span>
+        <span class="hidden md:inline text-white/20">ID_001.SYS</span>
       </div>
     </div>
 
-    <h1 data-animate="title" class="text-5xl md:text-7xl font-extrabold text-white mb-6 leading-tight">
-      {{ t('hero.title', { 0: '' }) }}
+    <h1 data-animate="title"
+      class="text-4xl md:text-5xl font-black uppercase italic tracking-tighter text-white mb-8 leading-[0.9]">
+      {{ t('hero.title').split('{0}')[0] }}
       <span
-        class="bg-clip-text text-transparent bg-gradient-to-r from-[#43cb9c] to-[#36a880] drop-shadow-[0_0_15px_rgba(67,203,156,0.3)]">
+        class="text-transparent bg-clip-text bg-gradient-to-br from-[#43cb9c] via-[#36a880] to-[#1a4d3b] drop-shadow-[0_0_30px_rgba(67,203,156,0.2)]">
         {{ t('hero.titleHighlight') }}
       </span>
       {{ t('hero.title').split('{0}')[1] }}
     </h1>
 
-    <p data-animate="description" class="max-w-screen-sm mx-auto text-xl text-gray-300 mb-12">
+    <p data-animate="description"
+      class="max-w-2xl mx-auto text-lg md:text-xl text-gray-400 mb-12 font-light leading-relaxed">
+      <span class="text-[#43cb9c] font-mono mr-2">></span>
       {{ t('hero.description') }}
     </p>
 
-    <div data-animate="buttons" class="flex flex-col sm:flex-row justify-center gap-5 mb-20">
+    <div data-animate="buttons" class="flex flex-col sm:flex-row justify-center gap-6 mb-20">
       <a href="#portfolio" @click.prevent="scrollToSection('portfolio')"
-        class="relative overflow-hidden px-10 py-4 rounded-full bg-[#43cb9c] text-white font-bold shadow-[0_0_20px_rgba(67,203,156,0.4)] hover:shadow-[0_0_35px_rgba(67,203,156,0.6)] hover:-translate-y-1 transition-all duration-300">
-        {{ t('hero.buttonStart') }}
+        class="group relative overflow-hidden px-12 py-4 rounded-xl bg-white text-black font-black uppercase italic tracking-widest text-xs transition-all duration-300 hover:bg-[#43cb9c] hover:text-white hover:skew-x-[-6deg]">
+        <span class="relative z-10">{{ t('hero.buttonStart') }}</span>
       </a>
 
       <a href="#contato" @click.prevent="scrollToSection('contato')"
-        class="px-10 py-4 rounded-full border border-white/10 bg-white/5 backdrop-blur-md text-white font-bold hover:bg-white/10 hover:border-[#43cb9c]/50 transition-all duration-300">
+        class="group px-12 py-4 rounded-xl border border-white/10 bg-white/5 backdrop-blur-md text-white font-black uppercase italic tracking-widest text-xs transition-all duration-300 hover:border-[#43cb9c] hover:bg-[#43cb9c]/10 hover:skew-x-[-6deg]">
         {{ t('hero.buttonContact') }}
       </a>
     </div>
@@ -95,11 +86,38 @@ const scrollToSection = (id: string) => {
 
 
 <style scoped>
+section#home::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%,
+      rgba(0, 0, 0, 0.05) 50%);
+  background-size: 100% 4px;
+  z-index: 10;
+  pointer-events: none;
+}
+[data-animate="title"] {
+  text-shadow: 0 0 40px rgba(255, 255, 255, 0.1);
+}
+
+@keyframes enter-animation {
+  from {
+    opacity: 0;
+    transform: translateY(40px) skewY(2deg);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) skewY(0);
+  }
+}
+
 @keyframes enter-animation {
   from {
     opacity: 0;
     transform: translateY(30px) scale(0.95);
   }
+
   to {
     opacity: 1;
     transform: translateY(0) scale(1);

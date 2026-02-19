@@ -1,7 +1,14 @@
 <template>
     <div class="abstract-background">
+        <div class="grid-overlay"></div>
+
         <div class="shapes-container">
-            <div v-for="n in 4" :key="n" class="shape" :class="`shape-${n}`"></div>
+            <div class="scanlines"></div>
+
+            <div v-for="n in 6" :key="n" class="shape" :class="`shape-${n}`">
+                <div class="inner-line"></div>
+                <div class="corner-glitch"></div>
+            </div>
         </div>
     </div>
 </template>
@@ -9,12 +16,30 @@
 <style scoped>
 .abstract-background {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    inset: 0;
     overflow: hidden;
     z-index: 0;
+    background: #050505;
+}
+
+.grid-overlay {
+    position: absolute;
+    inset: 0;
+    background-image:
+        linear-gradient(rgba(67, 203, 156, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(67, 203, 156, 0.05) 1px, transparent 1px);
+    background-size: 50px 50px;
+    z-index: 1;
+}
+
+.scanlines {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%,
+            rgba(67, 203, 156, 0.02) 50%);
+    background-size: 100% 4px;
+    z-index: 2;
+    pointer-events: none;
 }
 
 .shapes-container {
@@ -25,112 +50,85 @@
 
 .shape {
     position: absolute;
-    /* Cor um pouco mais visível */
-    background-color: rgba(67, 203, 156, 0.15);
-    border-radius: 30%;
-    animation: float-abstract 20s infinite ease-in-out alternate;
-    /* EFEITO GLOW ADICIONADO AQUI */
-    box-shadow: 0 0 50px rgba(67, 203, 156, 0.2);
+    background: rgba(67, 203, 156, 0.02);
+    border: 2px solid rgba(67, 203, 156, 0);
+    box-shadow: 0 0 40px rgba(67, 203, 156, 0.6), inset 0 0 20px rgba(67, 203, 156, 0.05);
+    clip-path: polygon(15% 0%, 100% 0%, 85% 100%, 0% 100%);
+    animation: float-brutal 25s infinite ease-in-out;
+    will-change: transform;
 }
 
-@keyframes float-abstract {
-    from {
-        transform: translateY(0px) rotate(0deg) scale(1);
-        opacity: 0.7;
+.inner-line {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: rgba(67, 203, 156, 0.1);
+    box-shadow: 0 0 10px rgba(67, 203, 156, 0.2);
+    transform: translateY(-50%);
+}
+
+@keyframes float-brutal {
+
+    0%,
+    100% {
+        transform: translate(0, 0) rotate(-10deg);
     }
 
-    to {
-        transform: translateY(-30px) rotate(60deg) scale(1.05);
-        opacity: 1;
+    50% {
+        transform: translate(30px, -20px) rotate(-8deg) scale(1.05);
     }
 }
 
-/* Tamanhos e posições (sem alteração) */
 .shape-1 {
-    width: 200px;
-    height: 200px;
-    top: -50px;
-    left: -50px;
-    animation-duration: 25s;
+    width: 600px;
+    height: 180px;
+    top: 5%;
+    left: -150px;
+    animation-duration: 30s;
 }
 
 .shape-2 {
-    width: 300px;
-    height: 300px;
-    top: 10%;
+    width: 400px;
+    height: 120px;
+    top: 65%;
     left: 70%;
-    animation-duration: 30s;
-    animation-delay: 2s;
-    border-radius: 40%;
+    animation-duration: 25s;
+    opacity: 0.8;
 }
 
 .shape-3 {
-    width: 150px;
-    height: 150px;
-    top: 80%;
+    width: 800px;
+    height: 250px;
+    top: 35%;
     left: 10%;
-    animation-duration: 22s;
+    animation-duration: 45s;
+    border-width: 1px;
 }
 
 .shape-4 {
-    width: 400px;
-    height: 400px;
-    top: 70%;
-    left: 60%;
-    animation-duration: 35s;
-    animation-delay: 5s;
-    border-radius: 35%;
+    width: 300px;
+    height: 100px;
+    top: 80%;
+    left: 20%;
+    animation-duration: 20s;
 }
 
 .shape-5 {
-    width: 100px;
-    height: 100px;
-    top: 30%;
-    left: 30%;
-    animation-duration: 28s;
+    width: 500px;
+    height: 140px;
+    top: -10%;
+    left: 55%;
+    animation-duration: 35s;
 }
 
 .shape-6 {
-    width: 250px;
-    height: 250px;
-    top: 50%;
+    width: 300px;
+    height: 300px;
+    top: 25%;
     left: -80px;
-    animation-duration: 26s;
-    animation-delay: 3s;
-}
-
-.shape-7 {
-    width: 180px;
-    height: 180px;
-    top: -30px;
-    left: 40%;
-    animation-duration: 29s;
-}
-
-.shape-8 {
-    width: 220px;
-    height: 220px;
-    top: 90%;
-    left: 85%;
-    animation-duration: 32s;
-    animation-delay: 1s;
-    border-radius: 50%;
-}
-
-.shape-9 {
-    width: 120px;
-    height: 120px;
-    top: 40%;
-    left: 80%;
-    animation-duration: 24s;
-}
-
-.shape-10 {
-    width: 350px;
-    height: 350px;
-    top: 5%;
-    left: 15%;
-    animation-duration: 38s;
-    animation-delay: 4s;
+    clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+    background: rgba(67, 203, 156, 0.03);
 }
 </style>

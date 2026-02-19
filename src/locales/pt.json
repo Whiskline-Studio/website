@@ -4,7 +4,7 @@
     },
     "nav": {
         "home": "Início",
-        "back": "Votar",
+        "back": "Voltar",
         "about": "Sobre",
         "portfolio": "Portfólio",
         "labs": "Labs",
@@ -88,7 +88,11 @@
         "ctaTitle": "Gostou da nossa filosofia?",
         "ctaSubtitle": "Explore os mundos que criámos e veja a nossa paixão em ação.",
         "ctaButton": "Veja Nossos Projetos",
-        "metaDescription": "Na Whiskline Studio, transformamos ideias em experiências digitais únicas. Desenvolvemos jogos, sites e aplicativos com foco em design moderno, performance otimizada e interações que encantam e envolvem os usuários."
+        "metaDescription": "Na Whiskline Studio, transformamos ideias em experiências digitais únicas. Desenvolvemos jogos, sites e aplicativos com foco em design moderno, performance otimizada e interações que encantam e envolvem os usuários.",
+        "originTitle": "Behind the Whiskers",
+        "originText": "O nome Whiskline nasce da fusão entre Whiskers (bigodes) e Line (linha). Uma homenagem à precisão dos sentidos felinos aplicada ao desenvolvimento.",
+        "cat1Note": "Unit_01 // Chief_Purr_Officer",
+        "cat2Note": "Unit_02 // Creative_Lead"
     },
     "labs": {
         "title": "Nosso Laboratório Criativo",
