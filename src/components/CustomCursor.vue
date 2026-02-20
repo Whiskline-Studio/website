@@ -8,7 +8,6 @@ const isPointer = ref(false);
 const moveCursor = (e: MouseEvent) => {
   x.value = e.clientX;
   y.value = e.clientY;
-  // Detecta se o mouse está sobre algo clicável
   const target = e.target as HTMLElement;
   isPointer.value = window.getComputedStyle(target).cursor === 'pointer';
 };
