@@ -68,7 +68,7 @@ const { isVisible } = useAnimateOnScroll(sectionRef);
                     <div
                         class="preview-content bg-[#0a0a0a] border border-white/5 p-4 rounded-xl overflow-hidden backdrop-blur-xl shadow-2xl transition-all duration-500 group-hover/card:border-[#43cb9c]/40 group-hover/card:-translate-y-2">
                         <div class="relative rounded-lg overflow-hidden">
-                            <img src="https://i.imgur.com/NeZYLBI.png" alt="Labs Preview"
+                            <img src="https://i.imgur.com/NeZYLBI.png" alt="Whiskline Labs"
                                 class="w-full h-full object-cover grayscale-[0.5] group-hover/card:grayscale-0 transition-all duration-700" />
 
                             <div

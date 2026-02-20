@@ -26,6 +26,12 @@ export interface Project {
     client: string;
     fullDescription: string;
   };
+  es: {
+    title: string;
+    shortDescription: string;
+    client: string;
+    fullDescription: string;
+  };
 }
 
 export const projects: Project[] = [
@@ -36,13 +42,13 @@ export const projects: Project[] = [
     platform: "Steam",
     icon: 'https://i.imgur.com/awGFzhq.png',
     bannerImage: "https://i.imgur.com/8g4KYgQ.png",
-    tags: ["Unity", "C#", "Pc Game",  "Mobile Game"],
+    tags: ["Unity", "C#", "Pc Game", "Mobile Game"],
     gallery: [
-      "https://i.imgur.com/o8SSWZT.png", 
-      "https://i.imgur.com/l9buaoy.png", 
-      "https://i.imgur.com/ASb9sSq.png", 
-      "https://i.imgur.com/DbxU9M5.png", 
-      "https://i.imgur.com/UjQvCi9.png", 
+      "https://i.imgur.com/o8SSWZT.png",
+      "https://i.imgur.com/l9buaoy.png",
+      "https://i.imgur.com/ASb9sSq.png",
+      "https://i.imgur.com/DbxU9M5.png",
+      "https://i.imgur.com/UjQvCi9.png",
       "https://i.imgur.com/LJea8Xf.png"
     ],
     accentColor: '#16cc1cff',
@@ -58,14 +64,20 @@ export const projects: Project[] = [
       client: "Whiskline Studio",
       fullDescription: "You are Rayy, a young adventurer welcomed by the village, who must now return that protection. Your journey is a balance between the sunlight and the darkness of the dungeons. Explore the dungeons, defeat monsters, and uncover the mysteries of Bloomrise. The game features a unique blend of action and exploration, with a focus on creating an immersive world filled with secrets and challenges. Developed in Unity, Tales of Bloomrise offers a rich narrative experience combined with engaging gameplay mechanics.",
     },
+    es: {
+      title: "Tales of Bloomrise",
+      shortDescription: "Explora mazmorras y desvela os misterios de Bloomrise.",
+      client: "Whiskline Studio",
+      fullDescription: "Eres Rayy, una joven aventurera acogida por la aldea, que ahora debe devolver esa protección. Tu viaje es un equilibrio entre la luz del sol y la oscuridad de las mazmorras. Explora las mazmorras, derrota monstruos y descubre los misterios de Bloomrise. El juego presenta una mezcla única de acción y exploración, con un enfoque en crear un mundo inmersivo lleno de secretos y desafíos. Desarrollado en Unity, Tales of Bloomrise ofrece una rica experiencia narrativa combinada con mecánicas de juego envolventes.",
+    },
   },
   {
     id: "showbook",
-    image: "https://github.com/joseminelli/joseminelli/raw/main/img/showbook.png",
+    image: "https://i.imgur.com/gE5RbVE.jpeg",
     link: "https://www.behance.net/gallery/217410565/ShowBook",
     platform: "Behance",
     icon: 'https://i.imgur.com/y2csmZ8.png',
-    bannerImage: "https://github.com/joseminelli/joseminelli/raw/main/img/showbook.png",
+    bannerImage: "https://i.imgur.com/gE5RbVE.jpeg",
     tags: ["Figma", "UI/UX Design", "Prototyping"],
     accentColor: '#3b82f6',
     pt: {
@@ -79,6 +91,12 @@ export const projects: Project[] = [
       shortDescription: "A concert diary to record and save memories from each attended show.",
       client: "Conceptual Project",
       fullDescription: "ShowBook is a mobile app concept focused on live music lovers. The challenge was to create an intuitive and visually appealing interface that allows users to catalog concerts, add photos, notes, and create a musical timeline of their lives. The entire design was developed in Figma, from wireframes to high-fidelity prototypes.",
+    },
+    es: {
+      title: "ShowBook",
+      shortDescription: "Un diario de conciertos para registrar y guardar recuerdos de cada show asistido.",
+      client: "Proyecto Conceptual",
+      fullDescription: "ShowBook es un concepto de aplicación móvil enfocado en los amantes de la música en vivo. El desafío fue crear una interfaz intuitiva y visualmente atractiva que permitiera a los usuarios catalogar conciertos, añadir fotos, notas y crear una línea de tiempo musical de sus vidas. Todo el diseño fue desarrollado en Figma, desde el wireframe hasta el prototipo de alta fidelidad.",
     },
     gallery: [],
   },
@@ -102,6 +120,12 @@ export const projects: Project[] = [
       shortDescription: "Intensity and speed, where the streets are your playground.",
       client: "Whiskline Studio",
       fullDescription: "Quantum Drive is a high-speed arcade racing game for PC. Developed in Unreal Engine, the focus was to create a sense of extreme speed and responsive gameplay. The project included 3D vehicle modeling, urban track design, and the implementation of an arcade driving physics.",
+    },
+    es: {
+      title: "Quantum Drive",
+      shortDescription: "Intensidad y velocidad, donde las calles son tu patio de recreo.",
+      client: "Whiskline Studio",
+      fullDescription: "Quantum Drive es un juego de carreras arcade de alta velocidad para PC. Desarrollado en Unreal Engine, el enfoque fue crear una sensación de velocidad extrema y una jugabilidad receptiva. El proyecto incluyó el modelado 3D de vehículos, el diseño de pistas urbanas y la implementación de una física de conducción arcade.",
     },
     gallery: [
       "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2707960/ss_c843d13a21eae787909928f46f60c3c7ff33913d.jpg?t=1755542125",
@@ -133,6 +157,12 @@ export const projects: Project[] = [
       client: "Whiskline Studio",
       fullDescription: "Purr Café is a cozy simulation game where players manage their own cat cafe. The challenge was to balance gameplay between cooking, decorating the cafe, and taking care of the cats, creating a relaxing and addictive gameplay loop. The 2D art was designed to be cute and inviting.",
     },
+    es: {
+      title: "Purr Café",
+      shortDescription: "Purr Cafe: ¡Gestiona tu café de gatos, cocina y personaliza!",
+      client: "Whiskline Studio",
+      fullDescription: "Purr Café es un acogedor juego de simulación donde los jugadores gestionan su propio café con gatos. El desafío fue equilibrar la jugabilidad entre cocinar, decorar el café y cuidar de los gatos, creando un bucle de juego relajante y adictivo. El arte 2D fue diseñado para ser tierno e invitador.",
+    },
     gallery: [
       "https://play-lh.googleusercontent.com/HbQ36ZKeD0DoB4eOGNs6N1WlavAkn4rM_hBTkQb8NvyDDCb8GHIkUnma5xYNiMs4HA=w2560-h1440-rw",
       "https://play-lh.googleusercontent.com/bQvh2xArthcuXu41NOfnJ87e7YRoTA05h0nKge5gonNzmjhwjIP6AZCbYjYeGSjg=w2560-h1440-rw",
@@ -160,11 +190,18 @@ export const projects: Project[] = [
       client: "Academic Project",
       fullDescription: "This UI/UX project aims to create a digital augmentative and alternative communication (AAC) tool. Focused on accessibility, the design of ComunicATIVA was conceived to be highly customizable and easy to use for people with speech difficulties, turning a tablet or smartphone into a powerful communication board.",
     },
+    es: {
+      title: "ComunicATIVA",
+      shortDescription: "Una solución digital y personalizable para la comunicación alternativa.",
+      client: "Proyecto Académico",
+      fullDescription: "Este proyecto de UI/UX busca crear una herramienta de comunicación aumentativa y alternativa (CAA) digital. Enfocado en la accesibilidad, el diseño de ComunicATIVA fue pensado para ser altamente personalizable y fácil de usar por personas con dificultades de habla, transformando una tablet o smartphone en una poderosa tabla de comunicación.",
+    },
     gallery: [
       "https://lh3.googleusercontent.com/VMgCVxUnc3onUe7aBqkzd2pjKj8Ovad4oxgLyNlj1rXyg80xN4dyxOu4DxENbu8s16OttBO8wtROXenyRdgbOQ=s2340",
       "https://lh3.googleusercontent.com/DDpm9zVjOSSzc5tvplh6eMmzgPvy5INjKls5YnHp9WS_oIk3qGePkxeNoJ2Joq2VYrWIxqXWgn_qTG40FaIf8A=s2340",
       "https://lh3.googleusercontent.com/x7ibX8-VqIYc4FagU94igAtwGuHMdX90qtylh9ilyKEPzRhlVSSVwoz1waoh9CULb65qQWyN6P6qHLo_UDlM",
     ],
+    
   },
   {
     id: "adote-sua-patinha",
@@ -186,6 +223,12 @@ export const projects: Project[] = [
       shortDescription: "A web platform to facilitate the donation and adoption of pets.",
       client: "Personal Project",
       fullDescription: "'Adopt Your Little Paw' is a full-stack web application built to connect NGOs and animal protectors with people who want to adopt a pet. The platform includes profiles for the animals, search filters, and a direct contact system, all built with modern web technologies.",
+    },
+    es: {
+      title: "Adote sua Patinha",
+      shortDescription: "Plataforma web para facilitar la donación y adopción de mascotas.",
+      client: "Proyecto Personal",
+      fullDescription: "'Adote sua patinha' (Adopta tu patita) es una aplicación web full-stack construida para conectar ONGs y protectores de animales con personas que desean adoptar una mascota. La plataforma incluye perfiles para los animales, filtros de búsqueda y un sistema de contacto directo, todo construido con tecnologías web modernas.",
     },
     gallery: [
       "https://github.com/joseminelli/adote-sua-patinha/blob/master/img/preview.png?raw=true",

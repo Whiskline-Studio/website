@@ -1,0 +1,106 @@
+{
+    "loader": {
+        "loading": "Cargando..."
+    },
+    "nav": {
+        "home": "Inicio",
+        "back": "Volver",
+        "about": "Sobre",
+        "portfolio": "Portafolio",
+        "labs": "Labs",
+        "contact": "Contacto"
+    },
+    "hero": {
+        "badge": "¡Tales of Bloomrise ya disponible!",
+        "title": "Creamos {0} únicas",
+        "titleHighlight": "experiencias digitales",
+        "description": "Desarrollamos juegos, sitios web y aplicaciones que conectan personas e ideas.",
+        "buttonStart": "Comenzar",
+        "buttonContact": "Contacto"
+    },
+    "about": {
+        "title": "Sobre Nosotros",
+        "description": "En {studioName}, transformamos ideas en experiencias digitales únicas. Desarrollamos juegos, sitios web y aplicaciones con un enfoque en diseño moderno, rendimiento optimizado e interacciones que encantan e involucran a los usuarios.",
+        "studioName": "Whiskline Studio",
+        "card1Title": "Juegos Innovadores",
+        "card1Text": "Experiencias inmersivas que cautivan a los jugadores y exploran la creatividad y la narrativa de forma única.",
+        "card2Title": "Sitios Modernos",
+        "card2Text": "Sitios web con diseño sofisticado, alto rendimiento y un enfoque en la mejor experiencia de usuario.",
+        "card3Title": "Apps Eficientes",
+        "card3Text": "Aplicaciones intuitivas y funcionales, combinando tecnología y diseño para soluciones prácticas y atractivas.",
+        "seeMore": "Saber más sobre nosotros"
+    },
+    "portfolio": {
+        "title": "Portafolio",
+        "seeDetails": "Ver detalles"
+    },
+    "contact": {
+        "title": "Contáctanos",
+        "subtitle": "¿Tienes alguna sugerencia o encontraste un error? ¡Nos encantaría escucharte!",
+        "formName": "Tu nombre",
+        "formEmail": "Tu email",
+        "formPlaceholder": "Escribe tu mensaje aquí...",
+        "formMessageProject": "Describe tu idea...",
+        "formMessageBug": "Describe el problema en detalle...",
+        "buttonSend": "Enviar Mensaje",
+        "buttonSending": "Enviando..."
+    },
+    "footer": {
+        "description": "Creando experiencias digitales únicas que conectan personas e ideas a través de juegos, sitios web y aplicaciones.",
+        "navigation": "Navegación",
+        "followUs": "Síguenos",
+        "rights": "© 2025 Whiskline Studio. Todos los derechos reservados.",
+        "madeBy": "Hecho por"
+    },
+    "notFound": {
+        "title": "Página no encontrada",
+        "description": "¡Ups! Parece que te has perdido en el espacio digital. La página que buscas ha sido movida, eliminada o nunca existió.",
+        "buttonBack": "Volver al inicio"
+    },
+    "languageModal": {
+        "title": "Selecciona tu idioma",
+        "subtitle": "Seleccione su idioma"
+    },
+    "projectPage": {
+        "client": "Cliente",
+        "platform": "Plataforma",
+        "liveProject": "Ver en ",
+        "liveProject2": "Ver en ",
+        "aboutProject": "Sobre el Proyecto",
+        "gallery": "Galería",
+        "prevProject": "Anterior",
+        "nextProject": "Siguiente",
+        "notFound": "Proyecto no encontrado.",
+        "backHome": "Volver al inicio"
+    },
+    "aboutPage": {
+        "title": "Arte en forma de Código",
+        "subtitle": "Descubre la filosofía y la pasión que impulsan cada proyecto de Whiskline Studio.",
+        "missionTitle": "Nuestra Filosofía",
+        "missionText": "En Whiskline Studio, creemos que los juegos y aplicaciones son más que simple código; son formas de arte. Nuestra filosofía es simple: crear experiencias digitales justas y pulidas, donde cada detalle está cuidadosamente diseñado para sorprender y respetar el tiempo de quienes juegan y usan nuestros productos. Cada proyecto es un lienzo en blanco, una oportunidad para construir los mundos y herramientas que nosotros, como entusiastas, amaríamos usar.",
+        "pillarsTitle": "Nuestros Pilares",
+        "pillar1Title": "Creatividad",
+        "pillar1Text": "Exploramos conceptos únicos y mecánicas innovadoras para crear juegos y aplicaciones que destaquen y entretengan.",
+        "pillar2Title": "Foco en el Usuario",
+        "pillar2Text": "La mejor experiencia es nuestra obsesión. Desde la interfaz hasta la jugabilidad, todo está diseñado para ser intuitivo, agradable y justo.",
+        "pillar3Title": "Artesanía Digital",
+        "pillar3Text": "Nos dedicamos personalmente a cada proyecto, garantizando un nivel de pulido y atención al detalle que solo la pasión puede brindar.",
+        "ctaTitle": "¿Te gusta nuestra filosofía?",
+        "ctaSubtitle": "Explora los mundos que hemos creado y mira nuestra pasión en acción.",
+        "ctaButton": "Ver Nuestros Proyectos",
+        "metaDescription": "En Whiskline Studio, creemos que los juegos y aplicaciones son más que simple código; son formas de arte. Nuestra filosofía: crear experiencias digitales justas y pulidas.",
+        "originTitle": "Detrás de los Bigotes",
+        "originText": "El nombre Whiskline proviene de la fusión de Whiskers (Bigotes) y Line (Línea). Un tributo a la precisión de los sentidos felinos aplicada al desarrollo de software.",
+        "cat1Note": "Unit_01 // Director_de_Ronroneos",
+        "cat2Note": "Unit_02 // Líder_Creativo"
+    },
+    "labs": {
+        "title": "Nuestro Lab Creativo",
+        "subtitle": "Exploramos nuevas tecnologías e ideas locas. Mira nuestros últimos experimentos.",
+        "button": "Explorar los Labs"
+    },
+    "labsPage": {
+        "title": "Whiskline Labs",
+        "subtitle": "Un espacio para prototipos, demos y experimentos creativos."
+    }
+}

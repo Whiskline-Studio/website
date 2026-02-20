@@ -11,6 +11,11 @@ export interface Experiment {
         description: string;
         button?: string;
     };
+    es: {
+        title: string;
+        description: string;
+        button?: string;
+    };
     tags: string[];
     link?: string;
 }
@@ -29,6 +34,11 @@ export const experiments: Experiment[] = [
             description: "The first spiritual version of Tales of Bloomrise! A playable demo was made in Unity.",
             button: "Download demo on Drive"
         },
+        es: {
+            title: "Rayy Adventures",
+            description: "¡La primera versión espiritual de Tales of Bloomrise! Una demo jugable fue creada en Unity.",
+            button: "Descargar demo en Drive"
+        },
         tags: ["Unity", "Prototype", "Game"],
         link: "https://drive.google.com/file/d/1J6Uag9X3Ni4eKERESZu5d8RlgphS5IWa/view?usp=sharing",
     },
@@ -44,6 +54,11 @@ export const experiments: Experiment[] = [
             title: "Freseologist",
             description: "A test game built with Flutter where you guess which type of media a phrase comes from.",
             button: "Download on Play Store"
+        },
+        es: {
+            title: "Freseologista",
+            description: "Un juego de prueba hecho en Flutter donde debes adivinar de qué medio proviene una frase.",
+            button: "Descargar en Play Store"
         },
         tags: ["Flutter", "Prototype", "Mobile"],
         link: "https://play.google.com/store/apps/details?id=app.fraseologista",
@@ -61,6 +76,11 @@ export const experiments: Experiment[] = [
             description: "An experimental AI using Gemini to provide veterinary information. This project is an aid tool and does not replace a professional consultation.",
             button: "View on GitHub"
         },
+        es: {
+            title: "Veterinario IA (Asistente)",
+            description: "Una IA experimental con Gemini para proporcionar información veterinaria. Este proyecto es una herramienta de apoyo y no sustituye una consulta profesional.",
+            button: "Ver en GitHub"
+        },
         tags: ["JavaScript", "Gemini", "IA"],
         link: "https://github.com/joseminelli/Veterinario-IA",
     },
@@ -77,6 +97,11 @@ export const experiments: Experiment[] = [
             description: "A mobile application to search and display song lyrics, built with Flutter and the Audd API.",
             button: "View on GitHub"
         },
+        es: {
+            title: "Lyrix",
+            description: "Una aplicación móvil para buscar y mostrar letras de canciones, construida con Flutter y la API de Audd.",
+            button: "Ver en GitHub"
+        },
         tags: ["Flutter", "Mobile App", "API"],
     },
     {
@@ -91,6 +116,11 @@ export const experiments: Experiment[] = [
             title: "Notify Extension",
             description: "A Chrome extension that allows creating and managing notes and reminders directly in the browser.",
             button: "View on Google Web Store"
+        },
+        es: {
+            title: "Notify Extension",
+            description: "Una extensión de Chrome que permite crear y gestionar notas y recordatorios directamente en el navegador.",
+            button: "Ver en Google Web Store"
         },
         tags: ["JavaScript", "Chrome Extension", "HTML/CSS"],
         link: "https://chromewebstore.google.com/detail/page-notify/jplpilahckigpcdeibdoppgghfemidaf",
@@ -107,6 +137,11 @@ export const experiments: Experiment[] = [
             title: "O.L.L.I.E BOT",
             description: "A multifunctional Discord bot built with Node.js, focused on moderation and entertainment.",
             button: "View on GitHub"
+        },
+        es: {
+            title: "O.L.L.I.E BOT",
+            description: "Un bot multifuncional para Discord construido con Node.js, enfocado en moderación y entretenimiento.",
+            button: "Ver en GitHub"
         },
         tags: ["Node.js", "Discord.js", "Bot"],
         link: "https://github.com/joseminelli/O.L.L.I.E-BOT"

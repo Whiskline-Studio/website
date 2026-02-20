@@ -54,8 +54,10 @@ const handleMouseLeave = () => {
 
             <div class="relative z-10 overflow-hidden rounded-xl mb-6 border border-white/5 bg-black shadow-2xl"
                 style="transform: translateZ(40px)">
-                <img v-if="project.image" :src="project.image" loading="lazy"
+                <img v-if="project.image" :src="project.image"
+                    :alt="currentLocale ? project[currentLocale].title : 'Projeto Whiskline'" width="400" height="208"
                     class="w-full h-52 object-cover transition-transform duration-700 group-hover:scale-110 grayscale-[0.3] group-hover:grayscale-0" />
+                
                 <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
             </div>
 

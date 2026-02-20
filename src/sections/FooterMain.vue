@@ -132,9 +132,9 @@ onUnmounted(() => {
 
       <div
         class="flex flex-col md:flex-row justify-between items-center gap-6 text-[10px] font-mono uppercase tracking-[0.2em] opacity-40">
-        <p>{{ t('footer.rights') }}</p>
+        <p class="text-[#43cb9c]">{{ t('footer.rights') }}</p>
         <div class="flex items-center gap-4">
-          <span>{{ t('footer.madeBy') }}</span>
+          <span class="text-[#43cb9c]">{{ t('footer.madeBy') }}</span>
           <a href="https://github.com/joseminelli" target="_blank"
             class="text-white hover:text-[#43cb9c] transition-colors underline decoration-[#43cb9c]/30">José Minelli</a>
           <span class="opacity-20">|</span>
