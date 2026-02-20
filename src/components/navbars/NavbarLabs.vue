@@ -26,7 +26,7 @@ const { t } = useNavbar();
         </div>
 
         <router-link :to="{ name: 'home' }" class="flex items-center opacity-50 hover:opacity-100 transition-opacity">
-            <img src="@/assets/WhisklineLabs.png" loading="lazy" alt="Whiskline" class="h-8 md:h-10 object-contain" />
+            <img src="@/assets/WhisklineLabs.webp" loading="lazy" alt="Whiskline" class="h-8 md:h-10 object-contain" />
         </router-link>
     </div>
 </template>

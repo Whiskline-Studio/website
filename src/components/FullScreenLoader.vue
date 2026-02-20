@@ -12,7 +12,7 @@ defineProps<{
         <div v-if="show" class="fullscreen-loader">
             <div class="holo-effect"></div>
             <div class="loader-content">
-                <img src="@/assets/WHISKLINE_icon_main.png" loading="lazy" alt="Carregando..." class="animate-spin-slow w-32 h-32" />
+                <img src="@/assets/WHISKLINE_icon_main.png" fetchpriority="high" alt="Carregando..." class="animate-spin-slow w-32 h-32" />
                 <p class="text-white/80 mt-6 text-lg">{{ currentLocale? t('loader.loading') : 'Loading...'}}</p>
             </div>
         </div>

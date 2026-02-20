@@ -73,7 +73,7 @@ onUnmounted(() => {
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
 
         <div class="lg:col-span-5 flex flex-col items-center md:items-start">
-          <img src="@/assets/whiskline.png" loading="lazy" alt="Whiskline Logo"
+          <img src="@/assets/whiskline.webp" loading="lazy" alt="Whiskline Logo"
             class="h-10 object-contain mb-8 brightness-125" />
           <p class="max-w-sm text-sm leading-relaxed font-light text-gray-400">
             <span class="text-[#43cb9c] font-mono mr-2">//</span>

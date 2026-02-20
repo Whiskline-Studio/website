@@ -56,7 +56,7 @@ useHead({
                         <div
                             class="absolute inset-0 bg-[#43cb9c]/20 blur-[60px] rounded-full group-hover:bg-[#43cb9c]/40 transition-colors duration-700">
                         </div>
-                        <img src="@/assets/WHISKLINE_icon_main.png" alt="Whiskline Icon"
+                        <img src="@/assets/WHISKLINE_icon_main.png" alt="Whiskline Icon" fetchpriority="high"
                             class="relative z-10 w-56 h-56 animate-float" />
                     </div>
 

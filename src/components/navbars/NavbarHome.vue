@@ -7,7 +7,7 @@ const { routeList, activeSection, handleLinkClick, t, isOpen } = useNavbar();
     <div class="w-full h-full flex items-center justify-between">
         <router-link :to="{ name: 'home' }" class="flex items-center">
             <img src="@/assets/WHISKLINE_icon.png" loading="lazy" alt="Logo Icon" class="w-9 h-9 mr-3 object-contain" />
-            <img src="@/assets/whiskline.png" loading="lazy" alt="Whiskline" class="h-10 md:h-12 object-contain" />
+            <img src="@/assets/whiskline.webp" loading="lazy" alt="Whiskline" class="h-10 md:h-12 object-contain" />
         </router-link>
         <div class="flex items-center">
             <div class="flex items-center lg:hidden">

@@ -22,7 +22,7 @@ const { t, currentLocale } = useTranslations();
 
         <router-link :to="{ name: 'home' }"
             class="flex items-center gap-3 opacity-60 hover:opacity-100 transition-opacity">
-            <img src="@/assets/whiskline.png" alt="Whiskline" class="h-8 object-contain" />
+            <img src="@/assets/whiskline.webp" alt="Whiskline" class="h-8 object-contain" />
         </router-link>
     </div>
 </template>
