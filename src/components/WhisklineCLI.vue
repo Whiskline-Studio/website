@@ -16,22 +16,36 @@ const asciiArt = [
     'TYPE "?" FOR SECRET_FILES'
 ];
 
+const welcomeBack = () => {
+    const backtext = [
+        " ",
+        "--- WHISKLINE_CORE_OS V.2.0.42 ---",
+        "STATUS: SESSION_RESTORED",
+        "WELCOME BACK, AGENT.",
+        " ",
+    ];
+    logs.value.push(...backtext);
+};
+
 const logs = ref<string[]>([]);
 
 const isExpanded = ref(false);
+const hasAnimated = ref(false);
+const isTypingDisabled = ref(false);
 const inputRef = ref<HTMLInputElement | null>(null);
 const bootSequence = async () => {
-    await new Promise(resolve => setTimeout(resolve, 1000));
+    isTypingDisabled.value = true;
+    await new Promise(resolve => setTimeout(resolve, 500));
     logs.value = [];
     for (const line of asciiArt) {
         await new Promise(resolve => setTimeout(resolve, 200));
         logs.value.push(line);
     }
+    await nextTick();
+    inputRef.value?.focus();
+    isTypingDisabled.value = false;
 };
 
-onMounted(() => {
-    bootSequence();
-});
 const history = ref<string[]>([]);
 const historyIndex = ref(-1);
 let matrixInterval: any = null;
@@ -259,6 +273,13 @@ watch(isExpanded, async (newVal) => {
     if (newVal) {
         await nextTick();
         inputRef.value?.focus();
+
+        if (!hasAnimated.value) {
+            await bootSequence();
+            hasAnimated.value = true;
+        } else {
+            welcomeBack();
+        }
     }
 });
 
@@ -293,9 +314,10 @@ onUnmounted(() => stopMatrix());
 
             <div class="flex gap-2 items-center border-t border-[#43cb9c]/20 pt-3 relative z-10">
                 <span class="text-[#43cb9c] animate-pulse">></span>
-                <input ref="inputRef" v-model="command" @keydown.up.prevent="handleHistory('up')"
-                    @keydown.down.prevent="handleHistory('down')" @keydown.tab.prevent="handleAutocomplete"
-                    @keyup.enter="executeCommand" @blur="isExpanded && inputRef?.focus()" placeholder="ENTER COMMAND..."
+                <input ref="inputRef" v-model="command" :disabled="isTypingDisabled"
+                    @keydown.up.prevent="handleHistory('up')" @keydown.down.prevent="handleHistory('down')"
+                    @keydown.tab.prevent="handleAutocomplete" @keyup.enter="executeCommand"
+                    @blur="isExpanded && inputRef?.focus()" placeholder="ENTER COMMAND..."
                     class="bg-transparent border-none outline-none text-[#43cb9c] w-full text-[11px] placeholder:opacity-30 uppercase" />
             </div>
         </div>
