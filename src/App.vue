@@ -6,6 +6,8 @@ import NavbarMain from './sections/NavbarMain.vue';
 import FooterMain from './sections/FooterMain.vue';
 import LanguageModal from './components/LanguageModal.vue';
 import { useTranslations } from './composables/useTranslations';
+import WhisklineCLI from './components/WhisklineCLI.vue';
+import CustomCursor from './components/CustomCursor.vue';
 
 const isLoading = ref(true);
 const showLanguageModal = ref(false);
@@ -17,7 +19,7 @@ onMounted(() => {
   setTimeout(() => {
     isLoading.value = false;
 
-    const saved = localStorage.getItem("user-language") as "pt" | "en" | null;
+    const saved = localStorage.getItem("user-language") as "pt" | "en" | "es" | null;
 
     if (saved) {
       setLocale(saved);
@@ -28,7 +30,7 @@ onMounted(() => {
 });
 
 
-const handleLanguageSelect = (lang: "pt" | "en") => {
+const handleLanguageSelect = (lang: "pt" | "en"| "es") => {
   setLocale(lang);
   showLanguageModal.value = false;
 };
@@ -36,6 +38,8 @@ const handleLanguageSelect = (lang: "pt" | "en") => {
 
 <template>
   
+    <WhisklineCLI />
+    <CustomCursor />
   <LanguageModal
   v-if="showLanguageModal"
   @selectLanguage="handleLanguageSelect"
