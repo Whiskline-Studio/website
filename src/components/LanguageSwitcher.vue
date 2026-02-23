@@ -3,13 +3,10 @@ import { ref, computed } from 'vue';
 import { useTranslations } from "../composables/useTranslations";
 import { onClickOutside } from '@vueuse/core';
 
-// 1. Importe o tipo Locale do seu composable se ele existir, 
-// ou use o casting para garantir compatibilidade.
 const { t, currentLocale } = useTranslations();
 const isOpen = ref(false);
 const switcherRef = ref<HTMLElement | null>(null);
 
-// Definição estrita para o componente
 type SupportedLocale = "pt" | "en" | "es";
 
 const languages: { code: SupportedLocale; name: string; flag: string; label: string }[] = [
@@ -19,12 +16,10 @@ const languages: { code: SupportedLocale; name: string; flag: string; label: str
 ];
 
 const currentLanguage = computed(() => {
-  // O "as string" ajuda a comparar se o tipo externo for genérico
   return languages.find(lang => lang.code === (currentLocale.value as string)) || languages[0];
 });
 
 const setLanguage = (langCode: SupportedLocale) => {
-  // Forçamos a tipagem para satisfazer o Locale | null do composable
   (currentLocale.value as any) = langCode; 
   localStorage.setItem("user-language", langCode);
   isOpen.value = false;
@@ -87,7 +82,6 @@ onClickOutside(switcherRef, () => {
 </template>
 
 <style scoped>
-/* Efeito de entrada estilo carregamento de terminal */
 .dropdown-glitch-enter-active {
   animation: glitch-in 0.3s ease-out;
 }
@@ -103,7 +97,6 @@ onClickOutside(switcherRef, () => {
   100% { opacity: 1; transform: translateY(0) skewX(0); }
 }
 
-/* Mantendo o visual reto e agressivo */
 ul {
     border-radius: 0px; 
 }

@@ -1,5 +1,4 @@
 <script setup lang="ts">
-// 1. Atualizamos o tipo para incluir 'es'
 const emit = defineEmits<{
   (e: 'selectLanguage', lang: 'pt' | 'en' | 'es'): void
 }>();
@@ -59,7 +58,6 @@ const selectLang = (lang: 'pt' | 'en' | 'es') => {
 </template>
 
 <style scoped>
-/* Removemos qualquer arredondamento para focar no Brute Design */
 button {
   border-radius: 0px;
 }

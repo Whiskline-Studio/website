@@ -28,11 +28,16 @@ const welcomeBack = () => {
 };
 
 const logs = ref<string[]>([]);
-
+const terminalLogsRef = ref<HTMLElement | null>(null);
 const isExpanded = ref(false);
 const hasAnimated = ref(false);
 const isTypingDisabled = ref(false);
+const isProcessing = ref(false);
 const inputRef = ref<HTMLInputElement | null>(null);
+const history = ref<string[]>([]);
+const historyIndex = ref(-1);
+let matrixInterval: any = null;
+
 const bootSequence = async () => {
     isTypingDisabled.value = true;
     await new Promise(resolve => setTimeout(resolve, 500));
@@ -46,11 +51,18 @@ const bootSequence = async () => {
     isTypingDisabled.value = false;
 };
 
-const history = ref<string[]>([]);
-const historyIndex = ref(-1);
-let matrixInterval: any = null;
 
 const availableCommands = ['help', '?', 'home', 'about', 'labs', 'projects', 'clear', 'doom', 'matrix', 'recovery', 'unlock', 'scan'];
+const scrollToBottom = async () => {
+    await nextTick();
+    if (terminalLogsRef.value) {
+        terminalLogsRef.value.scrollTop = terminalLogsRef.value.scrollHeight;
+    }
+};
+
+watch(logs, () => {
+    scrollToBottom();
+}, { deep: true });
 
 const getWhoamiData = async () => {
     const userAgent = navigator.userAgent;
@@ -70,16 +82,15 @@ const getWhoamiData = async () => {
     ];
 
     try {
-        const response = await fetch('http://ip-api.com/json/?fields=status,country,regionName,city,isp,query');
+        const response = await fetch('https://ipapi.co/json/');
         const geo = await response.json();
-
-        if (geo.status === 'success') {
-            dataLines.push(`PUBLIC_IP: ${geo.query}`);
-            dataLines.push(`LOCATION: ${geo.city}, ${geo.regionName}, ${geo.country}`);
-            dataLines.push(`ISP: ${geo.isp}`);
+        if (!geo.error) {
+            dataLines.push(`PUBLIC_IP: ${geo.ip}`);
+            dataLines.push(`LOCATION: ${geo.city}, ${geo.region}, ${geo.country_name}`);
+            dataLines.push(`ISP: ${geo.org}`);
         }
     } catch (e) {
-        dataLines.push("GEO_LOC: [TRACING_FAILED_BY_FIREWALL]");
+        dataLines.push("GEO_LOC: [TRACING_FAILED_BY_SSL_OR_FIREWALL]");
     }
 
     dataLines.push(`STATUS: FULL_EXPOSURE_COMPLETE`);
@@ -152,7 +163,7 @@ const triggerDownload = () => {
         "127.0.0.1 -> GRANTED",
         "192.168.0.1 -> DENIED",
         "-------------------------------",
-        "MESSAGE: Rayy is not a cat, but he sees everything."
+        "MESSAGE: Rayy is not a cat, but she sees everything."
     ].join("\n");
 
     const blob = new Blob([data], { type: 'text/plain' });
@@ -164,10 +175,12 @@ const triggerDownload = () => {
     window.URL.revokeObjectURL(url);
 };
 
-const executeCommand = () => {
+const executeCommand = async () => {
     const cmd = command.value.toLowerCase().trim();
-    if (!cmd) return;
 
+    if (!cmd || isTypingDisabled.value) return;
+
+    isProcessing.value = true;
     logs.value.push(`> ${command.value}`);
     history.value.unshift(command.value);
     historyIndex.value = -1;
@@ -196,9 +209,8 @@ const executeCommand = () => {
         case 'clear': logs.value = []; break;
         case 'loc':
             logs.value.push("TRACING_VNET_PATHWAY...");
-            getWhoamiData().then(lines => {
-                lines.forEach(line => logs.value.push(line));
-            });
+            const lines = await getWhoamiData();
+            lines.forEach(line => logs.value.push(line));
             break;
         case 'doom':
             stopMatrix();
@@ -245,9 +257,15 @@ const executeCommand = () => {
             }, 300);
             break;
         default:
-            const randomResponse = aiResponses[Math.floor(Math.random() * aiResponses.length)];
-            logs.value.push(`AI: ${randomResponse}`);
+            const suggestion = getSuggestion(cmd);
+            if (suggestion) {
+                logs.value.push(`ERR: UNKNOWN_CMD. Did you mean "${suggestion.toUpperCase()}"?`);
+            } else {
+                const randomResponse = aiResponses[Math.floor(Math.random() * aiResponses.length)];
+                logs.value.push(`AI: ${randomResponse}`);
+            }
     }
+    isProcessing.value = false;
     command.value = '';
 };
 
@@ -283,12 +301,39 @@ watch(isExpanded, async (newVal) => {
     }
 });
 
+const getSuggestion = (cmd: string) => {
+    return availableCommands.find(c => {
+        return c.startsWith(cmd.substring(0, 2));
+    });
+};
+const handleLogClick = (logText: string) => {
+    if (isTypingDisabled.value) return;
+
+    if (logText.includes('Did you mean')) {
+        const match = logText.match(/"([^"]+)"/);
+        if (match) {
+            command.value = match[1].toLowerCase();
+            return;
+        }
+    }
+
+    if (logText.startsWith('> ')) {
+        command.value = logText.replace('> ', '').toLowerCase();
+        return;
+    }
+
+    const words = logText.split(' ');
+    const foundCmd = words.find(w => availableCommands.includes(w.toLowerCase()));
+    if (foundCmd) {
+        command.value = foundCmd.toLowerCase();
+    }
+};
 onUnmounted(() => stopMatrix());
 </script>
 
 <template>
-    <div class="fixed bottom-0 right-0 z-[1000] font-mono transition-all duration-500 overflow-hidden"
-        :class="isExpanded ? 'w-full md:w-[450px] h-[350px] shadow-2xl' : 'w-48 h-10'">
+    <div class="fixed bottom-0 right-0 z-[1000] font-mono transition-all duration-500 overflow-hidden hidden md:block"
+        :class="isExpanded ? 'w-[450px] h-[350px] shadow-2xl' : 'w-48 h-10'">
 
         <div v-if="isExpanded" class="crt-lines pointer-events-none"></div>
 
@@ -301,29 +346,33 @@ onUnmounted(() => stopMatrix());
         <div v-if="isExpanded"
             class="bg-black/95 backdrop-blur-md border-l border-t border-[#43cb9c]/30 h-[calc(100%-40px)] p-4 overflow-hidden flex flex-col relative">
 
-            <div
-                class="flex-grow overflow-y-auto mb-2 text-[11px] text-[#43cb9c]/80 space-y-1 scrollbar-hide terminal-content">
-                <div v-for="(log, i) in logs" :key="i" class="break-all font-light whitespace-pre"
-                    :class="asciiArt.includes(log) ? 'leading-none' : 'leading-normal'">
+            <div ref="terminalLogsRef"
+                class="flex-grow overflow-y-auto mb-2 text-[11px] text-[#43cb9c]/80 space-y-1 scrollbar-hide terminal-content scroll-smooth">
+                <div v-for="(log, i) in logs" :key="i" class="break-all font-light whitespace-pre">
                     <span v-if="!asciiArt.includes(log)" class="opacity-50 text-[9px]">
                         [{{ new Date().toLocaleTimeString() }}]
                     </span>
-                    {{ log }}
+
+                    <span @click="handleLogClick(log)" class="cursor-pointer hover:text-white transition-colors"
+                        :class="{ 'text-yellow-400': log.includes('Did you mean') }">
+                        {{ log }}
+                    </span>
                 </div>
             </div>
 
             <div class="flex gap-2 items-center border-t border-[#43cb9c]/20 pt-3 relative z-10">
                 <span class="text-[#43cb9c] animate-pulse">></span>
-                <input ref="inputRef" v-model="command" :disabled="isTypingDisabled"
+                <input ref="inputRef" v-model="command" :disabled="isTypingDisabled || isProcessing"
                     @keydown.up.prevent="handleHistory('up')" @keydown.down.prevent="handleHistory('down')"
                     @keydown.tab.prevent="handleAutocomplete" @keyup.enter="executeCommand"
-                    @blur="isExpanded && inputRef?.focus()" placeholder="ENTER COMMAND..."
-                    class="bg-transparent border-none outline-none text-[#43cb9c] w-full text-[11px] placeholder:opacity-30 uppercase" />
+                    @blur="isExpanded && !isTypingDisabled && !isProcessing && inputRef?.focus()"
+                    :placeholder="isTypingDisabled ? 'SYSTEM_BOOTING...' : (isProcessing ? 'PROCESSING...' : 'ENTER COMMAND...')"
+                    class="bg-transparent border-none outline-none text-[#43cb9c] w-full text-[11px] placeholder:opacity-30 uppercase transition-opacity"
+                    :class="{ 'opacity-50 cursor-not-allowed': isTypingDisabled || isProcessing }" />
             </div>
         </div>
     </div>
 </template>
-
 <style>
 /* --- EFEITO CRT --- */
 .crt-lines {
