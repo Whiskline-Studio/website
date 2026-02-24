@@ -30,16 +30,20 @@ const router = createRouter({
         if (to.hash) {
             return { el: to.hash, behavior: 'smooth' };
         }
-        return { top: 0 };
+
+        if (savedPosition) {
+            return { ...savedPosition, behavior: 'smooth' };
+        }
+        return { top: 0, behavior: 'smooth' };
     },
 });
 
 router.isReady().then(() => {
-  const redirectPath = sessionStorage.getItem('redirectPath');
-  if (redirectPath) {
-    sessionStorage.removeItem('redirectPath');
-    router.replace(redirectPath);
-  }
+    const redirectPath = sessionStorage.getItem('redirectPath');
+    if (redirectPath) {
+        sessionStorage.removeItem('redirectPath');
+        router.replace(redirectPath);
+    }
 });
 
 export default router;

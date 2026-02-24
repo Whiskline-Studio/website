@@ -5,15 +5,16 @@ const { currentProject, t, currentLocale } = useNavbar();
 
 <template>
     <div class="w-full h-full flex items-center justify-between gap-4 px-2">
-        <router-link to="/"
+        <button @click="$router.back()"
             class="group flex-shrink-0 flex items-center gap-2 text-white font-black uppercase italic text-[10px] tracking-widest px-5 py-2 bg-white/5 border border-white/10 rounded-lg hover:bg-[#43cb9c] hover:text-black hover:skew-x-[-6deg] transition-all duration-300">
+
             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
                 stroke="currentColor" stroke-width="3">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M11 17l-5-5m0 0l5-5m-5 5h12" />
             </svg>
-            <span class="hidden sm:inline">{{ t('nav.back') }}</span>
-        </router-link>
 
+            <span class="hidden sm:inline">{{ t('nav.back') }}</span>
+        </button>
         <div class="flex-grow flex items-center justify-center h-full">
             <div class="relative flex items-center gap-4 group/project">
 
