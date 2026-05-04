@@ -26,6 +26,8 @@ const checkProjectExists = () => {
 
 onMounted(() => {
     checkProjectExists();
+    handleResize();
+    window.addEventListener('resize', handleResize);
 });
 watch(() => route.params.id, () => {
     checkProjectExists();
@@ -55,6 +57,19 @@ const platformStyles = computed(() => {
     };
     return styles[project.value.platform];
 });
+
+const isSmallScreen = ref(false);
+
+const bannerImageUrl = computed(() => {
+    if (!project.value) return '';
+    return isSmallScreen.value && project.value.bannerImageMobile 
+        ? project.value.bannerImageMobile 
+        : project.value.bannerImage;
+});
+
+const handleResize = () => {
+    isSmallScreen.value = window.innerWidth < 768;
+};
 
 const activeImageIndex = ref<number | null>(null);
 
@@ -89,7 +104,10 @@ const handleKeydown = (e: KeyboardEvent) => {
     }
 };
 onMounted(() => document.addEventListener('keydown', handleKeydown));
-onUnmounted(() => document.removeEventListener('keydown', handleKeydown));
+onUnmounted(() => {
+    document.removeEventListener('keydown', handleKeydown);
+    window.removeEventListener('resize', handleResize);
+});
 
 useHead({
     title: computed(() => `Whiskline Studio | ${project.value ? project.value.pt.title : 'Projeto'}`),
@@ -113,7 +131,7 @@ watch(() => route.path, () => {
         </div>
 
         <header class="relative h-[70vh] flex items-center justify-center text-center overflow-hidden">
-            <img :src="project.bannerImage" class="absolute inset-0 w-full h-full object-cover animate-kenburns" />
+            <img :src="bannerImageUrl" class="absolute inset-0 w-full h-full object-cover animate-kenburns" />
             <div class="absolute inset-0 bg-gradient-to-b from-black/20 via-black/40 to-[#0a0a0a] z-10"></div>
 
             <div class="relative z-20 px-6 max-w-4xl">

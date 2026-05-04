@@ -93,7 +93,7 @@ const { t } = useTranslations();
     content: "";
     position: absolute;
     inset: 0;
-    background-image: url('https://i.imgur.com/cvlWzDm.jpeg');
+    background-image: url('https://i.imgur.com/nc1zrSA.jpeg');
     background-size: cover;
     background-position: center;
     background-attachment: fixed;

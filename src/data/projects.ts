@@ -7,6 +7,7 @@ export interface Project {
   platform?: Platform;
   icon?: string;
   bannerImage: string;
+  bannerImageMobile?: string;
   tags: string[];
   gallery: string[];
   testimonial?: {
@@ -37,19 +38,20 @@ export interface Project {
 export const projects: Project[] = [
   {
     id: "tales-of-bloomrise",
-    image: "https://i.imgur.com/vbRLIUU.png",
+    image: "https://i.imgur.com/oqGH9Fu.png",
     link: "https://store.steampowered.com/app/4383630/Tales_of_Bloomrise/",
     platform: "Steam",
     icon: 'https://i.imgur.com/awGFzhq.png',
-    bannerImage: "https://i.imgur.com/8g4KYgQ.png",
+    bannerImage: "https://i.imgur.com/Q9TSPc0.png",
+    bannerImageMobile: "https://i.imgur.com/3ZEVz4K.png",
     tags: ["Unity", "C#", "Pc Game", "Mobile Game"],
     gallery: [
-      "https://i.imgur.com/o8SSWZT.png",
-      "https://i.imgur.com/l9buaoy.png",
-      "https://i.imgur.com/ASb9sSq.png",
+      "https://i.imgur.com/imaq97c.jpeg",
+      "https://i.imgur.com/uls3RrT.jpeg",
+      "https://i.imgur.com/stnPeMt.jpeg",
       "https://i.imgur.com/DbxU9M5.png",
       "https://i.imgur.com/UjQvCi9.png",
-      "https://i.imgur.com/LJea8Xf.png"
+      "https://i.imgur.com/DjkNaYT.png"
     ],
     accentColor: '#16cc1cff',
     pt: {
