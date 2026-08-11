@@ -46,12 +46,12 @@ export const projects: Project[] = [
     bannerImageMobile: "https://i.imgur.com/3ZEVz4K.png",
     tags: ["Unity", "C#", "Pc Game", "Mobile Game"],
     gallery: [
-      "https://i.imgur.com/imaq97c.jpeg",
-      "https://i.imgur.com/uls3RrT.jpeg",
-      "https://i.imgur.com/stnPeMt.jpeg",
-      "https://i.imgur.com/DbxU9M5.png",
-      "https://i.imgur.com/UjQvCi9.png",
-      "https://i.imgur.com/DjkNaYT.png"
+      "https://i.imgur.com/04QIhRA.png",
+      "https://i.imgur.com/6EUpvVa.png",
+      "https://i.imgur.com/uHj0Bs7.png",
+      "https://i.imgur.com/MA9RPIk.png",
+      "https://i.imgur.com/C1uxbW1.png",
+      "https://i.imgur.com/xRjd87h.png"
     ],
     accentColor: '#16cc1cff',
     pt: {
