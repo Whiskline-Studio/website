@@ -231,10 +231,13 @@ export const projects: Project[] = [
         "Receyta es una aplicación de planificación de comidas que permite a los usuarios guardar recetas, planificar sus comidas semanales y generar automáticamente una lista de compras basada en las recetas seleccionadas. El diseño de la aplicación se centró en crear una experiencia intuitiva y agradable, facilitando la gestión de las comidas y compras de los usuarios.",
     },
     gallery: [
-      "https://i.imgur.com/6n68rXL.png",
-      "https://i.imgur.com/MhsDxHj.png",
-      "https://i.imgur.com/s9LhK7S.png",
-      "https://i.imgur.com/VmlVifw.png",
+      "https://i.imgur.com/bEfB4j4.jpeg",
+      "https://i.imgur.com/quF5Rj4.jpeg",
+      "https://i.imgur.com/dEo2omj.jpeg",
+      "https://i.imgur.com/DHw3X3D.jpeg",
+      "https://i.imgur.com/dEo2omj.jpeg",
+      "https://i.imgur.com/7SUjVKK.jpeg",
+      "https://i.imgur.com/dRImex6.jpeg",
     ],
   },
   {
