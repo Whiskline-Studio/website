@@ -197,6 +197,47 @@ export const projects: Project[] = [
     ],
   },
   {
+    id: "receyta",
+    image: "https://i.imgur.com/wYnvLfu.png",
+    link: "https://play.google.com/store/apps/details?id=com.whisklinestudio.receyta",
+    platform: "Play Store",
+    icon: "https://i.imgur.com/CmBMURH.png",
+    bannerImage:
+      "https://i.imgur.com/wYnvLfu.png",
+    tags: ["Flutter", "UI/UX Design", "Prototyping"],
+    accentColor: "#FF5A38",
+    pt: {
+      title: "Receyta",
+      shortDescription:
+        "Guarde o que você realmente cozinha, planeje a semana e deixe a lista de compras se montar sozinha a partir das receitas que você escolheu fazer.",
+      client: "Whiskline Studio",
+      fullDescription:
+        "O Receyta é um aplicativo de planejamento de refeições que permite aos usuários salvar receitas, planejar suas refeições semanais e gerar automaticamente uma lista de compras com base nas receitas selecionadas. O design do aplicativo foi focado em criar uma experiência intuitiva e agradável, facilitando o gerenciamento das refeições e compras dos usuários.",
+    },
+    en: {
+      title: "Receyta",
+      shortDescription:
+        "Save what you really cook, plan the week and let the shopping list build itself from the recipes you choose to make.",
+      client: "Whiskline Studio",
+      fullDescription:
+        "Receyta is a meal planning app that allows users to save recipes, plan their weekly meals, and automatically generate a shopping list based on the selected recipes. The app's design focused on creating an intuitive and pleasant experience, making it easier for users to manage their meals and shopping.",
+    },
+    es: {
+      title: "Receyta",
+      shortDescription:
+        "Guarda lo que realmente cocinas, planifica la semana y deja que la lista de compras se genere automáticamente a partir de las recetas que elijas hacer.",
+      client: "Whiskline Studio",
+      fullDescription:
+        "Receyta es una aplicación de planificación de comidas que permite a los usuarios guardar recetas, planificar sus comidas semanales y generar automáticamente una lista de compras basada en las recetas seleccionadas. El diseño de la aplicación se centró en crear una experiencia intuitiva y agradable, facilitando la gestión de las comidas y compras de los usuarios.",
+    },
+    gallery: [
+      "https://i.imgur.com/6n68rXL.png",
+      "https://i.imgur.com/MhsDxHj.png",
+      "https://i.imgur.com/s9LhK7S.png",
+      "https://i.imgur.com/VmlVifw.png",
+    ],
+  },
+  {
     id: "comunicativa",
     image: "https://i.imgur.com/WZXvJsk.png",
     link: "https://www.behance.net/gallery/205064669/ComunicATIVA-app-design",
@@ -242,8 +283,8 @@ export const projects: Project[] = [
     link: "https://play.google.com/store/apps/details?id=com.whisklinestudio.winebeer",
     platform: "Play Store",
     icon: "https://i.imgur.com/Lto8bWv.png",
-    bannerImage: "https://i.imgur.com/WQKOAzP.png",
-    tags: ["Flutter", "UI/UX Design", "Prototyping"],
+      bannerImage: "https://i.imgur.com/WQKOAzP.png",
+      tags: ["Flutter", "UI/UX Design", "Prototyping"],
     accentColor: "#5e2727",
     pt: {
       title: "WineBeer",
