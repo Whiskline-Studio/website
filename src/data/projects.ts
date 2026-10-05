@@ -198,12 +198,12 @@ export const projects: Project[] = [
   },
   {
     id: "receyta",
-    image: "https://i.imgur.com/wYnvLfu.png",
+    image: "https://i.imgur.com/I76fHF8.png",
     link: "https://play.google.com/store/apps/details?id=com.whisklinestudio.receyta",
     platform: "Play Store",
     icon: "https://i.imgur.com/CmBMURH.png",
     bannerImage:
-      "https://i.imgur.com/wYnvLfu.png",
+      "https://i.imgur.com/I76fHF8.png",
     tags: ["Flutter", "UI/UX Design", "Prototyping"],
     accentColor: "#FF5A38",
     pt: {
