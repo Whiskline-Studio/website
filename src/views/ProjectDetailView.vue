@@ -10,6 +10,7 @@ import playstoreIcon from "@/assets/playstore.png";
 import steamIcon from "@/assets/steam.svg";
 import githubIcon from "@/assets/github2.svg";
 import behanceIcon from "@/assets/behance.svg";
+import websiteIcon from "@/assets/website.svg";
 
 const { t, currentLocale } = useTranslations();
 const route = useRoute();
@@ -49,11 +50,13 @@ const nextProject = computed(() => {
 
 const platformStyles = computed(() => {
     if (!project.value?.platform) return null;
+    const platformName = project.value.platform;
     const styles: Record<string, { color: string; icon: string; text: string }> = {
-        "Play Store": { color: "from-green-500 to-green-600", icon: playstoreIcon, text: t('projectPage.liveProject') },
-        "Steam": { color: "from-gray-700 to-gray-800", icon: steamIcon, text: t('projectPage.liveProject') },
-        "Github": { color: "from-gray-800 to-black", icon: githubIcon, text: t('projectPage.liveProject') },
-        "Behance": { color: "from-blue-500 to-blue-600", icon: behanceIcon, text: t('projectPage.liveProject') },
+        "Play Store": { color: "from-green-500 to-green-600", icon: playstoreIcon, text: t('projectPage.liveProject') + platformName },
+        "Steam": { color: "from-gray-700 to-gray-800", icon: steamIcon, text: t('projectPage.liveProject') + platformName },
+        "Github": { color: "from-gray-800 to-black", icon: githubIcon, text: t('projectPage.liveProject') + platformName },
+        "Behance": { color: "from-blue-500 to-blue-600", icon: behanceIcon, text: t('projectPage.liveProject') + platformName },
+        "Website": { color: "from-orange-500 to-red-500", icon: websiteIcon, text: t('projectPage.liveProject2') + platformName },
     };
     return styles[project.value.platform];
 });

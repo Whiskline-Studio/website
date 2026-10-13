@@ -1,4 +1,4 @@
-export type Platform = "Play Store" | "Steam" | "Github" | "Behance";
+export type Platform = "Play Store" | "Steam" | "Github" | "Behance" | "Website";
 
 export interface Project {
   id: string;
@@ -238,6 +238,45 @@ export const projects: Project[] = [
       "https://i.imgur.com/dEo2omj.jpeg",
       "https://i.imgur.com/7SUjVKK.jpeg",
       "https://i.imgur.com/dRImex6.jpeg",
+    ],
+  },
+  {
+    id: "receyta-website",
+    image: "https://i.imgur.com/RZiLW5F.png",
+    icon: "https://i.imgur.com/CmBMURH.png",
+    link: "https://receyta.whisklinestudio.com/",
+    platform: "Website",
+    bannerImage: "https://i.imgur.com/RZiLW5F.png",
+    tags: ["Web", "UI/UX Design", "Landing Page"],
+    accentColor: "#FF5A38",
+    pt: {
+      title: "Receyta Website",
+      shortDescription:
+        "Site de apresentação do app Receyta: receitas, planejamento semanal e lista de compras automática.",
+      client: "Whiskline Studio",
+      fullDescription:
+        "Site oficial do aplicativo Receyta, criado para apresentar seus principais recursos: salvar receitas, planejar a semana e gerar a lista de compras automaticamente. O design mantém a identidade visual do app, com foco em clareza, responsividade e em levar o visitante até a página do aplicativo.",
+    },
+    en: {
+      title: "Receyta Website",
+      shortDescription:
+        "Showcase website for the Receyta app: recipes, weekly planning and an automatic shopping list.",
+      client: "Whiskline Studio",
+      fullDescription:
+        "Official website for the Receyta app, created to present its main features: saving recipes, planning the week and automatically generating the shopping list. The design keeps the app's visual identity, focusing on clarity, responsiveness and guiding visitors to the app's page.",
+    },
+    es: {
+      title: "Receyta Website",
+      shortDescription:
+        "Sitio de presentación de la app Receyta: recetas, planificación semanal y lista de compras automática.",
+      client: "Whiskline Studio",
+      fullDescription:
+        "Sitio oficial de la aplicación Receyta, creado para presentar sus principales funciones: guardar recetas, planificar la semana y generar automáticamente la lista de compras. El diseño mantiene la identidad visual de la app, con foco en la claridad, la responsividad y en llevar al visitante a la página de la aplicación.",
+    },
+    gallery: [
+      "https://i.imgur.com/RZiLW5F.png",
+      "https://i.imgur.com/dtf70EQ.png",
+      "https://i.imgur.com/Q07XLE8.png",
     ],
   },
   {
